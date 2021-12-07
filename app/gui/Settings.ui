@@ -1,0 +1,817 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Settings</class>
+ <widget class="QMainWindow" name="Settings">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>642</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font/>
+  </property>
+  <property name="windowTitle">
+   <string>PyDownload | Configuración</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QFrame" name="content_container_frame">
+      <property name="styleSheet">
+       <string notr="true">QFrame#content_container_frame{
+	border: 2px solid whitesmoke;
+	border-radius: 30px;
+	background: white;
+}</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QFrame" name="header_frame">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>70</height>
+          </size>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QFrame" name="welcome_label_frame">
+            <property name="maximumSize">
+             <size>
+              <width>260</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_4">
+             <item>
+              <widget class="QLabel" name="image">
+               <property name="maximumSize">
+                <size>
+                 <width>24</width>
+                 <height>24</height>
+                </size>
+               </property>
+               <property name="pixmap">
+                <pixmap resource="../images.qrc">:/res/images/setting.png</pixmap>
+               </property>
+               <property name="scaledContents">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="welcome_label">
+               <property name="font">
+                <font/>
+               </property>
+               <property name="text">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; color:#717171;&quot;&gt;Configuración de la aplicación&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QFrame" name="frame">
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_6">
+             <item>
+              <widget class="QLabel" name="status_label">
+               <property name="font">
+                <font>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QLabel#status_label{
+	margin-top: 2px;
+}</string>
+               </property>
+               <property name="text">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#717171;&quot;&gt;No hay cambios.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="Line" name="header_line">
+         <property name="styleSheet">
+          <string notr="true">background-color: darkgreen;
+margin-left: 20px;
+margin-right: 10px;</string>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="middle_frame">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>82</height>
+          </size>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QGroupBox" name="customization_buttons_group">
+            <property name="font">
+             <font/>
+            </property>
+            <property name="toolTip">
+             <string>Personalizar la apariencia de la app</string>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QGroupBox#customization_buttons_group{
+	color: darkgreen;
+	border: 1px solid #c7c8ca;
+	border-radius: 10px;
+	padding: 10px;
+}</string>
+            </property>
+            <property name="title">
+             <string>Personalización</string>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <property name="spacing">
+              <number>1</number>
+             </property>
+             <property name="topMargin">
+              <number>4</number>
+             </property>
+             <item>
+              <widget class="QRadioButton" name="light_theme_radio">
+               <property name="font">
+                <font/>
+               </property>
+               <property name="text">
+                <string>Tema predeterminado</string>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QRadioButton" name="dark_theme_radio">
+               <property name="font">
+                <font/>
+               </property>
+               <property name="text">
+                <string>Tema oscuro</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="downloads_path_group">
+            <property name="font">
+             <font/>
+            </property>
+            <property name="toolTip">
+             <string>La ruta de descargas de música y vídeos</string>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QGroupBox#downloads_path_group{
+	color: darkgreen;
+	border: 1px solid #c7c8ca;
+	border-radius: 10px;
+	padding: 10px;
+}</string>
+            </property>
+            <property name="title">
+             <string>Ruta de descargas</string>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_5">
+             <item>
+              <widget class="QLineEdit" name="path_input">
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QToolButton" name="file_input">
+               <property name="toolTip">
+                <string>Seleccionar archivo...</string>
+               </property>
+               <property name="text">
+                <string>...</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="middle_frame_2">
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_2">
+          <property name="verticalSpacing">
+           <number>16</number>
+          </property>
+          <item row="1" column="0">
+           <widget class="QGroupBox" name="download_group_box">
+            <property name="font">
+             <font/>
+            </property>
+            <property name="toolTip">
+             <string>Preferencias de descarga de la app</string>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QGroupBox#download_group_box{
+	color: darkgreen;
+	border: 1px solid #c7c8ca;
+	border-radius: 10px;
+	padding: 10px;
+}</string>
+            </property>
+            <property name="title">
+             <string>Descarga</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_4">
+             <item row="0" column="0">
+              <widget class="QLabel" name="min_speed_label">
+               <property name="font">
+                <font/>
+               </property>
+               <property name="text">
+                <string>Velocidad mínima:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QComboBox" name="min_speed_input">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="font">
+                <font/>
+               </property>
+               <item>
+                <property name="text">
+                 <string>...</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>1MB/s</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>10MB/s</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>20MB/s</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>30/MB/s</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="max_speed_label">
+               <property name="font">
+                <font/>
+               </property>
+               <property name="text">
+                <string>Velocidad máxima:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QComboBox" name="max_speed_input">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="font">
+                <font/>
+               </property>
+               <item>
+                <property name="text">
+                 <string>...</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>1MB/s</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>10MB/s</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>20MB/s</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>30MB/s</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <widget class="QCheckBox" name="minspeed_check">
+               <property name="font">
+                <font/>
+               </property>
+               <property name="text">
+                <string>Habilitar / Deshabilitar</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="2">
+              <widget class="QCheckBox" name="max_speed_check">
+               <property name="font">
+                <font/>
+               </property>
+               <property name="text">
+                <string>Habilitar / Deshabilitar</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QGroupBox" name="preferences_group">
+            <property name="font">
+             <font/>
+            </property>
+            <property name="toolTip">
+             <string>Preferencias de la app</string>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QGroupBox#preferences_group{
+	color: darkgreen;
+	border: 1px solid #c7c8ca;
+	border-radius: 10px;
+	padding: 10px;
+}</string>
+            </property>
+            <property name="title">
+             <string>Preferencias</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_3">
+             <item row="2" column="2">
+              <widget class="QCheckBox" name="videoquality_check">
+               <property name="font">
+                <font/>
+               </property>
+               <property name="text">
+                <string>Habilitar / Deshabilitar</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="preferred_audioquality_label">
+               <property name="text">
+                <string>Calidad de audio preferida:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="2">
+              <widget class="QCheckBox" name="audioquality_check">
+               <property name="font">
+                <font/>
+               </property>
+               <property name="text">
+                <string>Habilitar / Deshabilitar</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QComboBox" name="preferred_videoquality_input">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="font">
+                <font/>
+               </property>
+               <item>
+                <property name="text">
+                 <string>...</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>144p</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>360p</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>480p</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>720p</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>1080p</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>1440p</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>2160p</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item row="1" column="2">
+              <widget class="QCheckBox" name="audioformat_check">
+               <property name="font">
+                <font/>
+               </property>
+               <property name="text">
+                <string>Habilitar / Deshabilitar</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="preferred_audioformat_label">
+               <property name="font">
+                <font/>
+               </property>
+               <property name="text">
+                <string>Formato de audio preferido:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="preferred_videoquality_label">
+               <property name="font">
+                <font/>
+               </property>
+               <property name="text">
+                <string>Calidad de vídeo preferida:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <widget class="QCheckBox" name="videoformat_check">
+               <property name="font">
+                <font/>
+               </property>
+               <property name="text">
+                <string>Habilitar / Deshabilitar</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QComboBox" name="preferred_videoformat_input">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="font">
+                <font/>
+               </property>
+               <item>
+                <property name="text">
+                 <string>...</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>mp4</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>3gpp</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>webm</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="preferred_videoformat_label">
+               <property name="font">
+                <font/>
+               </property>
+               <property name="text">
+                <string>Formato de vídeo preferido:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QComboBox" name="preferred_audioformat_input">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="font">
+                <font/>
+               </property>
+               <item>
+                <property name="text">
+                 <string>...</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>mp3</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>webm</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QComboBox" name="preferred_audioquality_input">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="font">
+                <font/>
+               </property>
+               <item>
+                <property name="text">
+                 <string>...</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>48kbps</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>50kbps</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>70kbps</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>128kbps</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>160kbps</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QGroupBox" name="lang_group_box">
+            <property name="font">
+             <font/>
+            </property>
+            <property name="toolTip">
+             <string>Lenguajes disponibles</string>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QGroupBox#lang_group_box{
+	color: darkgreen;
+	border: 1px solid #c7c8ca;
+	border-radius: 10px;
+	padding: 10px;
+}</string>
+            </property>
+            <property name="title">
+             <string>Lenguaje</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_5">
+             <item row="0" column="0">
+              <widget class="QRadioButton" name="spanish_radiobtn">
+               <property name="font">
+                <font/>
+               </property>
+               <property name="text">
+                <string>Español</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <widget class="QRadioButton" name="catalan_radiobtn">
+               <property name="font">
+                <font/>
+               </property>
+               <property name="text">
+                <string>Català</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="3">
+              <widget class="QRadioButton" name="english_radiobtn">
+               <property name="font">
+                <font/>
+               </property>
+               <property name="text">
+                <string>English</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="4">
+              <widget class="QRadioButton" name="portuguese_radiobtn">
+               <property name="font">
+                <font/>
+               </property>
+               <property name="text">
+                <string>Portuguës</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QFrame" name="bottom_frame">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>70</height>
+          </size>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_7">
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>473</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="accept_push_button">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="font">
+             <font/>
+            </property>
+            <property name="toolTip">
+             <string>Aceptar y salir</string>
+            </property>
+            <property name="text">
+             <string>Aceptar</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="apply_push_button">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="font">
+             <font/>
+            </property>
+            <property name="toolTip">
+             <string>Aplicar cambios</string>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">padding: 5px;</string>
+            </property>
+            <property name="text">
+             <string>Aplicar Cambios</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="cancel_push_button">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="font">
+             <font/>
+            </property>
+            <property name="toolTip">
+             <string>Cancelar y salir</string>
+            </property>
+            <property name="text">
+             <string>Cancelar</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources>
+  <include location="../images.qrc"/>
+ </resources>
+ <connections/>
+</ui>

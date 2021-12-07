@@ -1,0 +1,10 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+    <file>../res/images/about.png</file>
+    <file>../res/images/download.png</file>
+    <file>../res/images/history.png</file>
+    <file>../res/images/home.png</file>
+    <file>../res/images/manager.png</file>
+    <file>../res/images/setting.png</file>
+</qresource>
+</RCC>
