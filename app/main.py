@@ -9,8 +9,27 @@ from gui.ui_Settings import Ui_Settings
 from gui.ui_About import Ui_About
 from gui.ui_MainWindow import Ui_MainWindow
 from PySide6 import QtWebEngineWidgets
-from PySide6.QtCore import QLibraryInfo, QLocale, QTranslator, QUrl, QSettings
+from PySide6.QtCore import QLibraryInfo, QLocale, QThread, QTranslator, QUrl, QSettings, Signal
 from PySide6.QtWidgets import QApplication, QMainWindow, QMessageBox, QMenu, QVBoxLayout, QWidget, QFileDialog
+
+
+class WorkerThread(QThread):
+    update_labels = Signal()
+    search_video = Signal()
+
+    def __init__(self, thread=0):
+        super(WorkerThread, self).__init__()
+
+        self.thread = thread
+        self.is_running = True
+
+    def run(self):
+        self.search_video.emit()
+        self.update_labels.emit()
+
+    def stop(self):
+        self.is_running = False
+        self.terminate()
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -22,9 +41,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Get user configuration.
         self.get_configuration()
 
-        # App Variables
+        # Window Variables.
         self.valid_url = False
         self.showing_preview = False
+        self.worker = {}
 
         # Create a QVBoxLayout.
         self.vbox = QVBoxLayout()
@@ -35,13 +55,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Set the layout to the video_preview_widget.
         self.video_preview_widget.setLayout(self.vbox)
 
-        # Download Button Menu
+        # Download Button Menu.
         menu = QMenu(self)
         menu.addAction('Vídeo', self.download_video)
         menu.addAction('Audio', self.download_audio)
         self.download_button.setMenu(menu)
 
-        # GUI Buttons
+        # GUI Buttons.
         self.search_button.clicked.connect(self.search_video)
 
         self.exit_push_button.clicked.connect(self.on_exit)
@@ -83,33 +103,38 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if answer == QMessageBox.Yes:
             sys.exit()
 
-    # To search for the video.
+    # Search button clicked action.
     def search_video(self):
+        self.worker[1] = WorkerThread(thread=1)
+        self.worker[1].start()
+        self.worker[1].search_video.connect(self.video_search)
+
+    # Search for the video.
+    def video_search(self):
         self.url = self.url_input.text()
 
         try:
             self.yt = YouTube(self.url)
 
-            """
-            streams = self.yt.streams.all()
-            for stream in streams:
-                print(stream)
-            """
-
-            self.change_status("Vídeo encontrado.", "green")
             self.valid_url = True
 
             # Show details of the video.
             self.show_details()
 
-        except:
-            self.change_status("Vídeo no encontrado.", "red")
+        except Exception as e:
             self.valid_url = False
+            print(e)
             QMessageBox.critical(
                 self, "PyDownloader | Error", "Ha habido un problema al resolver el enlace, compruebe que sea válido.")
 
-    # To show details of the searched video.
+    # After video is searched action.
     def show_details(self):
+        self.worker[2] = WorkerThread(thread=2)
+        self.worker[2].start()
+        self.worker[2].update_labels.connect(self.update_detail_labels)
+
+    # show details of the searched video.
+    def update_detail_labels(self):
         self.title_label.setText(self.yt.title)
         self.lenght_label.setText(str(self.yt.length))
         self.publish_date_label.setText(str(self.yt.publish_date))
@@ -140,21 +165,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 resolution=f"{resolutions[str(preferred_video_quality)]}",
                 progressive=True).first()
 
-            # Debug if filtering is not none.
-            print(self.yt.streams.filter(
-                file_extension=f"{formats[str(preferred_video_format)]}",
-                resolution=f"{resolutions[str(preferred_video_quality)]}",
-                progressive=True).first())
-
-            # If no stream matches filtering.
-            if yv == None:
-                yv = self.yt.streams.filter(
-                    file_extension=f"{formats[str(preferred_video_format)]}",
-                    resolution=f"{resolutions[str(preferred_video_quality)]}",
-                    progressive=False).first()
-                yv.download(download_path)
-            else:
-                yv.download(download_path)
+            yv.download(download_path)
 
             self.change_status("Vídeo descargado", "darkgreen")
 
