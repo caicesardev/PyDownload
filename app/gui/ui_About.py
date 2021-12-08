@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-# Form generated from reading UI file 'AboutGUFwAx.ui'
+# Form generated from reading UI file 'AboutoBBDuv.ui'
 ##
 # Created by: Qt User Interface Compiler version 6.2.1
 ##
@@ -26,7 +26,6 @@ class Ui_About(object):
         if not About.objectName():
             About.setObjectName(u"About")
         About.resize(934, 607)
-        About.setMinimumSize(QSize(934, 607))
         About.setMaximumSize(QSize(934, 607))
         self.centralwidget = QWidget(About)
         self.centralwidget.setObjectName(u"centralwidget")

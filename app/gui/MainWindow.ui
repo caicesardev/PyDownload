@@ -104,29 +104,6 @@
            <number>0</number>
           </property>
           <item>
-           <widget class="QPushButton" name="home_button">
-            <property name="toolTip">
-             <string>Inicio</string>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">padding: 10px;</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset resource="../images.qrc">
-              <normaloff>:/res/images/home.png</normaloff>:/res/images/home.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>32</width>
-              <height>32</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item>
            <widget class="QPushButton" name="download_manager_button">
             <property name="toolTip">
              <string>Descargas en curso</string>
@@ -743,7 +720,7 @@ margin-right: 10px;</string>
  </widget>
  <resources>
   <include location="../images.qrc"/>
-  <include location="C:/Users/Edu/.designer/images.qrc"/>
+  <include location="../images.qrc"/>
  </resources>
  <connections/>
 </ui>

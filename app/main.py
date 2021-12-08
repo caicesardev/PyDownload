@@ -235,7 +235,7 @@ class Manager(QMainWindow, Ui_Manager):
 
         self.search_downloads()
 
-        if self.downloads_count <= 0:
+        if bool(self.downloads_count) == False:
             VBox = QVBoxLayout()
             VBox.setAlignment(Qt.AlignCenter)
             image = QLabel()
@@ -244,7 +244,18 @@ class Manager(QMainWindow, Ui_Manager):
             image.setMaximumWidth(700)
             image.setMaximumHeight(480)
             VBox.addWidget(image)
+            no_downloads_label = QLabel()
+            no_downloads_label.setText(
+                "No hay ninguna descarga en curso en este momento.")
+            no_downloads_label.setAlignment(Qt.AlignCenter)
+            no_downloads_label.setFont("Araboto Normal")
+            no_downloads_label.setStyleSheet("""
+            font-size: 16px;
+            color: darkblue;""")
+            VBox.addWidget(no_downloads_label)
             self.manager_content_widget.setLayout(VBox)
+        else:
+            pass
 
         self.accept_button.clicked.connect(self.close)
         self.resume_all_button.clicked.connect(self.resume_all)
@@ -252,7 +263,7 @@ class Manager(QMainWindow, Ui_Manager):
         self.cancel_all_button.clicked.connect(self.cancel_all)
 
     def search_downloads(self):
-        self.downloads_count = 0
+        self.downloads_count = {}
 
     def resume_all(self):
         pass
@@ -284,6 +295,15 @@ class History(QMainWindow, Ui_History):
             image.setMaximumWidth(700)
             image.setMaximumHeight(480)
             VBox.addWidget(image)
+            no_downloads_history = QLabel()
+            no_downloads_history.setText(
+                "No hay ninguna descarga registrada en el historial de descargas.")
+            no_downloads_history.setAlignment(Qt.AlignCenter)
+            no_downloads_history.setFont("Araboto Normal")
+            no_downloads_history.setStyleSheet("""
+            font-size: 16px;
+            color: darkblue;""")
+            VBox.addWidget(no_downloads_history)
             self.history_content_widget.setLayout(VBox)
 
         self.accept_button.clicked.connect(self.close)

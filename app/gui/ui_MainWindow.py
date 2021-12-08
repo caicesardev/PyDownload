@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-# Form generated from reading UI file 'MainWindowSsPkze.ui'
+# Form generated from reading UI file 'MainWindowOtZnBZ.ui'
 ##
 # Created by: Qt User Interface Compiler version 6.2.1
 ##
@@ -75,24 +75,13 @@ class Ui_MainWindow(object):
         self.verticalLayout_7.setSpacing(30)
         self.verticalLayout_7.setObjectName(u"verticalLayout_7")
         self.verticalLayout_7.setContentsMargins(0, 0, 0, 0)
-        self.home_button = QPushButton(self.sidebar_buttons_frame)
-        self.home_button.setObjectName(u"home_button")
-        self.home_button.setStyleSheet(u"padding: 10px;")
-        icon = QIcon()
-        icon.addFile(u":/res/images/home.png",
-                     QSize(), QIcon.Normal, QIcon.Off)
-        self.home_button.setIcon(icon)
-        self.home_button.setIconSize(QSize(32, 32))
-
-        self.verticalLayout_7.addWidget(self.home_button)
-
         self.download_manager_button = QPushButton(self.sidebar_buttons_frame)
         self.download_manager_button.setObjectName(u"download_manager_button")
         self.download_manager_button.setStyleSheet(u"padding: 10px;")
-        icon1 = QIcon()
-        icon1.addFile(u":/res/images/manager.png",
-                      QSize(), QIcon.Normal, QIcon.Off)
-        self.download_manager_button.setIcon(icon1)
+        icon = QIcon()
+        icon.addFile(u":/res/images/manager.png",
+                     QSize(), QIcon.Normal, QIcon.Off)
+        self.download_manager_button.setIcon(icon)
         self.download_manager_button.setIconSize(QSize(32, 32))
 
         self.verticalLayout_7.addWidget(self.download_manager_button)
@@ -100,10 +89,10 @@ class Ui_MainWindow(object):
         self.download_history_button = QPushButton(self.sidebar_buttons_frame)
         self.download_history_button.setObjectName(u"download_history_button")
         self.download_history_button.setStyleSheet(u"padding: 10px;")
-        icon2 = QIcon()
-        icon2.addFile(u":/res/images/history.png",
+        icon1 = QIcon()
+        icon1.addFile(u":/res/images/history.png",
                       QSize(), QIcon.Normal, QIcon.Off)
-        self.download_history_button.setIcon(icon2)
+        self.download_history_button.setIcon(icon1)
         self.download_history_button.setIconSize(QSize(32, 32))
 
         self.verticalLayout_7.addWidget(self.download_history_button)
@@ -111,10 +100,10 @@ class Ui_MainWindow(object):
         self.settings_button = QPushButton(self.sidebar_buttons_frame)
         self.settings_button.setObjectName(u"settings_button")
         self.settings_button.setStyleSheet(u"padding: 10px;")
-        icon3 = QIcon()
-        icon3.addFile(u":/res/images/setting.png",
+        icon2 = QIcon()
+        icon2.addFile(u":/res/images/setting.png",
                       QSize(), QIcon.Normal, QIcon.Off)
-        self.settings_button.setIcon(icon3)
+        self.settings_button.setIcon(icon2)
         self.settings_button.setIconSize(QSize(32, 32))
 
         self.verticalLayout_7.addWidget(self.settings_button)
@@ -122,10 +111,10 @@ class Ui_MainWindow(object):
         self.about_button = QPushButton(self.sidebar_buttons_frame)
         self.about_button.setObjectName(u"about_button")
         self.about_button.setStyleSheet(u"padding: 10px;")
-        icon4 = QIcon()
-        icon4.addFile(u":/res/images/about.png",
+        icon3 = QIcon()
+        icon3.addFile(u":/res/images/about.png",
                       QSize(), QIcon.Normal, QIcon.Off)
-        self.about_button.setIcon(icon4)
+        self.about_button.setIcon(icon3)
         self.about_button.setIconSize(QSize(32, 32))
 
         self.verticalLayout_7.addWidget(self.about_button)
@@ -399,11 +388,6 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(QCoreApplication.translate(
             "MainWindow", u"PyDownload", None))
         self.logo.setText("")
-# if QT_CONFIG(tooltip)
-        self.home_button.setToolTip(
-            QCoreApplication.translate("MainWindow", u"Inicio", None))
-#endif // QT_CONFIG(tooltip)
-        self.home_button.setText("")
 # if QT_CONFIG(tooltip)
         self.download_manager_button.setToolTip(
             QCoreApplication.translate("MainWindow", u"Descargas en curso", None))
