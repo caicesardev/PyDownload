@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-# Form generated from reading UI file 'AboutoBBDuv.ui'
+# Form generated from reading UI file 'AboutwTELxv.ui'
 ##
 # Created by: Qt User Interface Compiler version 6.2.1
 ##
@@ -41,14 +41,10 @@ class Ui_About(object):
                                                    "	border-radius: 30px;\n"
                                                    "	background: white;\n"
                                                    "}")
-        self.content_container_frame.setFrameShape(QFrame.StyledPanel)
-        self.content_container_frame.setFrameShadow(QFrame.Raised)
         self.verticalLayout = QVBoxLayout(self.content_container_frame)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.top_frame = QFrame(self.content_container_frame)
         self.top_frame.setObjectName(u"top_frame")
-        self.top_frame.setFrameShape(QFrame.StyledPanel)
-        self.top_frame.setFrameShadow(QFrame.Raised)
         self.horizontalLayout = QHBoxLayout(self.top_frame)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.logo_frame = QFrame(self.top_frame)
@@ -58,8 +54,6 @@ class Ui_About(object):
                                       "	border-radius: 30px;\n"
                                       "	background: white;\n"
                                       "}")
-        self.logo_frame.setFrameShape(QFrame.StyledPanel)
-        self.logo_frame.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_2 = QHBoxLayout(self.logo_frame)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.logo = QLabel(self.logo_frame)
@@ -80,8 +74,6 @@ class Ui_About(object):
                                           "	border-radius: 30px;\n"
                                           "	background: white;\n"
                                           "}")
-        self.app_name_frame.setFrameShape(QFrame.StyledPanel)
-        self.app_name_frame.setFrameShadow(QFrame.Raised)
         self.verticalLayout_2 = QVBoxLayout(self.app_name_frame)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.verticalLayout_2.setContentsMargins(15, -1, 15, -1)
@@ -124,14 +116,10 @@ class Ui_About(object):
                                         "	border-radius: 30px;\n"
                                         "	background: white;\n"
                                         "}")
-        self.bottom_frame.setFrameShape(QFrame.StyledPanel)
-        self.bottom_frame.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_3 = QHBoxLayout(self.bottom_frame)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.left_bottom_frame = QFrame(self.bottom_frame)
         self.left_bottom_frame.setObjectName(u"left_bottom_frame")
-        self.left_bottom_frame.setFrameShape(QFrame.StyledPanel)
-        self.left_bottom_frame.setFrameShadow(QFrame.Raised)
         self.verticalLayout_3 = QVBoxLayout(self.left_bottom_frame)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.description_label_2 = QLabel(self.left_bottom_frame)
@@ -147,8 +135,6 @@ class Ui_About(object):
 
         self.right_bottom_frame = QFrame(self.bottom_frame)
         self.right_bottom_frame.setObjectName(u"right_bottom_frame")
-        self.right_bottom_frame.setFrameShape(QFrame.StyledPanel)
-        self.right_bottom_frame.setFrameShadow(QFrame.Raised)
         self.verticalLayout_4 = QVBoxLayout(self.right_bottom_frame)
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
         self.description_label_3 = QLabel(self.right_bottom_frame)
@@ -167,8 +153,6 @@ class Ui_About(object):
         self.frame = QFrame(self.content_container_frame)
         self.frame.setObjectName(u"frame")
         self.frame.setMaximumSize(QSize(16777215, 50))
-        self.frame.setFrameShape(QFrame.StyledPanel)
-        self.frame.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_4 = QHBoxLayout(self.frame)
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
         self.horizontalSpacer = QSpacerItem(

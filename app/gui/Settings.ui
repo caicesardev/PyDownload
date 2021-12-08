@@ -27,12 +27,6 @@
 	background: white;
 }</string>
       </property>
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
         <widget class="QFrame" name="header_frame">
@@ -41,12 +35,6 @@
            <width>16777215</width>
            <height>70</height>
           </size>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
@@ -95,12 +83,6 @@
 	background-color: #F6F8FA;
 }</string>
             </property>
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
             <layout class="QHBoxLayout" name="horizontalLayout_6">
              <item>
               <widget class="QLabel" name="status_label">
@@ -142,12 +124,6 @@ margin-right: 10px;</string>
            <width>16777215</width>
            <height>82</height>
           </size>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
@@ -247,12 +223,6 @@ margin-right: 10px;</string>
        </item>
        <item>
         <widget class="QFrame" name="middle_frame_2">
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
          <layout class="QGridLayout" name="gridLayout_2">
           <property name="verticalSpacing">
            <number>16</number>
@@ -721,12 +691,6 @@ margin-right: 10px;</string>
            <width>0</width>
            <height>70</height>
           </size>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_7">
           <item>

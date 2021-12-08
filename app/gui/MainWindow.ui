@@ -31,12 +31,6 @@
         <height>16777215</height>
        </size>
       </property>
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
         <widget class="QFrame" name="sidebar_logo_frame">
@@ -45,12 +39,6 @@
            <width>16777215</width>
            <height>64</height>
           </size>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
@@ -81,12 +69,6 @@
        </item>
        <item>
         <widget class="QFrame" name="sidebar_buttons_frame">
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
          <layout class="QVBoxLayout" name="verticalLayout_7">
           <property name="spacing">
            <number>30</number>
@@ -223,12 +205,6 @@
 	background: white;
 }</string>
       </property>
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
         <widget class="QFrame" name="header_frame">
@@ -237,12 +213,6 @@
            <width>16777215</width>
            <height>60</height>
           </size>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
@@ -274,12 +244,6 @@
 	border-radius: 8px;
 	background-color: #F6F8FA;
 }</string>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
             </property>
             <layout class="QHBoxLayout" name="horizontalLayout_5">
              <property name="topMargin">
@@ -366,12 +330,6 @@ margin-right: 10px;</string>
        </item>
        <item>
         <widget class="QFrame" name="middle_frame">
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
          <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
            <widget class="QFrame" name="url_input_frame">
@@ -383,12 +341,6 @@ margin-right: 10px;</string>
             </property>
             <property name="font">
              <font/>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
             </property>
             <layout class="QHBoxLayout" name="horizontalLayout_3">
              <item>
@@ -455,12 +407,6 @@ margin-right: 10px;</string>
           </item>
           <item>
            <widget class="QFrame" name="video_preview_frame">
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
             <layout class="QHBoxLayout" name="horizontalLayout_6">
              <property name="leftMargin">
               <number>0</number>
@@ -498,24 +444,12 @@ margin-right: 10px;</string>
            <height>150</height>
           </size>
          </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
          <layout class="QGridLayout" name="gridLayout_2">
           <property name="topMargin">
            <number>0</number>
           </property>
           <item row="0" column="1">
            <widget class="QFrame" name="details_frame">
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
             <layout class="QVBoxLayout" name="verticalLayout_6">
              <property name="spacing">
               <number>0</number>
@@ -585,12 +519,6 @@ margin-right: 10px;</string>
           </item>
           <item row="0" column="0">
            <widget class="QFrame" name="details_labels_frame">
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
             <layout class="QVBoxLayout" name="verticalLayout_5">
              <property name="leftMargin">
               <number>0</number>
@@ -649,12 +577,6 @@ margin-right: 10px;</string>
           </item>
           <item row="1" column="1">
            <widget class="QFrame" name="download_button_frame">
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
             <layout class="QHBoxLayout" name="horizontalLayout">
              <property name="leftMargin">
               <number>0</number>

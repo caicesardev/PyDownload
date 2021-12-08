@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-# Form generated from reading UI file 'ManagerINycMy.ui'
+# Form generated from reading UI file 'ManagerMTbLsR.ui'
 ##
 # Created by: Qt User Interface Compiler version 6.2.1
 ##
@@ -39,15 +39,11 @@ class Ui_Manager(object):
                                                    "	border-radius: 30px;\n"
                                                    "	background: white;\n"
                                                    "}")
-        self.content_container_frame.setFrameShape(QFrame.StyledPanel)
-        self.content_container_frame.setFrameShadow(QFrame.Raised)
         self.verticalLayout = QVBoxLayout(self.content_container_frame)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.header_frame = QFrame(self.content_container_frame)
         self.header_frame.setObjectName(u"header_frame")
         self.header_frame.setMaximumSize(QSize(16777215, 60))
-        self.header_frame.setFrameShape(QFrame.StyledPanel)
-        self.header_frame.setFrameShadow(QFrame.Raised)
         self.horizontalLayout = QHBoxLayout(self.header_frame)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.image = QLabel(self.header_frame)
@@ -78,8 +74,6 @@ class Ui_Manager(object):
                                               "	border-radius: 8px;\n"
                                               "	background-color: #F6F8FA;\n"
                                               "}")
-        self.status_label_frame.setFrameShape(QFrame.StyledPanel)
-        self.status_label_frame.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_5 = QHBoxLayout(self.status_label_frame)
         self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
         self.horizontalLayout_5.setContentsMargins(-1, 0, -1, 0)
@@ -129,16 +123,12 @@ class Ui_Manager(object):
 
         self.middle_frame = QFrame(self.content_container_frame)
         self.middle_frame.setObjectName(u"middle_frame")
-        self.middle_frame.setFrameShape(QFrame.StyledPanel)
-        self.middle_frame.setFrameShadow(QFrame.Raised)
         self.verticalLayout_2 = QVBoxLayout(self.middle_frame)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.verticalLayout_2.setContentsMargins(-1, 0, -1, 0)
         self.manager_frame = QFrame(self.middle_frame)
         self.manager_frame.setObjectName(u"manager_frame")
         self.manager_frame.setFont(font)
-        self.manager_frame.setFrameShape(QFrame.StyledPanel)
-        self.manager_frame.setFrameShadow(QFrame.Raised)
         self.verticalLayout_3 = QVBoxLayout(self.manager_frame)
         self.verticalLayout_3.setSpacing(0)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
@@ -154,7 +144,7 @@ class Ui_Manager(object):
         self.manager_scroll_area.setWidgetResizable(True)
         self.manager_content_widget = QWidget()
         self.manager_content_widget.setObjectName(u"manager_content_widget")
-        self.manager_content_widget.setGeometry(QRect(0, 0, 938, 539))
+        self.manager_content_widget.setGeometry(QRect(0, 0, 942, 547))
         self.manager_scroll_area.setWidget(self.manager_content_widget)
 
         self.verticalLayout_3.addWidget(self.manager_scroll_area)
@@ -166,8 +156,6 @@ class Ui_Manager(object):
         self.footer_frame = QFrame(self.content_container_frame)
         self.footer_frame.setObjectName(u"footer_frame")
         self.footer_frame.setMaximumSize(QSize(16777215, 70))
-        self.footer_frame.setFrameShape(QFrame.StyledPanel)
-        self.footer_frame.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_2 = QHBoxLayout(self.footer_frame)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.horizontalSpacer = QSpacerItem(

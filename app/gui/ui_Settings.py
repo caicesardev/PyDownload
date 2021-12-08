@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-# Form generated from reading UI file 'SettingsuyQhEP.ui'
+# Form generated from reading UI file 'SettingscSkJdy.ui'
 ##
 # Created by: Qt User Interface Compiler version 6.2.1
 ##
@@ -42,15 +42,11 @@ class Ui_Settings(object):
                                                    "	border-radius: 30px;\n"
                                                    "	background: white;\n"
                                                    "}")
-        self.content_container_frame.setFrameShape(QFrame.StyledPanel)
-        self.content_container_frame.setFrameShadow(QFrame.Raised)
         self.verticalLayout = QVBoxLayout(self.content_container_frame)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.header_frame = QFrame(self.content_container_frame)
         self.header_frame.setObjectName(u"header_frame")
         self.header_frame.setMaximumSize(QSize(16777215, 70))
-        self.header_frame.setFrameShape(QFrame.StyledPanel)
-        self.header_frame.setFrameShadow(QFrame.Raised)
         self.horizontalLayout = QHBoxLayout(self.header_frame)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.welcome_label_frame = QFrame(self.header_frame)
@@ -80,8 +76,6 @@ class Ui_Settings(object):
                                               "	border-radius: 8px;\n"
                                               "	background-color: #F6F8FA;\n"
                                               "}")
-        self.status_label_frame.setFrameShape(QFrame.StyledPanel)
-        self.status_label_frame.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_6 = QHBoxLayout(self.status_label_frame)
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
         self.status_label = QLabel(self.status_label_frame)
@@ -110,8 +104,6 @@ class Ui_Settings(object):
         self.middle_frame = QFrame(self.content_container_frame)
         self.middle_frame.setObjectName(u"middle_frame")
         self.middle_frame.setMaximumSize(QSize(16777215, 82))
-        self.middle_frame.setFrameShape(QFrame.StyledPanel)
-        self.middle_frame.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_2 = QHBoxLayout(self.middle_frame)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.customization_buttons_group = QGroupBox(self.middle_frame)
@@ -171,8 +163,6 @@ class Ui_Settings(object):
 
         self.middle_frame_2 = QFrame(self.content_container_frame)
         self.middle_frame_2.setObjectName(u"middle_frame_2")
-        self.middle_frame_2.setFrameShape(QFrame.StyledPanel)
-        self.middle_frame_2.setFrameShadow(QFrame.Raised)
         self.gridLayout_2 = QGridLayout(self.middle_frame_2)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.gridLayout_2.setVerticalSpacing(16)
@@ -409,8 +399,6 @@ class Ui_Settings(object):
         self.footer_frame = QFrame(self.content_container_frame)
         self.footer_frame.setObjectName(u"footer_frame")
         self.footer_frame.setMinimumSize(QSize(0, 70))
-        self.footer_frame.setFrameShape(QFrame.StyledPanel)
-        self.footer_frame.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_7 = QHBoxLayout(self.footer_frame)
         self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
         self.horizontalSpacer = QSpacerItem(

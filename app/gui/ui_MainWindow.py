@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-# Form generated from reading UI file 'MainWindowOtZnBZ.ui'
+# Form generated from reading UI file 'MainWindowsKFrnV.ui'
 ##
 # Created by: Qt User Interface Compiler version 6.2.1
 ##
@@ -39,15 +39,11 @@ class Ui_MainWindow(object):
         self.sidebar_frame = QFrame(self.centralwidget)
         self.sidebar_frame.setObjectName(u"sidebar_frame")
         self.sidebar_frame.setMaximumSize(QSize(92, 16777215))
-        self.sidebar_frame.setFrameShape(QFrame.StyledPanel)
-        self.sidebar_frame.setFrameShadow(QFrame.Raised)
         self.verticalLayout = QVBoxLayout(self.sidebar_frame)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.sidebar_logo_frame = QFrame(self.sidebar_frame)
         self.sidebar_logo_frame.setObjectName(u"sidebar_logo_frame")
         self.sidebar_logo_frame.setMaximumSize(QSize(16777215, 64))
-        self.sidebar_logo_frame.setFrameShape(QFrame.StyledPanel)
-        self.sidebar_logo_frame.setFrameShadow(QFrame.Raised)
         self.verticalLayout_2 = QVBoxLayout(self.sidebar_logo_frame)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.logo = QLabel(self.sidebar_logo_frame)
@@ -69,8 +65,6 @@ class Ui_MainWindow(object):
 
         self.sidebar_buttons_frame = QFrame(self.sidebar_frame)
         self.sidebar_buttons_frame.setObjectName(u"sidebar_buttons_frame")
-        self.sidebar_buttons_frame.setFrameShape(QFrame.StyledPanel)
-        self.sidebar_buttons_frame.setFrameShadow(QFrame.Raised)
         self.verticalLayout_7 = QVBoxLayout(self.sidebar_buttons_frame)
         self.verticalLayout_7.setSpacing(30)
         self.verticalLayout_7.setObjectName(u"verticalLayout_7")
@@ -135,15 +129,11 @@ class Ui_MainWindow(object):
                                                    "	border-radius: 30px;\n"
                                                    "	background: white;\n"
                                                    "}")
-        self.content_container_frame.setFrameShape(QFrame.StyledPanel)
-        self.content_container_frame.setFrameShadow(QFrame.Raised)
         self.verticalLayout_3 = QVBoxLayout(self.content_container_frame)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.header_frame = QFrame(self.content_container_frame)
         self.header_frame.setObjectName(u"header_frame")
         self.header_frame.setMaximumSize(QSize(16777215, 60))
-        self.header_frame.setFrameShape(QFrame.StyledPanel)
-        self.header_frame.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_2 = QHBoxLayout(self.header_frame)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.welcome_label_frame = QFrame(self.header_frame)
@@ -165,8 +155,6 @@ class Ui_MainWindow(object):
                                               "	border-radius: 8px;\n"
                                               "	background-color: #F6F8FA;\n"
                                               "}")
-        self.status_label_frame.setFrameShape(QFrame.StyledPanel)
-        self.status_label_frame.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_5 = QHBoxLayout(self.status_label_frame)
         self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
         self.horizontalLayout_5.setContentsMargins(-1, 0, -1, 0)
@@ -212,16 +200,12 @@ class Ui_MainWindow(object):
 
         self.middle_frame = QFrame(self.content_container_frame)
         self.middle_frame.setObjectName(u"middle_frame")
-        self.middle_frame.setFrameShape(QFrame.StyledPanel)
-        self.middle_frame.setFrameShadow(QFrame.Raised)
         self.verticalLayout_4 = QVBoxLayout(self.middle_frame)
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
         self.url_input_frame = QFrame(self.middle_frame)
         self.url_input_frame.setObjectName(u"url_input_frame")
         self.url_input_frame.setMaximumSize(QSize(16777215, 50))
         self.url_input_frame.setFont(font)
-        self.url_input_frame.setFrameShape(QFrame.StyledPanel)
-        self.url_input_frame.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_3 = QHBoxLayout(self.url_input_frame)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.url_label = QLabel(self.url_input_frame)
@@ -258,8 +242,6 @@ class Ui_MainWindow(object):
 
         self.video_preview_frame = QFrame(self.middle_frame)
         self.video_preview_frame.setObjectName(u"video_preview_frame")
-        self.video_preview_frame.setFrameShape(QFrame.StyledPanel)
-        self.video_preview_frame.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_6 = QHBoxLayout(self.video_preview_frame)
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
         self.horizontalLayout_6.setContentsMargins(0, 0, 0, 0)
@@ -279,15 +261,11 @@ class Ui_MainWindow(object):
         self.footer_frame = QFrame(self.content_container_frame)
         self.footer_frame.setObjectName(u"footer_frame")
         self.footer_frame.setMaximumSize(QSize(16777215, 150))
-        self.footer_frame.setFrameShape(QFrame.StyledPanel)
-        self.footer_frame.setFrameShadow(QFrame.Raised)
         self.gridLayout_2 = QGridLayout(self.footer_frame)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.gridLayout_2.setContentsMargins(-1, 0, -1, -1)
         self.details_frame = QFrame(self.footer_frame)
         self.details_frame.setObjectName(u"details_frame")
-        self.details_frame.setFrameShape(QFrame.StyledPanel)
-        self.details_frame.setFrameShadow(QFrame.Raised)
         self.verticalLayout_6 = QVBoxLayout(self.details_frame)
         self.verticalLayout_6.setSpacing(0)
         self.verticalLayout_6.setObjectName(u"verticalLayout_6")
@@ -320,8 +298,6 @@ class Ui_MainWindow(object):
 
         self.details_labels_frame = QFrame(self.footer_frame)
         self.details_labels_frame.setObjectName(u"details_labels_frame")
-        self.details_labels_frame.setFrameShape(QFrame.StyledPanel)
-        self.details_labels_frame.setFrameShadow(QFrame.Raised)
         self.verticalLayout_5 = QVBoxLayout(self.details_labels_frame)
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
         self.verticalLayout_5.setContentsMargins(0, 0, 0, 0)
@@ -353,8 +329,6 @@ class Ui_MainWindow(object):
 
         self.download_button_frame = QFrame(self.footer_frame)
         self.download_button_frame.setObjectName(u"download_button_frame")
-        self.download_button_frame.setFrameShape(QFrame.StyledPanel)
-        self.download_button_frame.setFrameShadow(QFrame.Raised)
         self.horizontalLayout = QHBoxLayout(self.download_button_frame)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.horizontalLayout.setContentsMargins(0, 0, 0, 6)
