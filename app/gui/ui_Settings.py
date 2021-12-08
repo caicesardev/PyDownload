@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-# Form generated from reading UI file 'SettingssoFVBP.ui'
+# Form generated from reading UI file 'SettingsuyQhEP.ui'
 ##
 # Created by: Qt User Interface Compiler version 6.2.1
 ##
@@ -21,13 +21,13 @@ from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QFrame,
                                QSizePolicy, QSpacerItem, QToolButton, QVBoxLayout,
                                QWidget)
 import images_rc
+import images_rc
 
 
 class Ui_Settings(object):
     def setupUi(self, Settings):
         if not Settings.objectName():
             Settings.setObjectName(u"Settings")
-        Settings.setWindowModality(Qt.ApplicationModal)
         Settings.resize(800, 642)
         font = QFont()
         Settings.setFont(font)
@@ -74,24 +74,26 @@ class Ui_Settings(object):
 
         self.horizontalLayout.addWidget(self.welcome_label_frame)
 
-        self.frame = QFrame(self.header_frame)
-        self.frame.setObjectName(u"frame")
-        self.frame.setFrameShape(QFrame.StyledPanel)
-        self.frame.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout_6 = QHBoxLayout(self.frame)
+        self.status_label_frame = QFrame(self.header_frame)
+        self.status_label_frame.setObjectName(u"status_label_frame")
+        self.status_label_frame.setStyleSheet(u"QFrame#status_label_frame{\n"
+                                              "	border-radius: 8px;\n"
+                                              "	background-color: #F6F8FA;\n"
+                                              "}")
+        self.status_label_frame.setFrameShape(QFrame.StyledPanel)
+        self.status_label_frame.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_6 = QHBoxLayout(self.status_label_frame)
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
-        self.status_label = QLabel(self.frame)
+        self.status_label = QLabel(self.status_label_frame)
         self.status_label.setObjectName(u"status_label")
-        font1 = QFont()
-        font1.setBold(True)
-        self.status_label.setFont(font1)
+        self.status_label.setFont(font)
         self.status_label.setStyleSheet(u"QLabel#status_label{\n"
                                         "	margin-top: 2px;\n"
                                         "}")
 
         self.horizontalLayout_6.addWidget(self.status_label)
 
-        self.horizontalLayout.addWidget(self.frame)
+        self.horizontalLayout.addWidget(self.status_label_frame)
 
         self.verticalLayout.addWidget(self.header_frame)
 
@@ -404,26 +406,26 @@ class Ui_Settings(object):
 
         self.verticalLayout.addItem(self.verticalSpacer)
 
-        self.bottom_frame = QFrame(self.content_container_frame)
-        self.bottom_frame.setObjectName(u"bottom_frame")
-        self.bottom_frame.setMinimumSize(QSize(0, 70))
-        self.bottom_frame.setFrameShape(QFrame.StyledPanel)
-        self.bottom_frame.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout_7 = QHBoxLayout(self.bottom_frame)
+        self.footer_frame = QFrame(self.content_container_frame)
+        self.footer_frame.setObjectName(u"footer_frame")
+        self.footer_frame.setMinimumSize(QSize(0, 70))
+        self.footer_frame.setFrameShape(QFrame.StyledPanel)
+        self.footer_frame.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_7 = QHBoxLayout(self.footer_frame)
         self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
         self.horizontalSpacer = QSpacerItem(
             473, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         self.horizontalLayout_7.addItem(self.horizontalSpacer)
 
-        self.accept_push_button = QPushButton(self.bottom_frame)
+        self.accept_push_button = QPushButton(self.footer_frame)
         self.accept_push_button.setObjectName(u"accept_push_button")
         self.accept_push_button.setMinimumSize(QSize(0, 30))
         self.accept_push_button.setFont(font)
 
         self.horizontalLayout_7.addWidget(self.accept_push_button)
 
-        self.apply_push_button = QPushButton(self.bottom_frame)
+        self.apply_push_button = QPushButton(self.footer_frame)
         self.apply_push_button.setObjectName(u"apply_push_button")
         self.apply_push_button.setMinimumSize(QSize(0, 30))
         self.apply_push_button.setFont(font)
@@ -431,14 +433,14 @@ class Ui_Settings(object):
 
         self.horizontalLayout_7.addWidget(self.apply_push_button)
 
-        self.cancel_push_button = QPushButton(self.bottom_frame)
+        self.cancel_push_button = QPushButton(self.footer_frame)
         self.cancel_push_button.setObjectName(u"cancel_push_button")
         self.cancel_push_button.setMinimumSize(QSize(0, 30))
         self.cancel_push_button.setFont(font)
 
         self.horizontalLayout_7.addWidget(self.cancel_push_button)
 
-        self.verticalLayout.addWidget(self.bottom_frame)
+        self.verticalLayout.addWidget(self.footer_frame)
 
         self.gridLayout.addWidget(self.content_container_frame, 0, 0, 1, 1)
 

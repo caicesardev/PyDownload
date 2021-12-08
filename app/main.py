@@ -5,12 +5,16 @@ import getpass
 
 from pytube import YouTube
 
+from gui.ui_MainWindow import Ui_MainWindow
+from gui.ui_Manager import Ui_Manager
+from gui.ui_History import Ui_History
 from gui.ui_Settings import Ui_Settings
 from gui.ui_About import Ui_About
-from gui.ui_MainWindow import Ui_MainWindow
+
 from PySide6 import QtWebEngineWidgets
-from PySide6.QtCore import QLibraryInfo, QLocale, QThread, QTranslator, QUrl, QSettings, Signal
-from PySide6.QtWidgets import QApplication, QMainWindow, QMessageBox, QMenu, QVBoxLayout, QWidget, QFileDialog
+from PySide6.QtGui import QPixmap
+from PySide6.QtCore import Qt, QLibraryInfo, QLocale, QThread, QTranslator, QUrl, QSettings, Signal
+from PySide6.QtWidgets import QApplication, QDialog, QLabel, QMainWindow, QMessageBox, QMenu, QVBoxLayout, QFileDialog
 
 
 class WorkerThread(QThread):
@@ -67,6 +71,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.exit_push_button.clicked.connect(self.on_exit)
         self.restart_push_button.clicked.connect(self.on_restart)
 
+        self.download_manager_button.clicked.connect(
+            self.on_download_manager_button_clicked)
+        self.download_history_button.clicked.connect(
+            self.on_download_history_button_clicked)
         self.settings_button.clicked.connect(self.on_settings_button_clicked)
         self.about_button.clicked.connect(self.on_about_button_clicked)
 
@@ -75,6 +83,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Set browser directly to youtube.
         self.webview.setUrl(QUrl("https://www.youtube.com"))
 
+        self._manager_subwindow = None
+        self._history_subwindow = None
+        self._settings_subwindow = None
+        self._about_subwindow = None
+
     def get_configuration(self):
         # Get registry values.
         self.theme = QSettings("PyDownload", "Theme")
@@ -82,15 +95,29 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.preferences = QSettings("PyDownload", "Preferences")
         self.languages = QSettings("PyDownload", "Languages")
 
-    def on_about_button_clicked(self):
-        ui = About()
-        self.windows.append(ui)
-        ui.show()
+    def on_download_manager_button_clicked(self):
+        if self._manager_subwindow is None:
+            self._manager_subwindow = Manager()
+        self._manager_subwindow.show()
+        self._manager_subwindow.activateWindow()
+
+    def on_download_history_button_clicked(self):
+        if self._history_subwindow is None:
+            self._history_subwindow = History()
+        self._history_subwindow.show()
+        self._history_subwindow.activateWindow()
 
     def on_settings_button_clicked(self):
-        ui = Settings()
-        self.windows.append(ui)
-        ui.show()
+        if self._settings_subwindow is None:
+            self._settings_subwindow = Settings()
+        self._settings_subwindow.show()
+        self._settings_subwindow.activateWindow()
+
+    def on_about_button_clicked(self):
+        if self._about_subwindow is None:
+            self._about_subwindow = About()
+        self._about_subwindow.show()
+        self._about_subwindow.activateWindow()
 
     def on_restart(self):
         self.close()
@@ -99,7 +126,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def on_exit(self):
         answer = QMessageBox.question(self, "PyDownload | Salir",
-                                      "¿Está seguro de que quiere salir de la aplicación?")
+                                      "¿Está seguro de que desea salir de la aplicación?")
         if answer == QMessageBox.Yes:
             sys.exit()
 
@@ -199,8 +226,80 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.status_label.setStyleSheet(
                 "QLabel{ color: %s; }" % color)
 
-####### ABOUT #######
 
+class Manager(QMainWindow, Ui_Manager):
+    def __init__(self):
+        super(Manager, self).__init__()
+
+        self.setupUi(self)
+
+        self.search_downloads()
+
+        if self.downloads_count <= 0:
+            VBox = QVBoxLayout()
+            VBox.setAlignment(Qt.AlignCenter)
+            image = QLabel()
+            image.setPixmap(QPixmap("../res/images/location_search.png"))
+            image.setScaledContents(True)
+            image.setMaximumWidth(700)
+            image.setMaximumHeight(480)
+            VBox.addWidget(image)
+            self.manager_content_widget.setLayout(VBox)
+
+        self.accept_button.clicked.connect(self.close)
+        self.resume_all_button.clicked.connect(self.resume_all)
+        self.stop_all_button.clicked.connect(self.stop_all)
+        self.cancel_all_button.clicked.connect(self.cancel_all)
+
+    def search_downloads(self):
+        self.downloads_count = 0
+
+    def resume_all(self):
+        pass
+
+    def stop_all(self):
+        pass
+
+    def cancel_all(self):
+        answer = QMessageBox.question(self, "PyDownload | Cancelar descargas",
+                                      "¿Está seguro de que desea cancelar todas las descargas?")
+        if answer == QMessageBox.Yes:
+            print("Cancelando todas las descargas...")
+
+
+class History(QMainWindow, Ui_History):
+    def __init__(self):
+        super(History, self).__init__()
+
+        self.setupUi(self)
+
+        self.search_downloads()
+
+        if self.downloads_count <= 0:
+            VBox = QVBoxLayout()
+            VBox.setAlignment(Qt.AlignCenter)
+            image = QLabel()
+            image.setPixmap(QPixmap("../res/images/location_search.png"))
+            image.setScaledContents(True)
+            image.setMaximumWidth(700)
+            image.setMaximumHeight(480)
+            VBox.addWidget(image)
+            self.history_content_widget.setLayout(VBox)
+
+        self.accept_button.clicked.connect(self.close)
+        self.clean_button.clicked.connect(self.clean_history)
+
+    def search_downloads(self):
+        self.downloads_count = 0
+
+    def clean_history(self):
+        answer = QMessageBox.question(self, "PyDownload | Limpiar Historial",
+                                      "¿Está seguro de que desea limpiar el historial?")
+        if answer == QMessageBox.Yes:
+            print("Limpiando historial...")
+
+
+####### ABOUT #######
 
 class About(QMainWindow, Ui_About):
     def __init__(self):

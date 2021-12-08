@@ -294,7 +294,6 @@
            <widget class="QFrame" name="status_label_frame">
             <property name="styleSheet">
              <string notr="true">QFrame#status_label_frame{
-	border: 1px solid white;
 	border-radius: 8px;
 	background-color: #F6F8FA;
 }</string>
@@ -744,6 +743,7 @@ margin-right: 10px;</string>
  </widget>
  <resources>
   <include location="../images.qrc"/>
+  <include location="C:/Users/Edu/.designer/images.qrc"/>
  </resources>
  <connections/>
 </ui>

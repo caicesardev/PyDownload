@@ -6,5 +6,6 @@
     <file>../res/images/home.png</file>
     <file>../res/images/manager.png</file>
     <file>../res/images/setting.png</file>
+    <file>../res/images/location_search.png</file>
 </qresource>
 </RCC>

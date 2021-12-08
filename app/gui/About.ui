@@ -2,9 +2,6 @@
 <ui version="4.0">
  <class>About</class>
  <widget class="QMainWindow" name="About">
-  <property name="windowModality">
-   <enum>Qt::ApplicationModal</enum>
-  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -136,9 +133,7 @@
              <item>
               <widget class="QLabel" name="description_label">
                <property name="font">
-                <font>
-                 <family>Araboto-Normal</family>
-                </font>
+                <font/>
                </property>
                <property name="text">
                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#717171;&quot;&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque in convallis nulla. Aenean aliquet nulla quis eros luctus feugiat. In a efficitur nisi. Praesent non enim vel diam pulvinar imperdiet. Phasellus imperdiet odio id mi sodales viverra.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -158,9 +153,7 @@
              <item>
               <widget class="QLabel" name="label">
                <property name="font">
-                <font>
-                 <family>Araboto-Normal</family>
-                </font>
+                <font/>
                </property>
                <property name="text">
                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#717171;&quot;&gt;Praesent porttitor iaculis aliquet. Morbi aliquet nisl quam, quis laoreet sem facilisis ac. Vivamus tristique augue vitae diam mollis maximus. Curabitur tempor quis ipsum eget vestibulum. Quisque mollis dictum tellus eget elementum. Aenean et viverra est, condimentum blandit velit. Fusce viverra nibh turpis, venenatis luctus mauris sollicitudin a. &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -204,9 +197,7 @@
              <item>
               <widget class="QLabel" name="description_label_2">
                <property name="font">
-                <font>
-                 <family>Araboto-Normal</family>
-                </font>
+                <font/>
                </property>
                <property name="text">
                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#717171;&quot;&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque in convallis nulla. Aenean aliquet nulla quis eros luctus feugiat. In a efficitur nisi. Praesent non enim vel diam pulvinar imperdiet. Phasellus imperdiet odio id mi sodales viverra.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -234,9 +225,7 @@
              <item>
               <widget class="QLabel" name="description_label_3">
                <property name="font">
-                <font>
-                 <family>Araboto-Normal</family>
-                </font>
+                <font/>
                </property>
                <property name="text">
                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#717171;&quot;&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque in convallis nulla. Aenean aliquet nulla quis eros luctus feugiat. In a efficitur nisi. Praesent non enim vel diam pulvinar imperdiet. Phasellus imperdiet odio id mi sodales viverra.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>

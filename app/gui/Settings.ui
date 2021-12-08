@@ -2,9 +2,6 @@
 <ui version="4.0">
  <class>Settings</class>
  <widget class="QMainWindow" name="Settings">
-  <property name="windowModality">
-   <enum>Qt::ApplicationModal</enum>
-  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -91,7 +88,13 @@
            </widget>
           </item>
           <item>
-           <widget class="QFrame" name="frame">
+           <widget class="QFrame" name="status_label_frame">
+            <property name="styleSheet">
+             <string notr="true">QFrame#status_label_frame{
+	border-radius: 8px;
+	background-color: #F6F8FA;
+}</string>
+            </property>
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
@@ -102,9 +105,7 @@
              <item>
               <widget class="QLabel" name="status_label">
                <property name="font">
-                <font>
-                 <bold>true</bold>
-                </font>
+                <font/>
                </property>
                <property name="styleSheet">
                 <string notr="true">QLabel#status_label{
@@ -714,7 +715,7 @@ margin-right: 10px;</string>
         </spacer>
        </item>
        <item>
-        <widget class="QFrame" name="bottom_frame">
+        <widget class="QFrame" name="footer_frame">
          <property name="minimumSize">
           <size>
            <width>0</width>
@@ -811,6 +812,7 @@ margin-right: 10px;</string>
   </widget>
  </widget>
  <resources>
+  <include location="../images.qrc"/>
   <include location="../images.qrc"/>
  </resources>
  <connections/>

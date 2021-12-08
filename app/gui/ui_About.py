@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-# Form generated from reading UI file 'AboutLrSoQd.ui'
+# Form generated from reading UI file 'AboutGUFwAx.ui'
 ##
 # Created by: Qt User Interface Compiler version 6.2.1
 ##
@@ -25,12 +25,14 @@ class Ui_About(object):
     def setupUi(self, About):
         if not About.objectName():
             About.setObjectName(u"About")
-        About.setWindowModality(Qt.ApplicationModal)
         About.resize(934, 607)
         About.setMinimumSize(QSize(934, 607))
         About.setMaximumSize(QSize(934, 607))
         self.centralwidget = QWidget(About)
         self.centralwidget.setObjectName(u"centralwidget")
+        self.centralwidget.setStyleSheet(u"QWidget#centralwidget{\n"
+                                         "	background:  #F6F6F6;\n"
+                                         "}")
         self.gridLayout = QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName(u"gridLayout")
         self.content_container_frame = QFrame(self.centralwidget)
@@ -87,7 +89,6 @@ class Ui_About(object):
         self.label_2 = QLabel(self.app_name_frame)
         self.label_2.setObjectName(u"label_2")
         font = QFont()
-        font.setFamilies([u"Araboto-Normal"])
         self.label_2.setFont(font)
 
         self.verticalLayout_2.addWidget(self.label_2)
@@ -136,8 +137,7 @@ class Ui_About(object):
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.description_label_2 = QLabel(self.left_bottom_frame)
         self.description_label_2.setObjectName(u"description_label_2")
-        font1 = QFont()
-        self.description_label_2.setFont(font1)
+        self.description_label_2.setFont(font)
         self.description_label_2.setAlignment(
             Qt.AlignLeading | Qt.AlignLeft | Qt.AlignTop)
         self.description_label_2.setWordWrap(True)
@@ -154,7 +154,7 @@ class Ui_About(object):
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
         self.description_label_3 = QLabel(self.right_bottom_frame)
         self.description_label_3.setObjectName(u"description_label_3")
-        self.description_label_3.setFont(font1)
+        self.description_label_3.setFont(font)
         self.description_label_3.setAlignment(
             Qt.AlignLeading | Qt.AlignLeft | Qt.AlignTop)
         self.description_label_3.setWordWrap(True)

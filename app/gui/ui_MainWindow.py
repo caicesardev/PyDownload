@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-# Form generated from reading UI file 'MainWindowBVfFpD.ui'
+# Form generated from reading UI file 'MainWindowSsPkze.ui'
 ##
 # Created by: Qt User Interface Compiler version 6.2.1
 ##
@@ -18,6 +18,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QFrame, QGridLayout, QHBoxLayout,
                                QLabel, QLineEdit, QMainWindow, QPushButton,
                                QSizePolicy, QSpacerItem, QVBoxLayout, QWidget)
+import images_rc
 import images_rc
 
 
@@ -172,7 +173,6 @@ class Ui_MainWindow(object):
         self.status_label_frame = QFrame(self.header_frame)
         self.status_label_frame.setObjectName(u"status_label_frame")
         self.status_label_frame.setStyleSheet(u"QFrame#status_label_frame{\n"
-                                              "	border: 1px solid white;\n"
                                               "	border-radius: 8px;\n"
                                               "	background-color: #F6F8FA;\n"
                                               "}")
@@ -183,9 +183,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_5.setContentsMargins(-1, 0, -1, 0)
         self.status_label = QLabel(self.status_label_frame)
         self.status_label.setObjectName(u"status_label")
-        font1 = QFont()
-        font1.setFamilies([u"Araboto-Normal"])
-        self.status_label.setFont(font1)
+        self.status_label.setFont(font)
         self.status_label.setStyleSheet(u"QLabel#status_label{\n"
                                         "	margin-top: 5px;\n"
                                         "}")
@@ -204,9 +202,9 @@ class Ui_MainWindow(object):
         self.exit_push_button = QPushButton(self.header_frame)
         self.exit_push_button.setObjectName(u"exit_push_button")
         self.exit_push_button.setMinimumSize(QSize(0, 30))
-        font2 = QFont()
-        font2.setBold(True)
-        self.exit_push_button.setFont(font2)
+        font1 = QFont()
+        font1.setBold(True)
+        self.exit_push_button.setFont(font1)
         self.exit_push_button.setStyleSheet(u"color: darkred;")
 
         self.horizontalLayout_2.addWidget(self.exit_push_button)
@@ -246,9 +244,9 @@ class Ui_MainWindow(object):
 
         self.url_input = QLineEdit(self.url_input_frame)
         self.url_input.setObjectName(u"url_input")
-        font3 = QFont()
-        font3.setPointSize(10)
-        self.url_input.setFont(font3)
+        font2 = QFont()
+        font2.setPointSize(10)
+        self.url_input.setFont(font2)
         self.url_input.setStyleSheet(u"color: darkgreen;")
 
         self.horizontalLayout_3.addWidget(self.url_input)
@@ -262,7 +260,7 @@ class Ui_MainWindow(object):
 
         self.title_label = QLabel(self.url_input_frame)
         self.title_label.setObjectName(u"title_label")
-        self.title_label.setFont(font2)
+        self.title_label.setFont(font1)
         self.title_label.setStyleSheet(u"color: #717171;")
 
         self.horizontalLayout_3.addWidget(self.title_label)
@@ -307,25 +305,25 @@ class Ui_MainWindow(object):
         self.verticalLayout_6.setContentsMargins(0, 0, 0, 0)
         self.lenght_label = QLabel(self.details_frame)
         self.lenght_label.setObjectName(u"lenght_label")
-        self.lenght_label.setFont(font3)
+        self.lenght_label.setFont(font2)
 
         self.verticalLayout_6.addWidget(self.lenght_label)
 
         self.publish_date_label = QLabel(self.details_frame)
         self.publish_date_label.setObjectName(u"publish_date_label")
-        self.publish_date_label.setFont(font3)
+        self.publish_date_label.setFont(font2)
 
         self.verticalLayout_6.addWidget(self.publish_date_label)
 
         self.rating_label = QLabel(self.details_frame)
         self.rating_label.setObjectName(u"rating_label")
-        self.rating_label.setFont(font3)
+        self.rating_label.setFont(font2)
 
         self.verticalLayout_6.addWidget(self.rating_label)
 
         self.views_label = QLabel(self.details_frame)
         self.views_label.setObjectName(u"views_label")
-        self.views_label.setFont(font3)
+        self.views_label.setFont(font2)
 
         self.verticalLayout_6.addWidget(self.views_label)
 
