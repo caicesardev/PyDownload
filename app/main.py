@@ -13,7 +13,7 @@ from gui.ui_About import Ui_About
 
 from PySide6 import QtWebEngineWidgets
 from PySide6.QtGui import QPixmap, QFont, QIcon
-from PySide6.QtCore import Qt, QSize, QLibraryInfo, QLocale, QThread, QTranslator, QUrl, QSettings, Signal
+from PySide6.QtCore import Qt, QSize, QRect, QLibraryInfo, QLocale, QThread, QTranslator, QUrl, QSettings, Signal
 from PySide6.QtWidgets import (
     QApplication,
     QLabel,
@@ -27,7 +27,9 @@ from PySide6.QtWidgets import (
     QSpacerItem,
     QSizePolicy,
     QProgressBar,
-    QToolButton)
+    QToolButton,
+    QScrollArea,
+    QWidget)
 
 
 class WorkerThread(QThread):
@@ -250,6 +252,29 @@ class Manager(QMainWindow, Ui_Manager):
 
         # Had to manually create the GUI.
         if bool(self.downloads_count) == False:
+
+            # Delete last design made with QtDesinger.
+            self.verticalLayout_4.removeItem(self.verticalSpacer)
+            self.verticalLayout_3.takeAt(0)
+
+            # Add own design programatically.
+            self.manager_scroll_area = QScrollArea(self.manager_frame)
+            self.manager_scroll_area.setObjectName(u"manager_scroll_area")
+            self.manager_scroll_area.setStyleSheet(u"QScrollArea#manager_scroll_area{\n"
+                                                   "	background: #F0F0F0;\n"
+                                                   "	border-radius: 20px;\n"
+                                                   "	padding: 5px;\n"
+                                                   "}")
+            self.manager_scroll_area.setFrameShape(QFrame.NoFrame)
+            self.manager_scroll_area.setWidgetResizable(True)
+            self.manager_content_widget = QWidget()
+            self.manager_content_widget.setObjectName(
+                u"manager_content_widget")
+            self.manager_content_widget.setGeometry(QRect(0, 0, 942, 547))
+            self.manager_scroll_area.setWidget(self.manager_content_widget)
+
+            self.verticalLayout_3.addWidget(self.manager_scroll_area)
+
             VBox = QVBoxLayout()
             VBox.setAlignment(Qt.AlignCenter)
             image = QLabel()
