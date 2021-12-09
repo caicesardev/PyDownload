@@ -1,6 +1,7 @@
 import sys
 import os
 import subprocess
+from traceback import print_exception
 
 from pytube import YouTube
 
@@ -20,26 +21,25 @@ from PySide6.QtWidgets import (
     QMenu,
     QVBoxLayout)
 
+__version__ = "1.0.0"
 
+
+# Thread class.
 class WorkerThread(QThread):
     update_labels = Signal()
     search_video = Signal()
 
-    def __init__(self, thread=0):
+    def __init__(self):
         super(WorkerThread, self).__init__()
 
-        self.thread = thread
-        self.is_running = True
-
     def run(self):
-        self.search_video.emit()
-        self.update_labels.emit()
+        pass
 
     def stop(self):
-        self.is_running = False
-        self.terminate()
+        pass
 
 
+# MainWindow.
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
@@ -52,6 +52,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Window Variables.
         self.valid_url = False
         self.showing_preview = False
+
         self.worker = {}
 
         # Create a QVBoxLayout.
@@ -62,6 +63,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.vbox.addWidget(self.webview)
         # Set the layout to the video_preview_widget.
         self.video_preview_widget.setLayout(self.vbox)
+        # Set browser directly to youtube.
+        self.webview.setUrl(QUrl("https://www.youtube.com"))
 
         # Download Button Menu.
         menu = QMenu(self)
@@ -71,21 +74,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # GUI Buttons.
         self.search_button.clicked.connect(self.search_video)
-
         self.exit_push_button.clicked.connect(self.on_exit)
         self.restart_push_button.clicked.connect(self.on_restart)
 
+        # Sidebar buttons.
         self.download_manager_button.clicked.connect(
             self.on_download_manager_button_clicked)
         self.download_history_button.clicked.connect(
             self.on_download_history_button_clicked)
         self.settings_button.clicked.connect(self.on_settings_button_clicked)
         self.about_button.clicked.connect(self.on_about_button_clicked)
-
-        self.windows = list()
-
-        # Set browser directly to youtube.
-        self.webview.setUrl(QUrl("https://www.youtube.com"))
 
         self._manager_subwindow = None
         self._history_subwindow = None
@@ -134,41 +132,27 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if answer == QMessageBox.Yes:
             sys.exit()
 
-    # Search button clicked action.
-    def search_video(self):
-        self.worker[1] = WorkerThread(thread=1)
-        self.worker[1].start()
-        self.worker[1].search_video.connect(self.video_search)
-        QApplication.processEvents()
-
     # Search for the video.
-
-    def video_search(self):
+    def search_video(self):
         self.url = self.url_input.text()
 
         try:
             self.yt = YouTube(self.url)
-
             self.valid_url = True
-
-            # Show details of the video.
             self.show_details()
-
-        except Exception as e:
+        except Exception:
             self.valid_url = False
-            print(e)
-            QMessageBox.critical(
-                self, "PyDownloader | Error", "Ha habido un problema al resolver el enlace, compruebe que sea válido.")
+            print_exception(*sys.exc_info())
+            msg = QMessageBox()
+            msg.setWindowTitle("PyDownloader | Error")
+            msg.setIcon(QMessageBox.Critical)
+            msg.setText(
+                "Ha habido un problema al resolver el enlace, compruebe que sea válido.")
+            msg.setDetailedText(str(sys.exc_info()))
+            msg.exec()
 
-    # After video is searched action.
+    # Show details of the searched video.
     def show_details(self):
-        self.worker[2] = WorkerThread(thread=2)
-        self.worker[2].start()
-        self.worker[2].update_labels.connect(self.update_detail_labels)
-        QApplication.processEvents()
-
-    # show details of the searched video.
-    def update_detail_labels(self):
         self.title_label.setText(self.yt.title)
         self.lenght_label.setText(str(self.yt.length))
         self.publish_date_label.setText(str(self.yt.publish_date))

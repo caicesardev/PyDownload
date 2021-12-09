@@ -14,6 +14,8 @@ class About(QMainWindow, Ui_About):
 
         self.accept_push_button.clicked.connect(self.close)
 
+        # self.about_qt_button.clicked.connect(QApplication.aboutQt)
+
 
 def main():
     app = QApplication(sys.argv)

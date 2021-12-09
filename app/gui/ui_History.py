@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-# Form generated from reading UI file 'HistorySBVfsy.ui'
+# Form generated from reading UI file 'HistoryRdDhqU.ui'
 ##
 # Created by: Qt User Interface Compiler version 6.2.1
 ##
@@ -17,7 +17,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
                            QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QFrame, QGridLayout, QHBoxLayout,
                                QLabel, QMainWindow, QPushButton, QScrollArea,
-                               QSizePolicy, QSpacerItem, QVBoxLayout, QWidget)
+                               QSizePolicy, QSpacerItem, QTextEdit, QVBoxLayout,
+                               QWidget)
 import images_rc
 import images_rc
 
@@ -132,6 +133,19 @@ class Ui_History(object):
         self.history_content_widget = QWidget()
         self.history_content_widget.setObjectName(u"history_content_widget")
         self.history_content_widget.setGeometry(QRect(0, 0, 952, 547))
+        self.verticalLayout_4 = QVBoxLayout(self.history_content_widget)
+        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+        self.history_text = QTextEdit(self.history_content_widget)
+        self.history_text.setObjectName(u"history_text")
+        self.history_text.setStyleSheet(u"QTextEdit#history_text{\n"
+                                        "	border-radius: 10px;\n"
+                                        "	border: 1px solid #F6F8FA;\n"
+                                        "	padding: 3px;\n"
+                                        "}")
+        self.history_text.setReadOnly(True)
+
+        self.verticalLayout_4.addWidget(self.history_text)
+
         self.history_scroll_area.setWidget(self.history_content_widget)
 
         self.verticalLayout_3.addWidget(self.history_scroll_area)

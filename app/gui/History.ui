@@ -206,6 +206,22 @@ margin-right: 10px;</string>
                   <height>547</height>
                  </rect>
                 </property>
+                <layout class="QVBoxLayout" name="verticalLayout_4">
+                 <item>
+                  <widget class="QTextEdit" name="history_text">
+                   <property name="styleSheet">
+                    <string notr="true">QTextEdit#history_text{
+	border-radius: 10px;
+	border: 1px solid #F6F8FA;
+	padding: 3px;
+}</string>
+                   </property>
+                   <property name="readOnly">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
                </widget>
               </widget>
              </item>
