@@ -126,6 +126,9 @@
               <height>16777215</height>
              </size>
             </property>
+            <property name="toolTip">
+             <string>Reanudar todas las descargas</string>
+            </property>
             <property name="text">
              <string>Reanudar todo</string>
             </property>
@@ -145,6 +148,9 @@
               <height>16777215</height>
              </size>
             </property>
+            <property name="toolTip">
+             <string>Pausar todas las descargas</string>
+            </property>
             <property name="text">
              <string>Pausar todo</string>
             </property>
@@ -163,6 +169,9 @@
               <width>150</width>
               <height>16777215</height>
              </size>
+            </property>
+            <property name="toolTip">
+             <string>Cancelar todas las descargas</string>
             </property>
             <property name="text">
              <string>Cancelar todo</string>

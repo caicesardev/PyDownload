@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-# Form generated from reading UI file 'ManagergEnled.ui'
+# Form generated from reading UI file 'ManagerWKRoKR.ui'
 ##
 # Created by: Qt User Interface Compiler version 6.2.1
 ##
@@ -195,10 +195,22 @@ class Ui_Manager(object):
             "Manager", u"<html><head/><body><p><span style=\" font-size:11pt; color:#717171;\">Gestor de Descargas</span></p></body></html>", None))
         self.status_label.setText(QCoreApplication.translate(
             "Manager", u"<html><head/><body><p><span style=\" color:#717171;\">No hay ninguna descarga por el momento.</span></p></body></html>", None))
+# if QT_CONFIG(tooltip)
+        self.resume_all_button.setToolTip(QCoreApplication.translate(
+            "Manager", u"Reanudar todas las descargas", None))
+#endif // QT_CONFIG(tooltip)
         self.resume_all_button.setText(
             QCoreApplication.translate("Manager", u"Reanudar todo", None))
+# if QT_CONFIG(tooltip)
+        self.stop_all_button.setToolTip(QCoreApplication.translate(
+            "Manager", u"Pausar todas las descargas", None))
+#endif // QT_CONFIG(tooltip)
         self.stop_all_button.setText(
             QCoreApplication.translate("Manager", u"Pausar todo", None))
+# if QT_CONFIG(tooltip)
+        self.cancel_all_button.setToolTip(QCoreApplication.translate(
+            "Manager", u"Cancelar todas las descargas", None))
+#endif // QT_CONFIG(tooltip)
         self.cancel_all_button.setText(
             QCoreApplication.translate("Manager", u"Cancelar todo", None))
         self.accept_button.setText(
