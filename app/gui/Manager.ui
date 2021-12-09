@@ -146,7 +146,7 @@
              </size>
             </property>
             <property name="text">
-             <string>Parar todo</string>
+             <string>Pausar todo</string>
             </property>
            </widget>
           </item>
@@ -238,6 +238,21 @@ margin-right: 10px;</string>
                   <height>547</height>
                  </rect>
                 </property>
+                <layout class="QVBoxLayout" name="verticalLayout_4">
+                 <item>
+                  <spacer name="verticalSpacer">
+                   <property name="orientation">
+                    <enum>Qt::Vertical</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>526</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
                </widget>
               </widget>
              </item>

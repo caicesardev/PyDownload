@@ -12,9 +12,22 @@ from gui.ui_Settings import Ui_Settings
 from gui.ui_About import Ui_About
 
 from PySide6 import QtWebEngineWidgets
-from PySide6.QtGui import QPixmap
-from PySide6.QtCore import Qt, QLibraryInfo, QLocale, QThread, QTranslator, QUrl, QSettings, Signal
-from PySide6.QtWidgets import QApplication, QDialog, QLabel, QMainWindow, QMessageBox, QMenu, QVBoxLayout, QFileDialog
+from PySide6.QtGui import QPixmap, QFont, QIcon
+from PySide6.QtCore import Qt, QSize, QLibraryInfo, QLocale, QThread, QTranslator, QUrl, QSettings, Signal
+from PySide6.QtWidgets import (
+    QApplication,
+    QLabel,
+    QMainWindow,
+    QMessageBox,
+    QMenu,
+    QVBoxLayout,
+    QFileDialog,
+    QFrame,
+    QHBoxLayout,
+    QSpacerItem,
+    QSizePolicy,
+    QProgressBar,
+    QToolButton)
 
 
 class WorkerThread(QThread):
@@ -235,6 +248,7 @@ class Manager(QMainWindow, Ui_Manager):
 
         self.search_downloads()
 
+        # Had to manually create the GUI.
         if bool(self.downloads_count) == False:
             VBox = QVBoxLayout()
             VBox.setAlignment(Qt.AlignCenter)
@@ -255,7 +269,153 @@ class Manager(QMainWindow, Ui_Manager):
             VBox.addWidget(no_downloads_label)
             self.manager_content_widget.setLayout(VBox)
         else:
-            pass
+            for i in range(5):
+                self.download_frame = QFrame(self.manager_content_widget)
+                self.download_frame.setObjectName(u"download_frame")
+                self.verticalLayout_5 = QVBoxLayout(self.download_frame)
+                self.verticalLayout_5.setObjectName(u"verticalLayout_5")
+                self.head_frame = QFrame(self.download_frame)
+                self.head_frame.setObjectName(u"head_frame")
+                self.horizontalLayout_3 = QHBoxLayout(self.head_frame)
+                self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
+                self.horizontalLayout_3.setContentsMargins(-1, 0, -1, 0)
+                self.file_title_label = QLabel(self.head_frame)
+                self.file_title_label.setObjectName(u"file_title_label")
+                font1 = QFont()
+                font1.setBold(True)
+                self.file_title_label.setFont(font1)
+
+                # File name.
+                self.file_title_label.setText(
+                    "ROSALÍA - LA FAMA (Official Video) ft. The Weeknd")
+
+                self.horizontalLayout_3.addWidget(self.file_title_label)
+
+                self.horizontal_spacer = QSpacerItem(
+                    40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+                self.horizontalLayout_3.addItem(self.horizontal_spacer)
+
+                self.file_type_label = QLabel(self.head_frame)
+                self.file_type_label.setObjectName(u"file_type_label")
+                font2 = QFont()
+                font2.setPointSize(10)
+                font2.setBold(False)
+                self.file_type_label.setFont(font2)
+
+                # File type.
+                self.file_type_label.setText("Archivo: mp4")
+
+                self.horizontalLayout_3.addWidget(self.file_type_label)
+
+                self.file_size_label = QLabel(self.head_frame)
+                self.file_size_label.setObjectName(u"file_size_label")
+                font3 = QFont()
+                font3.setPointSize(10)
+                self.file_size_label.setFont(font3)
+
+                self.file_size_label.setText("Tamaño: 300MB")
+
+                self.horizontalLayout_3.addWidget(self.file_size_label)
+
+                self.verticalLayout_5.addWidget(self.head_frame)
+
+                self.line = QFrame(self.download_frame)
+                self.line.setObjectName(u"line")
+                self.line.setStyleSheet(u"background-color: darkgreen;\n"
+                                        "margin-left: 15px;\n"
+                                        "margin-right: 10px;")
+                self.line.setFrameShape(QFrame.HLine)
+                self.line.setFrameShadow(QFrame.Sunken)
+
+                self.verticalLayout_5.addWidget(self.line)
+
+                self.mid_frame = QFrame(self.download_frame)
+                self.mid_frame.setObjectName(u"mid_frame")
+                self.horizontalLayout_6 = QHBoxLayout(self.mid_frame)
+                self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
+                self.horizontalLayout_6.setContentsMargins(-1, -1, -1, 0)
+                self.download_type_image = QLabel(self.mid_frame)
+                self.download_type_image.setObjectName(u"download_type_image")
+                self.download_type_image.setMaximumSize(QSize(32, 32))
+
+                # If file is type video set youtube.png as image.
+                self.download_type_image.setPixmap(
+                    QPixmap(u"../res/images/youtube.png"))
+
+                self.download_type_image.setScaledContents(True)
+
+                self.horizontalLayout_6.addWidget(self.download_type_image)
+
+                self.download_progress_bar = QProgressBar(self.mid_frame)
+                self.download_progress_bar.setObjectName(
+                    u"download_progress_bar")
+                self.download_progress_bar.setValue(24)
+
+                self.horizontalLayout_6.addWidget(self.download_progress_bar)
+
+                self.play_tool_button = QToolButton(self.mid_frame)
+                self.play_tool_button.setObjectName(u"play_tool_button")
+                icon = QIcon()
+                icon.addFile(u"../res/images/play.png",
+                             QSize(), QIcon.Normal, QIcon.Off)
+                self.play_tool_button.setIcon(icon)
+                self.play_tool_button.setIconSize(QSize(24, 24))
+
+                self.horizontalLayout_6.addWidget(self.play_tool_button)
+
+                self.pause_tool_button = QToolButton(self.mid_frame)
+                self.pause_tool_button.setObjectName(u"pause_tool_button")
+                icon1 = QIcon()
+                icon1.addFile(u"../res/images/pause.png",
+                              QSize(), QIcon.Normal, QIcon.Off)
+                self.pause_tool_button.setIcon(icon1)
+                self.pause_tool_button.setIconSize(QSize(24, 24))
+
+                self.horizontalLayout_6.addWidget(self.pause_tool_button)
+
+                self.cancel_tool_button = QToolButton(self.mid_frame)
+                self.cancel_tool_button.setObjectName(u"cancel_tool_button")
+                icon2 = QIcon()
+                icon2.addFile(u"../res/images/cancel.png",
+                              QSize(), QIcon.Normal, QIcon.Off)
+                self.cancel_tool_button.setIcon(icon2)
+                self.cancel_tool_button.setIconSize(QSize(24, 24))
+
+                self.horizontalLayout_6.addWidget(self.cancel_tool_button)
+
+                self.verticalLayout_5.addWidget(self.mid_frame)
+
+                self.bottom_frame = QFrame(self.download_frame)
+                self.bottom_frame.setObjectName(u"bottom_frame")
+                self.horizontalLayout_9 = QHBoxLayout(self.bottom_frame)
+                self.horizontalLayout_9.setObjectName(u"horizontalLayout_9")
+                self.total_downloaded_label = QLabel(self.bottom_frame)
+                self.total_downloaded_label.setObjectName(
+                    u"total_downloaded_label")
+                self.total_downloaded_label.setFont(font3)
+
+                # Total downloaded.
+                self.total_downloaded_label.setText(
+                    "Descargados: 72MB / 300MB")
+
+                self.horizontalLayout_9.addWidget(self.total_downloaded_label)
+
+                self.estimated_time_label = QLabel(self.bottom_frame)
+                self.estimated_time_label.setObjectName(
+                    u"estimated_time_label")
+                self.estimated_time_label.setFont(font3)
+                self.estimated_time_label.setAlignment(
+                    Qt.AlignRight | Qt.AlignTrailing | Qt.AlignVCenter)
+
+                # Estimated time.
+                self.estimated_time_label.setText("Tiempo estimado: 10m")
+
+                self.horizontalLayout_9.addWidget(self.estimated_time_label)
+
+                self.verticalLayout_5.addWidget(self.bottom_frame)
+
+                self.verticalLayout_4.addWidget(self.download_frame)
 
         self.accept_button.clicked.connect(self.close)
         self.resume_all_button.clicked.connect(self.resume_all)
@@ -263,7 +423,7 @@ class Manager(QMainWindow, Ui_Manager):
         self.cancel_all_button.clicked.connect(self.cancel_all)
 
     def search_downloads(self):
-        self.downloads_count = {}
+        self.downloads_count = {1}
 
     def resume_all(self):
         pass

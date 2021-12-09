@@ -7,5 +7,10 @@
     <file>../res/images/manager.png</file>
     <file>../res/images/setting.png</file>
     <file>../res/images/location_search.png</file>
+    <file>../res/images/youtube.png</file>
+    <file>../res/images/play.png</file>
+    <file>../res/images/pause.png</file>
+    <file>../res/images/cancel.png</file>
+    <file>../res/images/listening.png</file>
 </qresource>
 </RCC>

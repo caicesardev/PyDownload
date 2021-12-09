@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-# Form generated from reading UI file 'ManagerMTbLsR.ui'
+# Form generated from reading UI file 'ManagergEnled.ui'
 ##
 # Created by: Qt User Interface Compiler version 6.2.1
 ##
@@ -145,6 +145,13 @@ class Ui_Manager(object):
         self.manager_content_widget = QWidget()
         self.manager_content_widget.setObjectName(u"manager_content_widget")
         self.manager_content_widget.setGeometry(QRect(0, 0, 942, 547))
+        self.verticalLayout_4 = QVBoxLayout(self.manager_content_widget)
+        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+        self.verticalSpacer = QSpacerItem(
+            20, 526, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.verticalLayout_4.addItem(self.verticalSpacer)
+
         self.manager_scroll_area.setWidget(self.manager_content_widget)
 
         self.verticalLayout_3.addWidget(self.manager_scroll_area)
@@ -191,7 +198,7 @@ class Ui_Manager(object):
         self.resume_all_button.setText(
             QCoreApplication.translate("Manager", u"Reanudar todo", None))
         self.stop_all_button.setText(
-            QCoreApplication.translate("Manager", u"Parar todo", None))
+            QCoreApplication.translate("Manager", u"Pausar todo", None))
         self.cancel_all_button.setText(
             QCoreApplication.translate("Manager", u"Cancelar todo", None))
         self.accept_button.setText(
