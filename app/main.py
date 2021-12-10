@@ -164,28 +164,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.valid_url:
             self.change_status("Descargando vídeo...", "grey")
 
-            download_path = self.downloads.value("downloads-path")
-
-            preferred_video_quality = self.preferences.value(
-                "preferred-video-quality")
-            preferred_video_format = self.preferences.value(
-                "preferred-video-format")
-            formats = {"1": "mp4", "2": "3gpp", "3": "webm"}
-            resolutions = {"1": "144p", "2": "360p", "3": "480p",
-                           "4": "720p", "5": "1080p", "6": "1440p", "7": "2160p"}
-
-            print(formats[str(preferred_video_format)])
-            print(resolutions[str(preferred_video_quality)])
-
-            # Download filtering by format user preferred resolution.
-            yv = self.yt.streams.filter(
-                file_extension=f"{formats[str(preferred_video_format)]}",
-                resolution=f"{resolutions[str(preferred_video_quality)]}",
-                progressive=True).first()
-
-            yv.download(download_path)
-
-            self.change_status("Vídeo descargado", "darkgreen")
+            if self._manager_subwindow is None:
+                self._manager_subwindow = Manager(self.url)
+                self._manager_subwindow.show()
+                self._manager_subwindow.activateWindow()
 
     # To download the audio.
     def download_audio(self):
