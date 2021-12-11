@@ -65,6 +65,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.video_preview_widget.setLayout(self.vbox)
         # Set browser directly to youtube.
         self.webview.setUrl(QUrl("https://www.youtube.com"))
+        self.url_input.setText(self.webview.url().toString())
 
         # Download Button Menu.
         menu = QMenu(self)
@@ -99,7 +100,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def on_download_manager_button_clicked(self):
         if self._manager_subwindow is None:
-            self._manager_subwindow = Manager()
+            self._manager_subwindow = Manager("")
         self._manager_subwindow.show()
         self._manager_subwindow.activateWindow()
 

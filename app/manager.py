@@ -3,7 +3,7 @@ import sys
 from gui.ui_Manager import Ui_Manager
 
 from pytube import YouTube
-
+import time
 from PySide6.QtGui import QPixmap, QFont, QIcon
 from PySide6.QtCore import Qt, QSettings, QLibraryInfo, QRect, QSize, QLocale, QTranslator
 from PySide6.QtWidgets import (
@@ -31,27 +31,31 @@ class Manager(QMainWindow, Ui_Manager):
         self.url = url
 
         self.get_configuration()
+
         self.search_downloads()
 
-        if len(self.video_urls) <= 0:
+        if self.url == "":
             self.no_downloads()
+            print("No downloads")
         else:
+            print("downloads")
             for i in range(len(self.video_urls)):
                 self.download_path = self.downloads.value("downloads-path")
-                preferred_video_quality = self.preferences.value(
+                self.preferred_video_quality = self.preferences.value(
                     "preferred-video-quality")
-                preferred_video_format = self.preferences.value(
+                self.preferred_video_format = self.preferences.value(
                     "preferred-video-format")
-                self.formats = {"1": "mp4", "2": "3gpp", "3": "webm"}
-                self.resolutions = {"1": "144p", "2": "360p", "3": "480p",
-                                    "4": "720p", "5": "1080p", "6": "1440p", "7": "2160p"}
+                self.formats = {1: "mp4", 2: "3gpp", 3: "webm"}
+                self.resolutions = {1: "144p", 2: "360p", 3: "480p",
+                                    4: "720p", 5: "1080p", 6: "1440p", 7: "2160p"}
 
                 self.d_video = YouTube(self.url)
                 self.stream = self.d_video.streams.filter(
-                    file_extension=f"{self.formats[str(preferred_video_format)]}",
-                    resolution=f"{self.resolutions[str(preferred_video_quality)]}",
+                    file_extension=f"{self.formats[self.preferred_video_format]}",
+                    resolution=f"{self.resolutions[self.preferred_video_quality]}",
                     progressive=True,
-                ).all()
+                ).first()
+
                 self.show_downloads()
 
         self.accept_button.clicked.connect(self.close)
@@ -64,6 +68,16 @@ class Manager(QMainWindow, Ui_Manager):
         self.video_urls.append(self.url)
         self.change_status(
             f"Actualmente hay {len(self.video_urls)} descarga/s en curso.", "darkgreen")
+
+    def download(self):
+        self.stream.download(self.download_path)
+        self.download_finished()
+
+    def download_finished(self):
+        self.download_frame.setParent(None)
+        self.video_urls.clear()
+        QMessageBox.information(
+            self, "PyDownload | Éxito", f"""El vídeo "{self.d_video.title}" se ha descargado exitosamente en "{self.download_path}" """)
 
     def resume_download(self):
         print("Continuando la descarga...")
@@ -88,8 +102,6 @@ class Manager(QMainWindow, Ui_Manager):
 
     # Had to manually create these GUIs.
     def no_downloads(self):
-        # Delete last design made with QtDesinger.
-        self.verticalLayout_4.removeItem(self.verticalSpacer)
         self.verticalLayout_3.takeAt(0)
 
         # Add own design programatically.
@@ -263,25 +275,33 @@ class Manager(QMainWindow, Ui_Manager):
 
         self.verticalLayout_4.addWidget(self.download_frame)
 
+        self.verticalSpacer = QSpacerItem(
+            20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.verticalLayout_4.addItem(self.verticalSpacer)
+
         # File name.
         self.file_title_label.setText(
             f"{self.d_video.title}")
 
         # File type.
-        self.file_type_label.setText(f"")
+        self.file_type_label.setText(
+            str(f"{self.formats[self.preferred_video_format]}"))
 
         # Progress bar.
         self.download_progress_bar.setValue(24)
 
         # File size.
-        self.file_size_label.setText("Tamaño: 300MB")
+        self.file_size_label.setText(f"{self.stream.filesize / 1000}MB")
 
         # Total downloaded.
         self.total_downloaded_label.setText(
-            "Descargados: 72MB / 300MB")
+            f"Descargados: 72MB / {self.stream.filesize}")
 
         # Estimated time.
         self.estimated_time_label.setText("Tiempo estimado: 10m")
+
+        self.download()
 
         self.play_tool_button.clicked.connect(self.resume_download)
         self.pause_tool_button.clicked.connect(self.pause_download)
