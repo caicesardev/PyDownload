@@ -38,18 +38,31 @@
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
         <widget class="QFrame" name="top_frame">
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <item>
-           <widget class="QFrame" name="logo_frame">
-            <property name="styleSheet">
-             <string notr="true">QFrame#logo_frame{
-	border: 2px solid whitesmoke;
-	border-radius: 30px;
-	background: white;
-}</string>
-            </property>
-            <layout class="QHBoxLayout" name="horizontalLayout_2">
-             <item>
+         <layout class="QGridLayout" name="gridLayout_2">
+          <item row="0" column="1">
+           <widget class="QFrame" name="content_frame">
+            <layout class="QGridLayout" name="gridLayout_3">
+             <item row="2" column="0">
+              <widget class="Line" name="line">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <spacer name="verticalSpacer">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item row="1" column="0">
               <widget class="QLabel" name="logo">
                <property name="maximumSize">
                 <size>
@@ -71,123 +84,93 @@
                </property>
               </widget>
              </item>
-            </layout>
-           </widget>
-          </item>
-          <item>
-           <widget class="QFrame" name="app_name_frame">
-            <property name="styleSheet">
-             <string notr="true">QFrame#app_name_frame{
-	border: 2px solid whitesmoke;
-	border-radius: 30px;
-	background: white;
-}</string>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_2">
-             <property name="leftMargin">
-              <number>15</number>
-             </property>
-             <property name="rightMargin">
-              <number>15</number>
-             </property>
-             <item>
-              <widget class="QLabel" name="label_2">
-               <property name="font">
-                <font/>
-               </property>
-               <property name="text">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:700; color:#717171;&quot;&gt;PyDownloader&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="description_label">
-               <property name="font">
-                <font/>
-               </property>
-               <property name="text">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#717171;&quot;&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque in convallis nulla. Aenean aliquet nulla quis eros luctus feugiat. In a efficitur nisi. Praesent non enim vel diam pulvinar imperdiet. Phasellus imperdiet odio id mi sodales viverra.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-               </property>
-               <property name="wordWrap">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="Line" name="line">
+             <item row="5" column="0">
+              <spacer name="verticalSpacer_2">
                <property name="orientation">
-                <enum>Qt::Horizontal</enum>
+                <enum>Qt::Vertical</enum>
                </property>
-              </widget>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
              </item>
-             <item>
+             <item row="3" column="0">
               <widget class="QLabel" name="label">
-               <property name="font">
-                <font/>
-               </property>
                <property name="text">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#717171;&quot;&gt;Praesent porttitor iaculis aliquet. Morbi aliquet nisl quam, quis laoreet sem facilisis ac. Vivamus tristique augue vitae diam mollis maximus. Curabitur tempor quis ipsum eget vestibulum. Quisque mollis dictum tellus eget elementum. Aenean et viverra est, condimentum blandit velit. Fusce viverra nibh turpis, venenatis luctus mauris sollicitudin a. &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:24pt; font-weight:700; color:#550000;&quot;&gt;PyDownload&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;Versión 1.0.0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
-               <property name="wordWrap">
-                <bool>true</bool>
+               <property name="alignment">
+                <set>Qt::AlignHCenter|Qt::AlignTop</set>
                </property>
               </widget>
              </item>
-            </layout>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="QFrame" name="bottom_frame">
-         <property name="styleSheet">
-          <string notr="true">QFrame#bottom_frame{
-	border: 2px solid whitesmoke;
-	border-radius: 30px;
-	background: white;
-}</string>
-         </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_3">
-          <item>
-           <widget class="QFrame" name="left_bottom_frame">
-            <layout class="QVBoxLayout" name="verticalLayout_3">
-             <item>
-              <widget class="QLabel" name="description_label_2">
-               <property name="font">
-                <font/>
+             <item row="4" column="0">
+              <widget class="QFrame" name="useful_links_frame">
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
                </property>
-               <property name="text">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#717171;&quot;&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque in convallis nulla. Aenean aliquet nulla quis eros luctus feugiat. In a efficitur nisi. Praesent non enim vel diam pulvinar imperdiet. Phasellus imperdiet odio id mi sodales viverra.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
                </property>
-               <property name="alignment">
-                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-               </property>
-               <property name="wordWrap">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item>
-           <widget class="QFrame" name="right_bottom_frame">
-            <layout class="QVBoxLayout" name="verticalLayout_4">
-             <item>
-              <widget class="QLabel" name="description_label_3">
-               <property name="font">
-                <font/>
-               </property>
-               <property name="text">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#717171;&quot;&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque in convallis nulla. Aenean aliquet nulla quis eros luctus feugiat. In a efficitur nisi. Praesent non enim vel diam pulvinar imperdiet. Phasellus imperdiet odio id mi sodales viverra.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-               </property>
-               <property name="wordWrap">
-                <bool>true</bool>
-               </property>
+               <layout class="QHBoxLayout" name="horizontalLayout">
+                <item>
+                 <widget class="QLabel" name="label_2">
+                  <property name="font">
+                   <font>
+                    <family>Araboto-Normal</family>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;mailto:caicesardev@gmail.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Contacto&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                  <property name="openExternalLinks">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_3">
+                  <property name="font">
+                   <font>
+                    <family>Araboto-Normal</family>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;mailto:name@email.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Bugs&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                  <property name="openExternalLinks">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_4">
+                  <property name="font">
+                   <font>
+                    <family>Araboto-Normal</family>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.github.com/caicesardev/PyDownload&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Repositorio&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                  <property name="openExternalLinks">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </widget>
              </item>
             </layout>

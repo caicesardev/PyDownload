@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-# Form generated from reading UI file 'AboutwTELxv.ui'
+# Form generated from reading UI file 'AboutSMLzmu.ui'
 ##
 # Created by: Qt User Interface Compiler version 6.2.1
 ##
@@ -45,110 +45,81 @@ class Ui_About(object):
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.top_frame = QFrame(self.content_container_frame)
         self.top_frame.setObjectName(u"top_frame")
-        self.horizontalLayout = QHBoxLayout(self.top_frame)
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.logo_frame = QFrame(self.top_frame)
-        self.logo_frame.setObjectName(u"logo_frame")
-        self.logo_frame.setStyleSheet(u"QFrame#logo_frame{\n"
-                                      "	border: 2px solid whitesmoke;\n"
-                                      "	border-radius: 30px;\n"
-                                      "	background: white;\n"
-                                      "}")
-        self.horizontalLayout_2 = QHBoxLayout(self.logo_frame)
-        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.logo = QLabel(self.logo_frame)
+        self.gridLayout_2 = QGridLayout(self.top_frame)
+        self.gridLayout_2.setObjectName(u"gridLayout_2")
+        self.content_frame = QFrame(self.top_frame)
+        self.content_frame.setObjectName(u"content_frame")
+        self.gridLayout_3 = QGridLayout(self.content_frame)
+        self.gridLayout_3.setObjectName(u"gridLayout_3")
+        self.line = QFrame(self.content_frame)
+        self.line.setObjectName(u"line")
+        self.line.setFrameShape(QFrame.HLine)
+        self.line.setFrameShadow(QFrame.Sunken)
+
+        self.gridLayout_3.addWidget(self.line, 2, 0, 1, 1)
+
+        self.verticalSpacer = QSpacerItem(
+            20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.gridLayout_3.addItem(self.verticalSpacer, 0, 0, 1, 1)
+
+        self.logo = QLabel(self.content_frame)
         self.logo.setObjectName(u"logo")
         self.logo.setMaximumSize(QSize(210, 210))
         self.logo.setPixmap(QPixmap(u":/res/images/download.png"))
         self.logo.setScaledContents(True)
         self.logo.setAlignment(Qt.AlignCenter)
 
-        self.horizontalLayout_2.addWidget(self.logo)
+        self.gridLayout_3.addWidget(self.logo, 1, 0, 1, 1)
 
-        self.horizontalLayout.addWidget(self.logo_frame)
+        self.verticalSpacer_2 = QSpacerItem(
+            20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
-        self.app_name_frame = QFrame(self.top_frame)
-        self.app_name_frame.setObjectName(u"app_name_frame")
-        self.app_name_frame.setStyleSheet(u"QFrame#app_name_frame{\n"
-                                          "	border: 2px solid whitesmoke;\n"
-                                          "	border-radius: 30px;\n"
-                                          "	background: white;\n"
-                                          "}")
-        self.verticalLayout_2 = QVBoxLayout(self.app_name_frame)
-        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.verticalLayout_2.setContentsMargins(15, -1, 15, -1)
-        self.label_2 = QLabel(self.app_name_frame)
+        self.gridLayout_3.addItem(self.verticalSpacer_2, 5, 0, 1, 1)
+
+        self.label = QLabel(self.content_frame)
+        self.label.setObjectName(u"label")
+        self.label.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
+
+        self.gridLayout_3.addWidget(self.label, 3, 0, 1, 1)
+
+        self.useful_links_frame = QFrame(self.content_frame)
+        self.useful_links_frame.setObjectName(u"useful_links_frame")
+        self.useful_links_frame.setFrameShape(QFrame.StyledPanel)
+        self.useful_links_frame.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout = QHBoxLayout(self.useful_links_frame)
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.label_2 = QLabel(self.useful_links_frame)
         self.label_2.setObjectName(u"label_2")
         font = QFont()
+        font.setFamilies([u"Araboto-Normal"])
         self.label_2.setFont(font)
+        self.label_2.setAlignment(Qt.AlignCenter)
+        self.label_2.setOpenExternalLinks(True)
 
-        self.verticalLayout_2.addWidget(self.label_2)
+        self.horizontalLayout.addWidget(self.label_2)
 
-        self.description_label = QLabel(self.app_name_frame)
-        self.description_label.setObjectName(u"description_label")
-        self.description_label.setFont(font)
-        self.description_label.setWordWrap(True)
+        self.label_3 = QLabel(self.useful_links_frame)
+        self.label_3.setObjectName(u"label_3")
+        self.label_3.setFont(font)
+        self.label_3.setAlignment(Qt.AlignCenter)
+        self.label_3.setOpenExternalLinks(True)
 
-        self.verticalLayout_2.addWidget(self.description_label)
+        self.horizontalLayout.addWidget(self.label_3)
 
-        self.line = QFrame(self.app_name_frame)
-        self.line.setObjectName(u"line")
-        self.line.setFrameShape(QFrame.HLine)
-        self.line.setFrameShadow(QFrame.Sunken)
+        self.label_4 = QLabel(self.useful_links_frame)
+        self.label_4.setObjectName(u"label_4")
+        self.label_4.setFont(font)
+        self.label_4.setAlignment(Qt.AlignCenter)
+        self.label_4.setOpenExternalLinks(True)
 
-        self.verticalLayout_2.addWidget(self.line)
+        self.horizontalLayout.addWidget(self.label_4)
 
-        self.label = QLabel(self.app_name_frame)
-        self.label.setObjectName(u"label")
-        self.label.setFont(font)
-        self.label.setWordWrap(True)
+        self.gridLayout_3.addWidget(self.useful_links_frame, 4, 0, 1, 1)
 
-        self.verticalLayout_2.addWidget(self.label)
-
-        self.horizontalLayout.addWidget(self.app_name_frame)
+        self.gridLayout_2.addWidget(self.content_frame, 0, 1, 1, 1)
 
         self.verticalLayout.addWidget(self.top_frame)
-
-        self.bottom_frame = QFrame(self.content_container_frame)
-        self.bottom_frame.setObjectName(u"bottom_frame")
-        self.bottom_frame.setStyleSheet(u"QFrame#bottom_frame{\n"
-                                        "	border: 2px solid whitesmoke;\n"
-                                        "	border-radius: 30px;\n"
-                                        "	background: white;\n"
-                                        "}")
-        self.horizontalLayout_3 = QHBoxLayout(self.bottom_frame)
-        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
-        self.left_bottom_frame = QFrame(self.bottom_frame)
-        self.left_bottom_frame.setObjectName(u"left_bottom_frame")
-        self.verticalLayout_3 = QVBoxLayout(self.left_bottom_frame)
-        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
-        self.description_label_2 = QLabel(self.left_bottom_frame)
-        self.description_label_2.setObjectName(u"description_label_2")
-        self.description_label_2.setFont(font)
-        self.description_label_2.setAlignment(
-            Qt.AlignLeading | Qt.AlignLeft | Qt.AlignTop)
-        self.description_label_2.setWordWrap(True)
-
-        self.verticalLayout_3.addWidget(self.description_label_2)
-
-        self.horizontalLayout_3.addWidget(self.left_bottom_frame)
-
-        self.right_bottom_frame = QFrame(self.bottom_frame)
-        self.right_bottom_frame.setObjectName(u"right_bottom_frame")
-        self.verticalLayout_4 = QVBoxLayout(self.right_bottom_frame)
-        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
-        self.description_label_3 = QLabel(self.right_bottom_frame)
-        self.description_label_3.setObjectName(u"description_label_3")
-        self.description_label_3.setFont(font)
-        self.description_label_3.setAlignment(
-            Qt.AlignLeading | Qt.AlignLeft | Qt.AlignTop)
-        self.description_label_3.setWordWrap(True)
-
-        self.verticalLayout_4.addWidget(self.description_label_3)
-
-        self.horizontalLayout_3.addWidget(self.right_bottom_frame)
-
-        self.verticalLayout.addWidget(self.bottom_frame)
 
         self.frame = QFrame(self.content_container_frame)
         self.frame.setObjectName(u"frame")
@@ -163,7 +134,8 @@ class Ui_About(object):
         self.accept_push_button = QPushButton(self.frame)
         self.accept_push_button.setObjectName(u"accept_push_button")
         self.accept_push_button.setMinimumSize(QSize(100, 0))
-        self.accept_push_button.setFont(font)
+        font1 = QFont()
+        self.accept_push_button.setFont(font1)
         self.accept_push_button.setStyleSheet(u"padding: 5px;")
 
         self.horizontalLayout_4.addWidget(self.accept_push_button)
@@ -183,15 +155,14 @@ class Ui_About(object):
         About.setWindowTitle(
             QCoreApplication.translate("About", u"About", None))
         self.logo.setText("")
+        self.label.setText(QCoreApplication.translate(
+            "About", u"<html><head/><body><p align=\"center\"><span style=\" font-size:24pt; font-weight:700; color:#550000;\">PyDownload</span></p><p align=\"center\"><span style=\" font-size:14pt; font-weight:700;\">Versi\u00f3n 1.0.0</span></p></body></html>", None))
         self.label_2.setText(QCoreApplication.translate(
-            "About", u"<html><head/><body><p><span style=\" font-size:14pt; font-weight:700; color:#717171;\">PyDownloader</span></p></body></html>", None))
-        self.description_label.setText(QCoreApplication.translate(
-            "About", u"<html><head/><body><p><span style=\" color:#717171;\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque in convallis nulla. Aenean aliquet nulla quis eros luctus feugiat. In a efficitur nisi. Praesent non enim vel diam pulvinar imperdiet. Phasellus imperdiet odio id mi sodales viverra.</span></p></body></html>", None))
-        self.label.setText(QCoreApplication.translate("About", u"<html><head/><body><p><span style=\" color:#717171;\">Praesent porttitor iaculis aliquet. Morbi aliquet nisl quam, quis laoreet sem facilisis ac. Vivamus tristique augue vitae diam mollis maximus. Curabitur tempor quis ipsum eget vestibulum. Quisque mollis dictum tellus eget elementum. Aenean et viverra est, condimentum blandit velit. Fusce viverra nibh turpis, venenatis luctus mauris sollicitudin a. </span></p></body></html>", None))
-        self.description_label_2.setText(QCoreApplication.translate(
-            "About", u"<html><head/><body><p><span style=\" color:#717171;\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque in convallis nulla. Aenean aliquet nulla quis eros luctus feugiat. In a efficitur nisi. Praesent non enim vel diam pulvinar imperdiet. Phasellus imperdiet odio id mi sodales viverra.</span></p></body></html>", None))
-        self.description_label_3.setText(QCoreApplication.translate(
-            "About", u"<html><head/><body><p><span style=\" color:#717171;\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque in convallis nulla. Aenean aliquet nulla quis eros luctus feugiat. In a efficitur nisi. Praesent non enim vel diam pulvinar imperdiet. Phasellus imperdiet odio id mi sodales viverra.</span></p></body></html>", None))
+            "About", u"<html><head/><body><p><a href=\"mailto:caicesardev@gmail.com\"><span style=\" text-decoration: underline; color:#0000ff;\">Contacto</span></a></p></body></html>", None))
+        self.label_3.setText(QCoreApplication.translate(
+            "About", u"<html><head/><body><p><a href=\"mailto:name@email.com\"><span style=\" text-decoration: underline; color:#0000ff;\">Bugs</span></a></p></body></html>", None))
+        self.label_4.setText(QCoreApplication.translate(
+            "About", u"<html><head/><body><p><a href=\"https://www.github.com/caicesardev/PyDownload\"><span style=\" text-decoration: underline; color:#0000ff;\">Repositorio</span></a></p></body></html>", None))
         self.accept_push_button.setText(
             QCoreApplication.translate("About", u"Aceptar", None))
     # retranslateUi

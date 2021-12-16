@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-# Form generated from reading UI file 'SettingscSkJdy.ui'
+# Form generated from reading UI file 'SettingsHXnVQV.ui'
 ##
 # Created by: Qt User Interface Compiler version 6.2.1
 ##
@@ -366,6 +366,7 @@ class Ui_Settings(object):
         self.spanish_radiobtn = QRadioButton(self.lang_group_box)
         self.spanish_radiobtn.setObjectName(u"spanish_radiobtn")
         self.spanish_radiobtn.setFont(font)
+        self.spanish_radiobtn.setChecked(True)
 
         self.gridLayout_5.addWidget(self.spanish_radiobtn, 0, 0, 1, 1)
 

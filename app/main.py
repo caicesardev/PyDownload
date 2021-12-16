@@ -13,7 +13,7 @@ from settings import Settings
 from about import About
 
 from PySide6 import QtWebEngineWidgets
-from PySide6.QtCore import QLibraryInfo, QLocale, QThread, QTranslator, QUrl, QSettings, Signal
+from PySide6.QtCore import QLibraryInfo, QLocale, QObject, QThread, QTranslator, QUrl, QSettings, Signal
 from PySide6.QtWidgets import (
     QApplication,
     QMainWindow,
@@ -25,21 +25,36 @@ __version__ = "1.0.0"
 
 
 # Thread class.
-class WorkerThread(QThread):
+class Worker(QObject):
+    finished = Signal()
     update_labels = Signal()
-    search_video = Signal()
-
-    def __init__(self):
-        super(WorkerThread, self).__init__()
+    valid_url = False
 
     def run(self):
-        pass
+        try:
+            global yt
+            yt = YouTube(url)
+            self.update_labels.emit()
+            self.valid_url = True
+            self.finished.emit()
+        except Exception:
+            self.stop()
+            self.valid_url = False
+            print_exception(*sys.exc_info())
+            msg = QMessageBox()
+            msg.setWindowTitle("PyDownload | Error")
+            msg.setIcon(QMessageBox.Critical)
+            msg.setText(
+                "La URL no se puede descargar o no está disponible.")
+            msg.setDetailedText(str(sys.exc_info()))
+            msg.exec()
 
     def stop(self):
-        pass
-
+        self.deleteLater()
 
 # MainWindow.
+
+
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
@@ -50,10 +65,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.get_configuration()
 
         # Window Variables.
-        self.valid_url = False
         self.showing_preview = False
-
-        self.worker = {}
+        self.worker = Worker()
+        self.valid_url = self.worker.valid_url
 
         # Create a QVBoxLayout.
         self.vbox = QVBoxLayout()
@@ -135,30 +149,39 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     # Search for the video.
     def search_video(self):
-        self.url = self.url_input.text()
+        global url
+        url = self.url_input.text()
 
-        try:
-            self.yt = YouTube(self.url)
-            self.valid_url = True
-            self.show_details()
-        except Exception:
-            self.valid_url = False
-            print_exception(*sys.exc_info())
-            msg = QMessageBox()
-            msg.setWindowTitle("PyDownloader | Error")
-            msg.setIcon(QMessageBox.Critical)
-            msg.setText(
-                "Ha habido un problema al resolver el enlace, compruebe que sea válido.")
-            msg.setDetailedText(str(sys.exc_info()))
-            msg.exec()
+        # Create a QThread object.
+        self.thread = QThread()
+        # Create a worker object.
+        self.worker = Worker()
+        # Move worker to the thread.
+        self.worker.moveToThread(self.thread)
+        # Connect signals and slots
+        self.thread.started.connect(self.worker.run)
+        self.worker.update_labels.connect(self.show_details)
+        self.worker.finished.connect(self.thread.quit)
+        self.worker.finished.connect(self.worker.deleteLater)
+        self.thread.finished.connect(self.thread.deleteLater)
+        # Start the thread.
+        self.thread.start()
+
+        self.search_button.setEnabled(False)
+
+        # Final resets.
+        self.thread.finished.connect(
+            lambda: self.search_button.setEnabled(True)
+        )
 
     # Show details of the searched video.
     def show_details(self):
-        self.title_label.setText(self.yt.title)
-        self.lenght_label.setText(str(self.yt.length))
-        self.publish_date_label.setText(str(self.yt.publish_date))
-        self.rating_label.setText(str(self.yt.rating))
-        self.views_label.setText(str(self.yt.views))
+        self.title_label.setText(yt.title)
+        self.lenght_label.setText(str(yt.length))
+        self.publish_date_label.setText(str(yt.publish_date))
+        self.rating_label.setText(str(yt.rating))
+        self.views_label.setText(str(yt.views))
+        QApplication.processEvents()
 
     # To download the video.
     def download_video(self):
@@ -166,7 +189,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.change_status("Descargando vídeo...", "grey")
 
             if self._manager_subwindow is None:
-                self._manager_subwindow = Manager(self.url)
+                self._manager_subwindow = Manager(url)
                 self._manager_subwindow.show()
                 self._manager_subwindow.activateWindow()
 
