@@ -28,18 +28,19 @@ __version__ = "1.0.0"
 class Worker(QObject):
     finished = Signal()
     update_labels = Signal()
-    valid_url = False
+    valid_url = Signal(bool)
 
     def run(self):
         try:
             global yt
             yt = YouTube(url)
             self.update_labels.emit()
-            self.valid_url = True
+            self.valid_url.emit(True)
             self.finished.emit()
         except Exception:
             self.stop()
-            self.valid_url = False
+            self.valid_url.emit(False)
+            self.finished.emit()
             print_exception(*sys.exc_info())
             msg = QMessageBox()
             msg.setWindowTitle("PyDownload | Error")
@@ -48,9 +49,6 @@ class Worker(QObject):
                 "La URL no se puede descargar o no está disponible.")
             msg.setDetailedText(str(sys.exc_info()))
             msg.exec()
-
-    def stop(self):
-        self.deleteLater()
 
 # MainWindow.
 
@@ -181,11 +179,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.publish_date_label.setText(str(yt.publish_date))
         self.rating_label.setText(str(yt.rating))
         self.views_label.setText(str(yt.views))
-        QApplication.processEvents()
 
     # To download the video.
     def download_video(self):
-        if self.valid_url:
+        if self.worker.valid_url:
             self.change_status("Descargando vídeo...", "grey")
 
             if self._manager_subwindow is None:

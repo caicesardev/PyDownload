@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-# Form generated from reading UI file 'AboutSMLzmu.ui'
+# Form generated from reading UI file 'AboutKbDIvO.ui'
 ##
 # Created by: Qt User Interface Compiler version 6.2.1
 ##
@@ -85,14 +85,11 @@ class Ui_About(object):
 
         self.useful_links_frame = QFrame(self.content_frame)
         self.useful_links_frame.setObjectName(u"useful_links_frame")
-        self.useful_links_frame.setFrameShape(QFrame.StyledPanel)
-        self.useful_links_frame.setFrameShadow(QFrame.Raised)
         self.horizontalLayout = QHBoxLayout(self.useful_links_frame)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.label_2 = QLabel(self.useful_links_frame)
         self.label_2.setObjectName(u"label_2")
         font = QFont()
-        font.setFamilies([u"Araboto-Normal"])
         self.label_2.setFont(font)
         self.label_2.setAlignment(Qt.AlignCenter)
         self.label_2.setOpenExternalLinks(True)
@@ -134,8 +131,7 @@ class Ui_About(object):
         self.accept_push_button = QPushButton(self.frame)
         self.accept_push_button.setObjectName(u"accept_push_button")
         self.accept_push_button.setMinimumSize(QSize(100, 0))
-        font1 = QFont()
-        self.accept_push_button.setFont(font1)
+        self.accept_push_button.setFont(font)
         self.accept_push_button.setStyleSheet(u"padding: 5px;")
 
         self.horizontalLayout_4.addWidget(self.accept_push_button)

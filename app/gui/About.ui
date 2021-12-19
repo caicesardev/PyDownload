@@ -109,19 +109,11 @@
              </item>
              <item row="4" column="0">
               <widget class="QFrame" name="useful_links_frame">
-               <property name="frameShape">
-                <enum>QFrame::StyledPanel</enum>
-               </property>
-               <property name="frameShadow">
-                <enum>QFrame::Raised</enum>
-               </property>
                <layout class="QHBoxLayout" name="horizontalLayout">
                 <item>
                  <widget class="QLabel" name="label_2">
                   <property name="font">
-                   <font>
-                    <family>Araboto-Normal</family>
-                   </font>
+                   <font/>
                   </property>
                   <property name="text">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;mailto:caicesardev@gmail.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Contacto&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -137,9 +129,7 @@
                 <item>
                  <widget class="QLabel" name="label_3">
                   <property name="font">
-                   <font>
-                    <family>Araboto-Normal</family>
-                   </font>
+                   <font/>
                   </property>
                   <property name="text">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;mailto:name@email.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Bugs&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -155,9 +145,7 @@
                 <item>
                  <widget class="QLabel" name="label_4">
                   <property name="font">
-                   <font>
-                    <family>Araboto-Normal</family>
-                   </font>
+                   <font/>
                   </property>
                   <property name="text">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.github.com/caicesardev/PyDownload&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Repositorio&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>

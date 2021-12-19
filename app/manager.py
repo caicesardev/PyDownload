@@ -38,7 +38,7 @@ class Manager(QMainWindow, Ui_Manager):
             self.no_downloads()
             print("No downloads")
         else:
-            print("downloads")
+            print("Downloads")
             for i in range(len(self.video_urls)):
                 self.download_path = self.downloads.value("downloads-path")
                 self.preferred_video_quality = self.preferences.value(
