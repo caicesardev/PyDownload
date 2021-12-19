@@ -39,27 +39,29 @@ class Settings(QMainWindow, Ui_Settings):
             self.dark_theme_radio.setChecked(True)
 
         # Downloads
-        self.path_input.setText(self.downloads.value("downloads-path"))
-        self.min_speed_input.setCurrentIndex(
-            self.downloads.value("downloads-min-speed"))
-        self.max_speed_input.setCurrentIndex(
-            self.downloads.value("downloads-max-speed"))
-        if self.downloads.value("minspeed-check-state") == "true":
-            self.min_speed_input.setEnabled(True)
-            self.minspeed_check.setChecked(True)
-        if self.downloads.value("maxspeed-check-state") == "true":
-            self.max_speed_input.setEnabled(True)
-            self.max_speed_check.setChecked(True)
+        if self.downloads.value("downloads-path") != "" and self.downloads.value("downloads-min-speed") is not None and self.downloads.value("downloads-max-speed") is not None:
+            self.path_input.setText(self.downloads.value("downloads-path"))
+            self.min_speed_input.setCurrentIndex(
+                self.downloads.value("downloads-min-speed"))
+            self.max_speed_input.setCurrentIndex(
+                self.downloads.value("downloads-max-speed"))
+            if self.downloads.value("minspeed-check-state") == "true":
+                self.min_speed_input.setEnabled(True)
+                self.minspeed_check.setChecked(True)
+            if self.downloads.value("maxspeed-check-state") == "true":
+                self.max_speed_input.setEnabled(True)
+                self.max_speed_check.setChecked(True)
 
         # Preferences
-        self.preferred_videoformat_input.setCurrentIndex(
-            self.preferences.value("preferred-video-format"))
-        self.preferred_audioformat_input.setCurrentIndex(
-            self.preferences.value("preferred-audio-format"))
-        self.preferred_videoquality_input.setCurrentIndex(
-            self.preferences.value("preferred-video-quality"))
-        self.preferred_audioquality_input.setCurrentIndex(
-            self.preferences.value("preferred-audio-quality"))
+        if self.preferences.value("preferred-video-format") is not None and self.preferences.value("preferred-audio-format") is not None and self.preferences.value("preferred-video-quality") is not None and self.preferences.value("preferred-audio-quality") is not None:
+            self.preferred_videoformat_input.setCurrentIndex(
+                self.preferences.value("preferred-video-format"))
+            self.preferred_audioformat_input.setCurrentIndex(
+                self.preferences.value("preferred-audio-format"))
+            self.preferred_videoquality_input.setCurrentIndex(
+                self.preferences.value("preferred-video-quality"))
+            self.preferred_audioquality_input.setCurrentIndex(
+                self.preferences.value("preferred-audio-quality"))
 
         # Preferences checkboxes
         if self.preferences.value("videoformat-check-state") == "true":
