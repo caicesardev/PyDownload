@@ -1,8 +1,6 @@
 import sys
 import os
 import subprocess
-import time
-from traceback import print_exception
 
 from pytube import YouTube
 
@@ -83,6 +81,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.settings_button.clicked.connect(self.on_settings_button_clicked)
         self.about_button.clicked.connect(self.on_about_button_clicked)
 
+        self.valid_url = False
+
         self._manager_subwindow = None
         self._history_subwindow = None
         self._settings_subwindow = None
@@ -132,13 +132,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     # Search for the video.
     def search_video(self):
-        self.valid_url = False
         self.url = self.url_input.text()
         try:
+            self.valid_url = True
             self.yt = YouTube(self.url)
             self.show_details()
-            self.valid_url = True
         except Exception as e:
+            self.valid_url = False
             self.validate_error(e)
 
     # Show details of the searched video.
@@ -171,13 +171,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     # To download the video.
     def download_video(self):
-        if self.worker.valid_url:
+        if self.valid_url:
             self.change_status("Descargando vídeo...", "grey")
 
             if self._manager_subwindow is None:
                 self._manager_subwindow = Manager(self.url)
                 self._manager_subwindow.show()
                 self._manager_subwindow.activateWindow()
+        else:
+            QMessageBox.information(self, "PyDownload | Advertencia",
+                                    "No ha introucido ningún enlace válido. Por favor inténtelo de nuevo.")
 
     # To download the audio.
     def download_audio(self):
@@ -193,6 +196,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             self.change_status("Vídeo descargado correctamente...", "green")
 
+        else:
+            QMessageBox.information(self, "PyDownload | Advertencia",
+                                    "No ha introducido ningún enlace válido. Por favor inténtelo de nuevo.")
+
     # Download callback.
     def download_callback(self, stream, chunk, file_handle, bytes_remaining):
         fileSize = stream.filesize
@@ -204,11 +211,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def validate_error(self, e):
         print(e)
         msg = QMessageBox()
-        msg.setWindowTitle("PyDownload | Error")
+        msg.setWindowTitle("PyDownload | URL no válida")
         msg.setIcon(QMessageBox.Critical)
         msg.setText(
             "La URL no se puede descargar o no está disponible.")
-        msg.setDetailedText(e)
+        msg.setDetailedText(f"Error: {str(e)}")
         msg.exec()
 
     # To change the status bar text with dynamic information.
