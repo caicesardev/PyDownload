@@ -25,29 +25,8 @@ from PySide6.QtWidgets import (
 __version__ = "1.0.0"
 
 
-# Thread class.
-class Worker(QObject):
-    finished = Signal()
-    update_labels = Signal()
-    validate_error = Signal(str)
-    valid_url = Signal(bool)
-
-    def run(self):
-        try:
-            global yt
-            yt = YouTube(url)
-            self.update_labels.emit()
-            self.valid_url.emit(True)
-            self.finished.emit()
-        except Exception as e:
-            self.valid_url.emit(False)
-            self.validate_error.emit(str(e))
-            self.finished.emit()
-
 # Worker class to update details labels.
-
-
-class UpdateWorker(QObject):
+class Worker(QObject):
     finished = Signal()
     title_label = Signal()
     lenght_label = Signal()
@@ -57,19 +36,14 @@ class UpdateWorker(QObject):
 
     def run(self):
         self.title_label.emit()
-        time.sleep(1)
         self.lenght_label.emit()
-        time.sleep(1)
         self.publish_date_label.emit()
-        time.sleep(1)
         self.rating_label.emit()
-        time.sleep(1)
         self.views_label.emit()
         self.finished.emit()
 
+
 # MainWindow.
-
-
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
@@ -78,11 +52,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # Get user configuration.
         self.get_configuration()
-
-        # Window Variables.
-        self.showing_preview = False
-        self.worker = Worker()
-        self.valid_url = self.worker.valid_url
 
         # Create a QVBoxLayout.
         self.vbox = QVBoxLayout()
@@ -163,9 +132,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     # Search for the video.
     def search_video(self):
-        global url
-        url = self.url_input.text()
+        self.valid_url = False
+        self.url = self.url_input.text()
+        try:
+            self.yt = YouTube(self.url)
+            self.show_details()
+            self.valid_url = True
+        except Exception as e:
+            self.validate_error(e)
 
+    # Show details of the searched video.
+    def show_details(self):
         # Create a QThread object.
         self.thread = QThread()
         # Create a worker object.
@@ -174,57 +151,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.worker.moveToThread(self.thread)
         # Connect signals and slots
         self.thread.started.connect(self.worker.run)
-        self.worker.update_labels.connect(self.show_details)
-        self.worker.validate_error.connect(self.validate_error)
         self.worker.finished.connect(self.thread.quit)
         self.worker.finished.connect(self.worker.deleteLater)
         self.thread.finished.connect(self.thread.deleteLater)
 
+        self.worker.title_label.connect(
+            lambda txt=self.yt.title: self.title_label.setText(str(txt)))
+        self.worker.lenght_label.connect(
+            lambda txt=self.yt.length: self.lenght_label.setText(str(txt)))
+        self.worker.publish_date_label.connect(
+            lambda txt=self.yt.publish_date: self.publish_date_label.setText(str(txt)))
+        self.worker.rating_label.connect(
+            lambda txt=self.yt.rating: self.rating_label.setText(str(txt)))
+        self.worker.views_label.connect(
+            lambda txt=self.yt.views: self.views_label.setText(str(txt)))
+
         # Start the thread.
         self.thread.start()
-
-        self.search_button.setEnabled(False)
-
-        # Final resets.
-        self.thread.finished.connect(
-            lambda: self.search_button.setEnabled(True)
-        )
-
-    # Show details of the searched video.
-    def show_details(self):
-        # Create a QThread object.
-        self.thread2 = QThread()
-        # Create a worker object.
-        self.worker2 = UpdateWorker()
-        # Move worker to the thread.
-        self.worker2.moveToThread(self.thread2)
-        # Connect signals and slots
-        self.thread2.started.connect(self.worker2.run)
-        self.worker2.finished.connect(self.thread2.quit)
-        self.worker2.finished.connect(self.worker2.deleteLater)
-        self.thread2.finished.connect(self.thread2.deleteLater)
-
-        self.worker2.title_label.connect(
-            lambda txt=yt.title: self.title_label.setText(txt))
-        self.worker2.lenght_label.connect(
-            lambda txt=yt.length: self.lenght_label.setText(txt))
-        self.worker2.publish_date_label.connect(
-            lambda txt=yt.publish_date: self.publish_date_label.setText(txt))
-        self.worker2.rating_label.connect(
-            lambda txt=yt.rating: self.rating_label.setText(txt))
-        self.worker2.views_label.connect(
-            lambda txt=yt.views: self.views_label.setText(txt))
-
-        # Start the thread.
-        self.thread2.start()
-
-        """
-        self.title_label.setText(yt.title)
-        self.lenght_label.setText(str(yt.length))
-        self.publish_date_label.setText(str(yt.publish_date))
-        self.rating_label.setText(str(yt.rating))
-        self.views_label.setText(str(yt.views))
-        """
 
     # To download the video.
     def download_video(self):
@@ -232,7 +175,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.change_status("Descargando vídeo...", "grey")
 
             if self._manager_subwindow is None:
-                self._manager_subwindow = Manager(url)
+                self._manager_subwindow = Manager(self.url)
                 self._manager_subwindow.show()
                 self._manager_subwindow.activateWindow()
 
