@@ -12,7 +12,15 @@ from settings import Settings
 from about import About
 
 from PySide6 import QtWebEngineWidgets
-from PySide6.QtCore import QLibraryInfo, QLocale, QObject, QThread, QTranslator, QUrl, QSettings, Signal
+from PySide6.QtCore import (
+    QLibraryInfo,
+    QLocale,
+    QObject,
+    QThread,
+    QTranslator,
+    QUrl,
+    QSettings,
+    Signal)
 from PySide6.QtWidgets import (
     QApplication,
     QMainWindow,
@@ -48,8 +56,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.setupUi(self)
 
-        # Get user configuration.
-        self.get_configuration()
+        # Get user settings.
+        self.get_settings()
 
         # Create a QVBoxLayout.
         self.vbox = QVBoxLayout()
@@ -88,7 +96,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self._settings_subwindow = None
         self._about_subwindow = None
 
-    def get_configuration(self):
+    def get_settings(self):
         # Get registry values.
         self.theme = QSettings("PyDownload", "Theme")
         self.downloads = QSettings("PyDownload", "Downloads")
@@ -180,7 +188,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self._manager_subwindow.activateWindow()
         else:
             QMessageBox.information(self, "PyDownload | Advertencia",
-                                    "No ha introucido ningún enlace válido. Por favor inténtelo de nuevo.")
+                                    "No ha introucido ningún enlace válido. Inténtelo de nuevo.")
 
     # To download the audio.
     def download_audio(self):
@@ -200,16 +208,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             QMessageBox.information(self, "PyDownload | Advertencia",
                                     "No ha introducido ningún enlace válido. Por favor inténtelo de nuevo.")
 
-    # Download callback.
-    def download_callback(self, stream, chunk, file_handle, bytes_remaining):
-        fileSize = stream.filesize
-        bytes_downloaded = fileSize - bytes_remaining
-        percentage = round((bytes_downloaded / fileSize) * 100, 2)
-        print(f"{percentage}% Downloaded", end="\r")
-
     # Error when validating.
     def validate_error(self, e):
-        print(e)
+        print(f"Error: {e}")
         msg = QMessageBox()
         msg.setWindowTitle("PyDownload | URL no válida")
         msg.setIcon(QMessageBox.Critical)
