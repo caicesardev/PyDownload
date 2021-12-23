@@ -38,7 +38,7 @@ class Worker(QObject,):
     stop = Signal()
     finished = Signal()
 
-    def __init__(self, url, download_path, video_quality, video_format) -> None:
+    def __init__(self, url, download_path, video_quality, video_format):
         super(Worker).__init__()
 
         self.url = url
@@ -48,23 +48,36 @@ class Worker(QObject,):
 
         print(f"URL FROM WORKER IS: {self.url}")
 
+        print(self.download_path)
+        print(self.video_format)
+        print(self.video_quality)
+
+        self.run()
+
     def run(self):
         self.d_video = YouTube(
             self.url, on_progress_callback=self.download_callback)
-        self.stream = self.d_video.streams.filter(
-            file_extension=f"{self.video_format}",
-            resolution=f"{self.video_quality}",
-            progressive=True,
-        ).first()
+        # Try filtering by user preferences.
+        try:
+            print("Trying")
+            self.stream = self.d_video.streams.filter(
+                file_extension=f"{self.video_format}",
+                resolution=f"{self.video_quality}",
+                progressive=True,
+            ).first()
+        # If no stream matches user preferences then get the highest resolution.
+        except:
+            print("Exception try")
+            self.stream = self.d_video.streams.get_highest_resolution()
 
         self.stream.download(self.download_path)
 
     # Download callback.
     def download_callback(self, stream, chunk, bytes_remaining):
         self.progress.emit(
-            round((1-bytes_remaining/self.yv.filesize) * 100, 3))
+            round((1-bytes_remaining/self.stream.filesize) * 100, 3))
         print(
-            round((1-bytes_remaining/self.yv.filesize) * 100, 3), '% done...')
+            round((1-bytes_remaining/self.stream.filesize) * 100, 3), '% done...')
 
 
 # Manager.
@@ -116,7 +129,7 @@ class Manager(QMainWindow, Ui_Manager):
                 self.stream = self.d_video.streams.filter(
                     file_extension=f"{self.formats[self.preferred_video_format]}",
                     resolution=f"{self.resolutions[self.preferred_video_quality]}",
-                    progressive=False,
+                    progressive=True,
                 ).first()
             # If no stream matches user preferences then get the highest resolution.
             except:
@@ -127,7 +140,7 @@ class Manager(QMainWindow, Ui_Manager):
             self.thread = QThread()
             # Step 3: Create a worker object
             self.worker = Worker(
-                self.url, self.preferred_video_quality, self.preferred_video_format)
+                self.video_urls[i], self.download_path, self.preferred_video_quality, self.preferred_video_format)
             # Step 4: Move worker to the thread
             self.worker.moveToThread(self.thread)
             # Step 5: Connect signals and slots
@@ -347,18 +360,17 @@ class Manager(QMainWindow, Ui_Manager):
         self.preferences = QSettings("PyDownload", "Preferences")
         self.languages = QSettings("PyDownload", "Languages")
 
-        self.download_path = self.downloads.value("downloads-path")
-        self.preferred_video_quality = self.preferences.value(
-            "preferred-video-quality")
-        self.preferred_video_format = self.preferences.value(
-            "preferred-video-format")
-
         self.formats = {1: "mp4", 2: "3gpp", 3: "webm"}
         self.resolutions = {1: "144p", 2: "360p", 3: "480p",
                             4: "720p", 5: "1080p", 6: "1440p", 7: "2160p"}
 
-    # Change text of the status label.
+        self.download_path = self.downloads.value("downloads-path")
+        self.preferred_video_format = self.formats[self.preferences.value(
+            "preferred-video-format")]
+        self.preferred_video_quality = self.resolutions[self.preferences.value(
+            "preferred-video-quality")]
 
+    # Change text of the status label.
     def change_status(self, text, color):
         if color == "default" or color == "Default":
             self.status_label.setText(text)
