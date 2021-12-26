@@ -105,7 +105,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def on_download_manager_button_clicked(self):
         if self._manager_subwindow is None:
-            self._manager_subwindow = Manager("")
+            self._manager_subwindow = Manager(self.url)
         self._manager_subwindow.show()
         self._manager_subwindow.activateWindow()
 

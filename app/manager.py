@@ -33,13 +33,13 @@ from PySide6.QtWidgets import (
 
 
 # Worker Class.
-class Worker(QObject,):
+class Worker(QObject):
     progress = Signal(int)
     stop = Signal()
     finished = Signal()
 
     def __init__(self, url, download_path, video_quality, video_format):
-        super(Worker).__init__()
+        super(Worker, self).__init__()
 
         self.url = url
         self.download_path = download_path
@@ -59,7 +59,7 @@ class Worker(QObject,):
             self.url, on_progress_callback=self.download_callback)
         # Try filtering by user preferences.
         try:
-            print("Trying")
+            print("Searching stream with user's preferences.")
             self.stream = self.d_video.streams.filter(
                 file_extension=f"{self.video_format}",
                 resolution=f"{self.video_quality}",
@@ -67,7 +67,8 @@ class Worker(QObject,):
             ).first()
         # If no stream matches user preferences then get the highest resolution.
         except:
-            print("Exception try")
+            print(
+                "No stream matches user's preferences. Selected best possible stream instead.")
             self.stream = self.d_video.streams.get_highest_resolution()
 
         self.stream.download(self.download_path)
@@ -87,6 +88,8 @@ class Manager(QMainWindow, Ui_Manager):
 
         self.setupUi(self)
 
+        self.show()
+
         self.url = url
 
         # Get user settings.
@@ -97,11 +100,11 @@ class Manager(QMainWindow, Ui_Manager):
 
         # If there are no downloads in the list:
         if len(self.video_urls) <= 0:
-            print("No downloads.")
+            print("There are no downloads.")
             self.no_downloads()
         # If there are downloads in the list:
         else:
-            print("Downloads")
+            print("There are downloads in progress.")
             self.show_downloads()
 
         # GUI Buttons.
@@ -120,12 +123,8 @@ class Manager(QMainWindow, Ui_Manager):
         for i in range(len(self.video_urls)):
             self.d_video = YouTube(
                 self.url)
-
-            print(f"Download Video: {self.d_video.title}")
-
             # Try filtering by user preferences.
             try:
-                print("Trying")
                 self.stream = self.d_video.streams.filter(
                     file_extension=f"{self.formats[self.preferred_video_format]}",
                     resolution=f"{self.resolutions[self.preferred_video_quality]}",
@@ -133,26 +132,7 @@ class Manager(QMainWindow, Ui_Manager):
                 ).first()
             # If no stream matches user preferences then get the highest resolution.
             except:
-                print("Exception try")
                 self.stream = self.d_video.streams.get_highest_resolution()
-
-            # Step 2: Create a QThread object
-            self.thread = QThread()
-            # Step 3: Create a worker object
-            self.worker = Worker(
-                self.video_urls[i], self.download_path, self.preferred_video_quality, self.preferred_video_format)
-            # Step 4: Move worker to the thread
-            self.worker.moveToThread(self.thread)
-            # Step 5: Connect signals and slots
-            self.thread.started.connect(self.worker.run)
-
-            self.worker.finished.connect(self.download_finished)
-            self.worker.finished.connect(self.thread.quit)
-            self.worker.finished.connect(self.worker.deleteLater)
-            self.thread.finished.connect(self.thread.deleteLater)
-
-            # Step 6: Start the thread
-            self.thread.start()
 
             # region
             #################### GUI DECLARATION ####################
@@ -262,17 +242,34 @@ class Manager(QMainWindow, Ui_Manager):
             #################### GUI DECLARATION ####################
             # endregion
 
+            # Step 2: Create a QThread object
+            self.thread = QThread()
+            # Step 3: Create a worker object
+            self.worker = Worker(
+                self.video_urls[i], self.download_path, self.preferred_video_quality, self.preferred_video_format)
+            # Step 4: Move worker to the thread
+            self.worker.moveToThread(self.thread)
+            # Step 5: Connect signals and slots
+            self.thread.started.connect(self.worker.run)
+
+            self.worker.finished.connect(self.download_finished)
+            self.worker.finished.connect(self.thread.quit)
+            self.worker.finished.connect(self.worker.deleteLater)
+            self.thread.finished.connect(self.thread.deleteLater)
+
+            # Step 6: Start the thread
+            self.thread.start()
+
             # File name.
             self.file_title_label.setText(
                 f"{self.d_video.title}")
             # File type.
-            self.file_type_label.setText(
-                str(f"{self.formats[self.preferred_video_format]}"))
+            self.file_type_label.setText(f"{self.preferred_video_format}")
             # If file is type video set youtube.png as image. <- Not implemented yet.
             self.download_type_image.setPixmap(
                 QPixmap(u"../res/images/youtube.png"))
             # Progress bar.
-            self.worker.progress.connect(self.reportProgress)
+            self.worker.progress.connect(self.report_progress)
             # File size.
             self.file_size_label.setText(f"{self.stream.filesize}MB")
             # Total downloaded.
@@ -283,7 +280,8 @@ class Manager(QMainWindow, Ui_Manager):
 
             self.play_tool_button.clicked.connect(self.worker.run)
             self.pause_tool_button.clicked.connect(self.worker.stop)
-            self.cancel_tool_button.clicked.connect(self.worker.deleteLater)
+            self.cancel_tool_button.clicked.connect(
+                self.cancel_download)
 
     def report_progress(self, n):
         self.download_progress_bar.setValue(n)
@@ -315,6 +313,13 @@ class Manager(QMainWindow, Ui_Manager):
                 print("Cancelando todas las descargas...")
                 # for i in self.worker:
                 #     worker[i].deleteLater()
+
+    def cancel_download(self):
+        answer = QMessageBox(self, "PyDownload | Cancelar descarga",
+                             "¿Está seguro que desea cancelar esta descarga?")
+        if answer == QMessageBox.Yes:
+            self.download_frame.setParent(None)
+            self.worker.deleteLater()
 
     # Had to manually create these GUIs.
     def no_downloads(self):
