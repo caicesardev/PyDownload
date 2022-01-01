@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-# Form generated from reading UI file 'MainWindowsKFrnV.ui'
+# Form generated from reading UI file 'MainWindowYgBEBz.ui'
 ##
 # Created by: Qt User Interface Compiler version 6.2.1
 ##
@@ -71,7 +71,22 @@ class Ui_MainWindow(object):
         self.verticalLayout_7.setContentsMargins(0, 0, 0, 0)
         self.download_manager_button = QPushButton(self.sidebar_buttons_frame)
         self.download_manager_button.setObjectName(u"download_manager_button")
-        self.download_manager_button.setStyleSheet(u"padding: 10px;")
+        self.download_manager_button.setStyleSheet(u"QPushButton{\n"
+                                                   "	padding: 10px;\n"
+                                                   "	border: 0.6px solid #CECECE;\n"
+                                                   "	border-radius: 5px;\n"
+                                                   "	background: white;\n"
+                                                   "}\n"
+                                                   "\n"
+                                                   "QPushButton:hover{\n"
+                                                   "	border: 0.6px solid #0078D4;\n"
+                                                   "	background: #DEECF7;\n"
+                                                   "}\n"
+                                                   "\n"
+                                                   "QPushButton:pressed{\n"
+                                                   "	border: 0.6px solid #CECECE;\n"
+                                                   "	background: rgba(255, 255, 255, 10);\n"
+                                                   "}")
         icon = QIcon()
         icon.addFile(u":/res/images/manager.png",
                      QSize(), QIcon.Normal, QIcon.Off)
@@ -82,7 +97,22 @@ class Ui_MainWindow(object):
 
         self.download_history_button = QPushButton(self.sidebar_buttons_frame)
         self.download_history_button.setObjectName(u"download_history_button")
-        self.download_history_button.setStyleSheet(u"padding: 10px;")
+        self.download_history_button.setStyleSheet(u"QPushButton{\n"
+                                                   "	padding: 10px;\n"
+                                                   "	border: 0.6px solid #CECECE;\n"
+                                                   "	border-radius: 5px;\n"
+                                                   "	background: white;\n"
+                                                   "}\n"
+                                                   "\n"
+                                                   "QPushButton:hover{\n"
+                                                   "	border: 0.6px solid #0078D4;\n"
+                                                   "	background: #DEECF7;\n"
+                                                   "}\n"
+                                                   "\n"
+                                                   "QPushButton:pressed{\n"
+                                                   "	border: 0.6px solid #CECECE;\n"
+                                                   "	background: rgba(255, 255, 255, 10);\n"
+                                                   "}")
         icon1 = QIcon()
         icon1.addFile(u":/res/images/history.png",
                       QSize(), QIcon.Normal, QIcon.Off)
@@ -93,7 +123,22 @@ class Ui_MainWindow(object):
 
         self.settings_button = QPushButton(self.sidebar_buttons_frame)
         self.settings_button.setObjectName(u"settings_button")
-        self.settings_button.setStyleSheet(u"padding: 10px;")
+        self.settings_button.setStyleSheet(u"QPushButton{\n"
+                                           "	padding: 10px;\n"
+                                           "	border: 0.6px solid #CECECE;\n"
+                                           "	border-radius: 5px;\n"
+                                           "	background: white;\n"
+                                           "}\n"
+                                           "\n"
+                                           "QPushButton:hover{\n"
+                                           "	border: 0.6px solid #0078D4;\n"
+                                           "	background: #DEECF7;\n"
+                                           "}\n"
+                                           "\n"
+                                           "QPushButton:pressed{\n"
+                                           "	border: 0.6px solid #CECECE;\n"
+                                           "	background: rgba(255, 255, 255, 10);\n"
+                                           "}")
         icon2 = QIcon()
         icon2.addFile(u":/res/images/setting.png",
                       QSize(), QIcon.Normal, QIcon.Off)
@@ -104,7 +149,22 @@ class Ui_MainWindow(object):
 
         self.about_button = QPushButton(self.sidebar_buttons_frame)
         self.about_button.setObjectName(u"about_button")
-        self.about_button.setStyleSheet(u"padding: 10px;")
+        self.about_button.setStyleSheet(u"QPushButton{\n"
+                                        "	padding: 10px;\n"
+                                        "	border: 0.6px solid #CECECE;\n"
+                                        "	border-radius: 5px;\n"
+                                        "	background: white;\n"
+                                        "}\n"
+                                        "\n"
+                                        "QPushButton:hover{\n"
+                                        "	border: 0.6px solid #0078D4;\n"
+                                        "	background: #DEECF7;\n"
+                                        "}\n"
+                                        "\n"
+                                        "QPushButton:pressed{\n"
+                                        "	border: 0.6px solid #CECECE;\n"
+                                        "	background: rgba(255, 255, 255, 10);\n"
+                                        "}")
         icon3 = QIcon()
         icon3.addFile(u":/res/images/about.png",
                       QSize(), QIcon.Normal, QIcon.Off)

@@ -91,7 +91,22 @@
              <string>Descargas en curso</string>
             </property>
             <property name="styleSheet">
-             <string notr="true">padding: 10px;</string>
+             <string notr="true">QPushButton{
+	padding: 10px;
+	border: 0.6px solid #CECECE;
+	border-radius: 5px;
+	background: white;
+}
+
+QPushButton:hover{
+	border: 0.6px solid #0078D4;
+	background: #DEECF7;
+}
+
+QPushButton:pressed{
+	border: 0.6px solid #CECECE;
+	background: rgba(255, 255, 255, 10);
+}</string>
             </property>
             <property name="text">
              <string/>
@@ -114,7 +129,22 @@
              <string>Historial de descargas</string>
             </property>
             <property name="styleSheet">
-             <string notr="true">padding: 10px;</string>
+             <string notr="true">QPushButton{
+	padding: 10px;
+	border: 0.6px solid #CECECE;
+	border-radius: 5px;
+	background: white;
+}
+
+QPushButton:hover{
+	border: 0.6px solid #0078D4;
+	background: #DEECF7;
+}
+
+QPushButton:pressed{
+	border: 0.6px solid #CECECE;
+	background: rgba(255, 255, 255, 10);
+}</string>
             </property>
             <property name="text">
              <string/>
@@ -137,7 +167,22 @@
              <string>Configuración</string>
             </property>
             <property name="styleSheet">
-             <string notr="true">padding: 10px;</string>
+             <string notr="true">QPushButton{
+	padding: 10px;
+	border: 0.6px solid #CECECE;
+	border-radius: 5px;
+	background: white;
+}
+
+QPushButton:hover{
+	border: 0.6px solid #0078D4;
+	background: #DEECF7;
+}
+
+QPushButton:pressed{
+	border: 0.6px solid #CECECE;
+	background: rgba(255, 255, 255, 10);
+}</string>
             </property>
             <property name="text">
              <string/>
@@ -160,7 +205,22 @@
              <string>Acerca de la app</string>
             </property>
             <property name="styleSheet">
-             <string notr="true">padding: 10px;</string>
+             <string notr="true">QPushButton{
+	padding: 10px;
+	border: 0.6px solid #CECECE;
+	border-radius: 5px;
+	background: white;
+}
+
+QPushButton:hover{
+	border: 0.6px solid #0078D4;
+	background: #DEECF7;
+}
+
+QPushButton:pressed{
+	border: 0.6px solid #CECECE;
+	background: rgba(255, 255, 255, 10);
+}</string>
             </property>
             <property name="text">
              <string/>

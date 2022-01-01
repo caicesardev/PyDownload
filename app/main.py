@@ -69,6 +69,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.video_preview_widget.setLayout(self.vbox)
         # Set browser directly to youtube.
         self.webview.setUrl(QUrl("https://www.youtube.com"))
+        # Set current url to search input.
+        self.webview.urlChanged.connect(self.set_current_url)
 
         # Download Button Menu.
         menu = QMenu(self)
@@ -95,6 +97,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self._history_subwindow = None
         self._settings_subwindow = None
         self._about_subwindow = None
+
+    def set_current_url(self):
+        self.current_url = self.webview.url().toString()
+        self.url_input.setText(self.current_url)
 
     def get_settings(self):
         # Get registry values.
@@ -147,7 +153,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.show_details()
         except Exception as e:
             self.valid_url = False
-            self.validate_error(e)
+            self.validation_error(e)
 
     # Show details of the searched video.
     def show_details(self):
@@ -180,8 +186,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     # To download the video.
     def download_video(self):
         if self.valid_url:
-            self.change_status("Descargando vídeo...", "grey")
-
             if self._manager_subwindow is None:
                 self._manager_subwindow = Manager(self.url)
                 self._manager_subwindow.show()
@@ -209,7 +213,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                     "No ha introducido ningún enlace válido. Por favor inténtelo de nuevo.")
 
     # Error when validating.
-    def validate_error(self, e):
+    def validation_error(self, e):
         print(f"Error: {e}")
         msg = QMessageBox()
         msg.setWindowTitle("PyDownload | URL no válida")
