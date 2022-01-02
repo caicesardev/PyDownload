@@ -32,6 +32,55 @@ from PySide6.QtWidgets import (
     QWidget)
 
 
+# Worker Class.
+class Worker(QObject):
+    progress = Signal(int)
+    stop = Signal()
+    finished = Signal()
+
+    def __init__(self, url, download_path, video_quality, video_format):
+        super(Worker, self).__init__()
+
+        self.url = url
+        self.download_path = download_path
+        self.video_format = video_format
+        self.video_quality = video_quality
+
+        print(f"URL FROM WORKER IS: {self.url}")
+
+        print(self.download_path)
+        print(self.video_format)
+        print(self.video_quality)
+
+        self.run()
+
+    def run(self):
+        self.d_video = YouTube(
+            self.url, on_progress_callback=self.download_callback)
+        # Try filtering by user preferences.
+        try:
+            print("Searching stream with user's preferences.")
+            self.stream = self.d_video.streams.filter(
+                file_extension=f"{self.video_format}",
+                resolution=f"{self.video_quality}",
+                progressive=True,
+            ).first()
+        # If no stream matches user preferences then get the highest resolution.
+        except:
+            print(
+                "No stream matches user's preferences. Selected best possible stream instead.")
+            self.stream = self.d_video.streams.get_highest_resolution()
+
+        self.stream.download(self.download_path)
+
+    # Download callback.
+    def download_callback(self, stream, chunk, bytes_remaining):
+        self.progress.emit(
+            round((1-bytes_remaining/self.stream.filesize) * 100, 3))
+        print(
+            round((1-bytes_remaining/self.stream.filesize) * 100, 3), '% done...')
+
+
 # Manager.
 class Manager(QMainWindow, Ui_Manager):
     def __init__(self, url):
@@ -50,10 +99,12 @@ class Manager(QMainWindow, Ui_Manager):
         self.search_downloads()
 
         # If there are no downloads in the list:
-        if len(self.urls_list) <= 0:
+        if len(self.video_urls) <= 0:
+            print("There are no downloads.")
             self.no_downloads()
         # If there are downloads in the list:
         else:
+            print("There are downloads in progress.")
             self.show_downloads()
 
         # GUI Buttons.
@@ -62,63 +113,11 @@ class Manager(QMainWindow, Ui_Manager):
         self.stop_all_button.clicked.connect(self.stop_all)
         self.cancel_all_button.clicked.connect(self.cancel_all)
 
-    def get_settings(self):
-        # Get registry values.
-        self.theme = QSettings("PyDownload", "Theme")
-        self.downloads = QSettings("PyDownload", "Downloads")
-        self.preferences = QSettings("PyDownload", "Preferences")
-        self.languages = QSettings("PyDownload", "Languages")
-
-        self.formats = {1: "mp4", 2: "3gpp", 3: "webm"}
-        self.resolutions = {1: "144p", 2: "360p", 3: "480p",
-                            4: "720p", 5: "1080p", 6: "1440p", 7: "2160p"}
-
-        self.download_path = self.downloads.value("downloads-path")
-        self.preferred_video_format = self.formats[self.preferences.value(
-            "preferred-video-format")]
-        self.preferred_video_quality = self.resolutions[self.preferences.value(
-            "preferred-video-quality")]
-
     def search_downloads(self):
-        self.urls_list = []
-        if self.url is not "":
-            self.urls_list.append(self.url)
-
-    def no_downloads(self):
-        self.verticalLayout_3.takeAt(0)
-        self.manager_scroll_area = QScrollArea(self.manager_frame)
-        self.manager_scroll_area.setObjectName(u"manager_scroll_area")
-        self.manager_scroll_area.setStyleSheet(u"QScrollArea#manager_scroll_area{\n"
-                                               "	background: #F0F0F0;\n"
-                                               "	border-radius: 20px;\n"
-                                               "	padding: 5px;\n"
-                                               "}")
-        self.manager_scroll_area.setFrameShape(QFrame.NoFrame)
-        self.manager_scroll_area.setWidgetResizable(True)
-        self.manager_content_widget = QWidget()
-        self.manager_content_widget.setObjectName(
-            u"manager_content_widget")
-        self.manager_content_widget.setGeometry(QRect(0, 0, 942, 547))
-        self.manager_scroll_area.setWidget(self.manager_content_widget)
-        self.verticalLayout_3.addWidget(self.manager_scroll_area)
-        VBox = QVBoxLayout()
-        VBox.setAlignment(Qt.AlignCenter)
-        image = QLabel()
-        image.setPixmap(QPixmap("../res/images/location_search.png"))
-        image.setScaledContents(True)
-        image.setMaximumWidth(700)
-        image.setMaximumHeight(480)
-        VBox.addWidget(image)
-        no_downloads_label = QLabel()
-        no_downloads_label.setText(
-            "No hay ninguna descarga en curso en este momento.")
-        no_downloads_label.setAlignment(Qt.AlignCenter)
-        no_downloads_label.setFont("Araboto Normal")
-        no_downloads_label.setStyleSheet("""
-            font-size: 16px;
-            color: darkblue;""")
-        VBox.addWidget(no_downloads_label)
-        self.manager_content_widget.setLayout(VBox)
+        self.video_urls = []
+        self.video_urls.append(self.url)
+        self.change_status(
+            f"Actualmente hay {len(self.video_urls)} descarga/s en curso.", "darkgreen")
 
     def show_downloads(self):
         for i in range(len(self.video_urls)):
@@ -243,6 +242,24 @@ class Manager(QMainWindow, Ui_Manager):
             #################### GUI DECLARATION ####################
             # endregion
 
+            # Step 2: Create a QThread object
+            self.thread = QThread()
+            # Step 3: Create a worker object
+            self.worker = Worker(
+                self.video_urls[i], self.download_path, self.preferred_video_quality, self.preferred_video_format)
+            # Step 4: Move worker to the thread
+            self.worker.moveToThread(self.thread)
+            # Step 5: Connect signals and slots
+            self.thread.started.connect(self.worker.run)
+
+            self.worker.finished.connect(self.download_finished)
+            self.worker.finished.connect(self.thread.quit)
+            self.worker.finished.connect(self.worker.deleteLater)
+            self.thread.finished.connect(self.thread.deleteLater)
+
+            # Step 6: Start the thread
+            self.thread.start()
+
             # File name.
             self.file_title_label.setText(
                 f"{self.d_video.title}")
@@ -252,8 +269,7 @@ class Manager(QMainWindow, Ui_Manager):
             self.download_type_image.setPixmap(
                 QPixmap(u"../res/images/youtube.png"))
             # Progress bar.
-            # self.worker.progress.connect(self.report_progress)
-            self.download_progress_bar.setValue(50)
+            self.worker.progress.connect(self.report_progress)
             # File size.
             self.file_size_label.setText(f"{self.stream.filesize}MB")
             # Total downloaded.
@@ -262,10 +278,19 @@ class Manager(QMainWindow, Ui_Manager):
             # Estimated time.
             self.estimated_time_label.setText("Tiempo estimado: 10m")
 
-            # self.play_tool_button.clicked.connect(self.worker.run)
-            # self.pause_tool_button.clicked.connect(self.worker.stop)
-            # self.cancel_tool_button.clicked.connect(
-            #    self.cancel_download)
+            self.play_tool_button.clicked.connect(self.worker.run)
+            self.pause_tool_button.clicked.connect(self.worker.stop)
+            self.cancel_tool_button.clicked.connect(
+                self.cancel_download)
+
+    def report_progress(self, n):
+        self.download_progress_bar.setValue(n)
+
+    def download_finished(self):
+        self.download_frame.setParent(None)
+        self.video_urls.clear()
+        QMessageBox.information(
+            self, "PyDownload | Éxito", f"""El vídeo "{self.d_video.title}" se ha descargado exitosamente en "{self.download_path}". """)
 
     def resume_all(self):
         # You can only resume all downloads if there are any present.
@@ -281,10 +306,98 @@ class Manager(QMainWindow, Ui_Manager):
 
     def cancel_all(self):
         # You can only cancel all downloads if there are any present.
-        if len(self.urls_list) > 0:
+        if len(self.video_urls) > 0:
             answer = QMessageBox.question(self, "PyDownload | Cancelar descargas",
                                           "¿Está seguro de que desea cancelar todas las descargas?")
             if answer == QMessageBox.Yes:
                 print("Cancelando todas las descargas...")
                 # for i in self.worker:
                 #     worker[i].deleteLater()
+
+    def cancel_download(self):
+        answer = QMessageBox(self, "PyDownload | Cancelar descarga",
+                             "¿Está seguro que desea cancelar esta descarga?")
+        if answer == QMessageBox.Yes:
+            self.download_frame.setParent(None)
+            self.worker.deleteLater()
+
+    # Had to manually create these GUIs.
+    def no_downloads(self):
+        self.verticalLayout_3.takeAt(0)
+        self.manager_scroll_area = QScrollArea(self.manager_frame)
+        self.manager_scroll_area.setObjectName(u"manager_scroll_area")
+        self.manager_scroll_area.setStyleSheet(u"QScrollArea#manager_scroll_area{\n"
+                                               "	background: #F0F0F0;\n"
+                                               "	border-radius: 20px;\n"
+                                               "	padding: 5px;\n"
+                                               "}")
+        self.manager_scroll_area.setFrameShape(QFrame.NoFrame)
+        self.manager_scroll_area.setWidgetResizable(True)
+        self.manager_content_widget = QWidget()
+        self.manager_content_widget.setObjectName(
+            u"manager_content_widget")
+        self.manager_content_widget.setGeometry(QRect(0, 0, 942, 547))
+        self.manager_scroll_area.setWidget(self.manager_content_widget)
+        self.verticalLayout_3.addWidget(self.manager_scroll_area)
+        VBox = QVBoxLayout()
+        VBox.setAlignment(Qt.AlignCenter)
+        image = QLabel()
+        image.setPixmap(QPixmap("../res/images/location_search.png"))
+        image.setScaledContents(True)
+        image.setMaximumWidth(700)
+        image.setMaximumHeight(480)
+        VBox.addWidget(image)
+        no_downloads_label = QLabel()
+        no_downloads_label.setText(
+            "No hay ninguna descarga en curso en este momento.")
+        no_downloads_label.setAlignment(Qt.AlignCenter)
+        no_downloads_label.setFont("Araboto Normal")
+        no_downloads_label.setStyleSheet("""
+            font-size: 16px;
+            color: darkblue;""")
+        VBox.addWidget(no_downloads_label)
+        self.manager_content_widget.setLayout(VBox)
+
+    def get_settings(self):
+        # Get registry values.
+        self.theme = QSettings("PyDownload", "Theme")
+        self.downloads = QSettings("PyDownload", "Downloads")
+        self.preferences = QSettings("PyDownload", "Preferences")
+        self.languages = QSettings("PyDownload", "Languages")
+
+        self.formats = {1: "mp4", 2: "3gpp", 3: "webm"}
+        self.resolutions = {1: "144p", 2: "360p", 3: "480p",
+                            4: "720p", 5: "1080p", 6: "1440p", 7: "2160p"}
+
+        self.download_path = self.downloads.value("downloads-path")
+        self.preferred_video_format = self.formats[self.preferences.value(
+            "preferred-video-format")]
+        self.preferred_video_quality = self.resolutions[self.preferences.value(
+            "preferred-video-quality")]
+
+    # Change text of the status label.
+    def change_status(self, text, color):
+        if color == "default" or color == "Default":
+            self.status_label.setText(text)
+        else:
+            self.status_label.setText(text)
+            self.status_label.setStyleSheet(
+                "QLabel{ color: %s; }" % color)
+
+
+def main():
+    app = QApplication(sys.argv)
+
+    translator = QTranslator()
+    translator.load("qtbase_" + QLocale.system().name(),
+                    QLibraryInfo.location(QLibraryInfo.TranslationsPath))
+    app.installTranslator(translator)
+
+    gui = Manager()
+    gui.show()
+
+    sys.exit(app.exec())
+
+
+if __name__ == "__main__":
+    main()

@@ -12,5 +12,7 @@
     <file>../res/images/pause.png</file>
     <file>../res/images/cancel.png</file>
     <file>../res/images/listening.png</file>
+    <file>../res/images/reproductor-de-video.png</file>
+    <file>../res/images/volumen.png</file>
 </qresource>
 </RCC>

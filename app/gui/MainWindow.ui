@@ -429,25 +429,6 @@ margin-right: 10px;</string>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="search_button">
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>30</height>
-                </size>
-               </property>
-               <property name="font">
-                <font/>
-               </property>
-               <property name="toolTip">
-                <string>Buscar y validar</string>
-               </property>
-               <property name="text">
-                <string>Buscar</string>
-               </property>
-              </widget>
-             </item>
-             <item>
               <widget class="QLabel" name="title_label">
                <property name="font">
                 <font>
@@ -664,7 +645,7 @@ margin-right: 10px;</string>
               </spacer>
              </item>
              <item>
-              <widget class="QPushButton" name="download_button">
+              <widget class="QPushButton" name="add_to_queue_button">
                <property name="minimumSize">
                 <size>
                  <width>200</width>
@@ -681,10 +662,10 @@ margin-right: 10px;</string>
                 <font/>
                </property>
                <property name="toolTip">
-                <string>Descargar</string>
+                <string>Agregar a la cola de descargas</string>
                </property>
                <property name="text">
-                <string>DESCARGAR</string>
+                <string>Agregar a la cola</string>
                </property>
               </widget>
              </item>

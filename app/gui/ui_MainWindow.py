@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-# Form generated from reading UI file 'MainWindowYgBEBz.ui'
+# Form generated from reading UI file 'MainWindowUKnJmI.ui'
 ##
 # Created by: Qt User Interface Compiler version 6.2.1
 ##
@@ -284,13 +284,6 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_3.addWidget(self.url_input)
 
-        self.search_button = QPushButton(self.url_input_frame)
-        self.search_button.setObjectName(u"search_button")
-        self.search_button.setMinimumSize(QSize(0, 30))
-        self.search_button.setFont(font)
-
-        self.horizontalLayout_3.addWidget(self.search_button)
-
         self.title_label = QLabel(self.url_input_frame)
         self.title_label.setObjectName(u"title_label")
         self.title_label.setFont(font1)
@@ -397,13 +390,13 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout.addItem(self.horizontalSpacer)
 
-        self.download_button = QPushButton(self.download_button_frame)
-        self.download_button.setObjectName(u"download_button")
-        self.download_button.setMinimumSize(QSize(200, 30))
-        self.download_button.setMaximumSize(QSize(16777215, 16777215))
-        self.download_button.setFont(font)
+        self.add_to_queue_button = QPushButton(self.download_button_frame)
+        self.add_to_queue_button.setObjectName(u"add_to_queue_button")
+        self.add_to_queue_button.setMinimumSize(QSize(200, 30))
+        self.add_to_queue_button.setMaximumSize(QSize(16777215, 16777215))
+        self.add_to_queue_button.setFont(font)
 
-        self.horizontalLayout.addWidget(self.download_button)
+        self.horizontalLayout.addWidget(self.add_to_queue_button)
 
         self.gridLayout_2.addWidget(self.download_button_frame, 1, 1, 1, 1)
 
@@ -460,12 +453,6 @@ class Ui_MainWindow(object):
             QCoreApplication.translate("MainWindow", u"SALIR", None))
         self.url_label.setText(QCoreApplication.translate(
             "MainWindow", u"<html><head/><body><p><span style=\" color:#717171;\">URL:</span></p></body></html>", None))
-# if QT_CONFIG(tooltip)
-        self.search_button.setToolTip(QCoreApplication.translate(
-            "MainWindow", u"Buscar y validar", None))
-#endif // QT_CONFIG(tooltip)
-        self.search_button.setText(
-            QCoreApplication.translate("MainWindow", u"Buscar", None))
         self.title_label.setText(QCoreApplication.translate(
             "MainWindow", u"<html><head/><body><p><br/></p></body></html>", None))
         self.lenght_label.setText(QCoreApplication.translate(
@@ -485,9 +472,9 @@ class Ui_MainWindow(object):
         self.vlabel.setText(QCoreApplication.translate(
             "MainWindow", u"<html><head/><body><p><span style=\" font-size:10pt; font-weight:700; color:#717171;\">Visualizaciones</span></p></body></html>", None))
 # if QT_CONFIG(tooltip)
-        self.download_button.setToolTip(
-            QCoreApplication.translate("MainWindow", u"Descargar", None))
+        self.add_to_queue_button.setToolTip(QCoreApplication.translate(
+            "MainWindow", u"Agregar a la cola de descargas", None))
 #endif // QT_CONFIG(tooltip)
-        self.download_button.setText(
-            QCoreApplication.translate("MainWindow", u"DESCARGAR", None))
+        self.add_to_queue_button.setText(QCoreApplication.translate(
+            "MainWindow", u"Agregar a la cola", None))
     # retranslateUi

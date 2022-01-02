@@ -1,6 +1,7 @@
 import sys
 import os
 import subprocess
+from PySide6.QtGui import QIcon
 
 from pytube import YouTube
 
@@ -71,15 +72,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.webview.setUrl(QUrl("https://www.youtube.com"))
         # Set current url to search input.
         self.webview.urlChanged.connect(self.set_current_url)
+        self.webview.urlChanged.connect(
+            self.show_details)
 
         # Download Button Menu.
         menu = QMenu(self)
-        menu.addAction('Vídeo', self.download_video)
-        menu.addAction('Audio', self.download_audio)
-        self.download_button.setMenu(menu)
+        menu.addAction(QIcon("../res/images/reproductor-de-video.png"),
+                       'Agregar vídeo a la cola', self.add_video_to_queue)
+        menu.addAction(QIcon("../res/images/volumen.png"),
+                       'Agregar audio a la cola', self.add_audio_to_queue)
+        self.add_to_queue_button.setMenu(menu)
 
         # GUI Buttons.
-        self.search_button.clicked.connect(self.search_video)
         self.exit_push_button.clicked.connect(self.on_exit)
         self.restart_push_button.clicked.connect(self.on_restart)
 
@@ -91,12 +95,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.settings_button.clicked.connect(self.on_settings_button_clicked)
         self.about_button.clicked.connect(self.on_about_button_clicked)
 
+        # Variables
         self.valid_url = False
 
         self._manager_subwindow = None
         self._history_subwindow = None
         self._settings_subwindow = None
         self._about_subwindow = None
+
+        self.list_of_video_urls = []
+        self.list_of_audio_urls = []
 
     def set_current_url(self):
         self.current_url = self.webview.url().toString()
@@ -144,17 +152,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if answer == QMessageBox.Yes:
             sys.exit()
 
-    # Search for the video.
-    def search_video(self):
-        self.url = self.url_input.text()
-        try:
-            self.valid_url = True
-            self.yt = YouTube(self.url)
-            self.show_details()
-        except Exception as e:
-            self.valid_url = False
-            self.validation_error(e)
-
     # Show details of the searched video.
     def show_details(self):
         # Create a QThread object.
@@ -168,6 +165,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.worker.finished.connect(self.thread.quit)
         self.worker.finished.connect(self.worker.deleteLater)
         self.thread.finished.connect(self.thread.deleteLater)
+
+        self.url = self.url_input.text()
+        if self.url != "https://www.youtube.com/":
+            try:
+                self.valid_url = True
+                self.yt = YouTube(self.url)
+            except Exception as e:
+                self.valid_url = False
+                self.validation_error(e)
 
         self.worker.title_label.connect(
             lambda txt=self.yt.title: self.title_label.setText(str(txt)))
@@ -183,37 +189,36 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Start the thread.
         self.thread.start()
 
-    # To download the video.
-    def download_video(self):
+    # To add video to queue.
+    def add_video_to_queue(self):
         if self.valid_url:
-            if self._manager_subwindow is None:
-                self._manager_subwindow = Manager(self.url)
-                self._manager_subwindow.show()
-                self._manager_subwindow.activateWindow()
+            # If it's not already in the list append it.
+            if self.url not in self.list_of_video_urls:
+                self.list_of_video_urls.append(self.url)
+                print(f"List of videos: {self.list_of_video_urls}")
         else:
             QMessageBox.information(self, "PyDownload | Advertencia",
                                     "No ha introucido ningún enlace válido. Inténtelo de nuevo.")
 
-    # To download the audio.
-    def download_audio(self):
+    # To add audio to queue.
+    def add_audio_to_queue(self):
         if self.valid_url:
-            self.change_status("Descargando audio...", "grey")
-
-            frequencies = {"1": "48kbps", "2": "50kbps",
-                           "3": "70kbps", "4": "128kbps", "5": "160kbps"}
-
-            ya = self.yt(self.url).streams.filter(only_audio=True).all()
-
-            ya.download(QSettings.value("downloads-path"))
-
-            self.change_status("Vídeo descargado correctamente...", "green")
-
+            # If it's not already in the list append it.
+            if self.url not in self.list_of_audio_urls:
+                self.list_of_audio_urls.append(self.url)
+                print(f"List of videos: {self.list_of_audio_urls}")
         else:
             QMessageBox.information(self, "PyDownload | Advertencia",
                                     "No ha introducido ningún enlace válido. Por favor inténtelo de nuevo.")
 
     # Error when validating.
-    def validation_error(self, e):
+    @staticmethod
+    def validation_error(e):
+        """[summary]
+
+        Args:
+            e ([str]): [Exception]
+        """
         print(f"Error: {e}")
         msg = QMessageBox()
         msg.setWindowTitle("PyDownload | URL no válida")
