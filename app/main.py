@@ -169,22 +169,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.url = self.url_input.text()
         if self.url != "https://www.youtube.com/":
             try:
-                self.valid_url = True
-                self.yt = YouTube(self.url)
+                if self.url.startswith("watch?v=", 24, 32):
+                    self.valid_url = True
+                    self.yt = YouTube(self.url)
+
+                    self.worker.title_label.connect(
+                        lambda txt=self.yt.title: self.title_label.setText(str(txt)))
+                    self.worker.lenght_label.connect(
+                        lambda txt=self.yt.length: self.lenght_label.setText(str(txt)))
+                    self.worker.publish_date_label.connect(
+                        lambda txt=self.yt.publish_date: self.publish_date_label.setText(str(txt)))
+                    self.worker.rating_label.connect(
+                        lambda txt=self.yt.rating: self.rating_label.setText(str(txt)))
+                    self.worker.views_label.connect(
+                        lambda txt=self.yt.views: self.views_label.setText(str(txt)))
+
             except Exception as e:
                 self.valid_url = False
                 self.validation_error(e)
-
-        self.worker.title_label.connect(
-            lambda txt=self.yt.title: self.title_label.setText(str(txt)))
-        self.worker.lenght_label.connect(
-            lambda txt=self.yt.length: self.lenght_label.setText(str(txt)))
-        self.worker.publish_date_label.connect(
-            lambda txt=self.yt.publish_date: self.publish_date_label.setText(str(txt)))
-        self.worker.rating_label.connect(
-            lambda txt=self.yt.rating: self.rating_label.setText(str(txt)))
-        self.worker.views_label.connect(
-            lambda txt=self.yt.views: self.views_label.setText(str(txt)))
 
         # Start the thread.
         self.thread.start()
