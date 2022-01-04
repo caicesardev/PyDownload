@@ -49,17 +49,11 @@ class Worker(QObject):
 
     def run(self):
         self.yt = YouTube(self.url)
-        print("Updating title label...", self.yt.title)
         self.title_label.emit(self.yt.title)
-        print("Updating lenght label...", self.yt.length)
         self.lenght_label.emit(self.yt.length)
-        print("Updating publish date label...", self.yt.publish_date)
         self.publish_date_label.emit(str(self.yt.publish_date))
-        print("Updatin rating label...", self.yt.rating)
         self.rating_label.emit(self.yt.rating)
-        print("Updating views label...", self.yt.views)
         self.views_label.emit(self.yt.views)
-        print("Finished all updates.")
         self.finished.emit()
 
 
@@ -241,7 +235,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                     "No ha introducido ningún enlace válido. Por favor inténtelo de nuevo.")
 
     # Error when validating.
-    @ staticmethod
+    @staticmethod
     def validation_error(e):
         """[summary]
 
