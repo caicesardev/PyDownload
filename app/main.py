@@ -42,8 +42,6 @@ class Worker(QObject):
     author_label = Signal(str)
     views_label = Signal(str)
 
-    # Make self.yt send it's values via Signals.
-
     def __init__(self, url):
         super(Worker, self).__init__()
         self.url = url
@@ -53,7 +51,7 @@ class Worker(QObject):
         self.title_label.emit(self.yt.title)
         self.lenght_label.emit(str(datetime.timedelta(seconds=self.yt.length)))
         self.publish_date_label.emit(
-            str(self.yt.publish_date.strftime("%-d de %B de %Y")))
+            str(self.yt.publish_date.strftime("%d de %b de %Y")))
         self.author_label.emit(self.yt.author)
         self.views_label.emit(str(f"{self.yt.views:,}"))
         self.finished.emit()
@@ -128,7 +126,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def on_download_manager_button_clicked(self):
         if self._manager_subwindow is None:
-            self._manager_subwindow = Manager(self.list_of_video_urls, self.list_of_audio_urls)
+            self._manager_subwindow = Manager(
+                self.list_of_video_urls, self.list_of_audio_urls)
         self._manager_subwindow.show()
         self._manager_subwindow.activateWindow()
 
