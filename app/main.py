@@ -1,7 +1,7 @@
 import sys
 import os
 import subprocess
-from PySide6.QtGui import QIcon
+import datetime
 
 from pytube import YouTube
 
@@ -13,6 +13,7 @@ from settings import Settings
 from about import About
 
 from PySide6 import QtWebEngineWidgets
+from PySide6.QtGui import QIcon
 from PySide6.QtCore import (
     QLibraryInfo,
     QLocale,
@@ -36,10 +37,10 @@ __version__ = "1.0.0"
 class Worker(QObject):
     finished = Signal()
     title_label = Signal(str)
-    lenght_label = Signal(int)
+    lenght_label = Signal(str)
     publish_date_label = Signal(str)
-    rating_label = Signal(int)
-    views_label = Signal(int)
+    author_label = Signal(str)
+    views_label = Signal(str)
 
     # Make self.yt send it's values via Signals.
 
@@ -50,10 +51,11 @@ class Worker(QObject):
     def run(self):
         self.yt = YouTube(self.url)
         self.title_label.emit(self.yt.title)
-        self.lenght_label.emit(self.yt.length)
-        self.publish_date_label.emit(str(self.yt.publish_date))
-        self.rating_label.emit(self.yt.rating)
-        self.views_label.emit(self.yt.views)
+        self.lenght_label.emit(str(datetime.timedelta(seconds=self.yt.length)))
+        self.publish_date_label.emit(
+            str(self.yt.publish_date.strftime("%-d de %B de %Y")))
+        self.author_label.emit(self.yt.author)
+        self.views_label.emit(str(f"{self.yt.views:,}"))
         self.finished.emit()
 
 
@@ -126,7 +128,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def on_download_manager_button_clicked(self):
         if self._manager_subwindow is None:
-            self._manager_subwindow = Manager(self.url)
+            self._manager_subwindow = Manager(self.list_of_video_urls, self.list_of_audio_urls)
         self._manager_subwindow.show()
         self._manager_subwindow.activateWindow()
 
@@ -185,8 +187,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         self.update_lenght_label_event)
                     self.worker.publish_date_label.connect(
                         self.update_publish_date_label_event)
-                    self.worker.rating_label.connect(
-                        self.update_rating_label_event)
+                    self.worker.author_label.connect(
+                        self.update_author_label_event)
                     self.worker.views_label.connect(
                         self.update_views_label_event)
 
@@ -201,16 +203,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.title_label.setText(txt)
 
     def update_lenght_label_event(self, txt):
-        self.lenght_label.setText(str(txt))
+        self.lenght_label.setText(txt)
 
     def update_publish_date_label_event(self, txt):
         self.publish_date_label.setText(txt)
 
-    def update_rating_label_event(self, txt):
-        self.rating_label.setText(str(txt))
+    def update_author_label_event(self, txt):
+        self.author_label.setText(txt)
 
     def update_views_label_event(self, txt):
-        self.views_label.setText(str(txt))
+        self.views_label.setText(txt)
 
     # To add video to queue.
     def add_video_to_queue(self):
@@ -235,7 +237,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                     "No ha introducido ningún enlace válido. Por favor inténtelo de nuevo.")
 
     # Error when validating.
-    @staticmethod
+    @ staticmethod
     def validation_error(e):
         """[summary]
 

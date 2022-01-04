@@ -492,9 +492,6 @@ margin-right: 10px;</string>
           <item row="0" column="1">
            <widget class="QFrame" name="details_frame">
             <layout class="QVBoxLayout" name="verticalLayout_6">
-             <property name="spacing">
-              <number>0</number>
-             </property>
              <property name="leftMargin">
               <number>0</number>
              </property>
@@ -532,7 +529,7 @@ margin-right: 10px;</string>
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="rating_label">
+              <widget class="QLabel" name="author_label">
                <property name="font">
                 <font>
                  <pointsize>10</pointsize>
@@ -568,7 +565,7 @@ margin-right: 10px;</string>
               <number>0</number>
              </property>
              <property name="rightMargin">
-              <number>0</number>
+              <number>5</number>
              </property>
              <property name="bottomMargin">
               <number>0</number>
@@ -579,7 +576,7 @@ margin-right: 10px;</string>
                 <font/>
                </property>
                <property name="text">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:700; color:#717171;&quot;&gt;Duración&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700; color:#717171;&quot;&gt;Duración:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
               </widget>
              </item>
@@ -589,17 +586,17 @@ margin-right: 10px;</string>
                 <font/>
                </property>
                <property name="text">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:700; color:#717171;&quot;&gt;Fecha de Publicación&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700; color:#717171;&quot;&gt;Fecha de Publicación:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="rlabel">
+              <widget class="QLabel" name="alabel">
                <property name="font">
                 <font/>
                </property>
                <property name="text">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:700; color:#717171;&quot;&gt;Valoración&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:696; color:#717171;&quot;&gt;Autor/a:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
               </widget>
              </item>
@@ -609,7 +606,7 @@ margin-right: 10px;</string>
                 <font/>
                </property>
                <property name="text">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:700; color:#717171;&quot;&gt;Visualizaciones&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700; color:#717171;&quot;&gt;Visualizaciones:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
               </widget>
              </item>

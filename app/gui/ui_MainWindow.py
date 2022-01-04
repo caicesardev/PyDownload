@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-# Form generated from reading UI file 'MainWindowUKnJmI.ui'
+# Form generated from reading UI file 'MainWindowpguOgS.ui'
 ##
 # Created by: Qt User Interface Compiler version 6.2.1
 ##
@@ -320,7 +320,6 @@ class Ui_MainWindow(object):
         self.details_frame = QFrame(self.footer_frame)
         self.details_frame.setObjectName(u"details_frame")
         self.verticalLayout_6 = QVBoxLayout(self.details_frame)
-        self.verticalLayout_6.setSpacing(0)
         self.verticalLayout_6.setObjectName(u"verticalLayout_6")
         self.verticalLayout_6.setContentsMargins(0, 0, 0, 0)
         self.lenght_label = QLabel(self.details_frame)
@@ -335,11 +334,11 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_6.addWidget(self.publish_date_label)
 
-        self.rating_label = QLabel(self.details_frame)
-        self.rating_label.setObjectName(u"rating_label")
-        self.rating_label.setFont(font2)
+        self.author_label = QLabel(self.details_frame)
+        self.author_label.setObjectName(u"author_label")
+        self.author_label.setFont(font2)
 
-        self.verticalLayout_6.addWidget(self.rating_label)
+        self.verticalLayout_6.addWidget(self.author_label)
 
         self.views_label = QLabel(self.details_frame)
         self.views_label.setObjectName(u"views_label")
@@ -353,7 +352,7 @@ class Ui_MainWindow(object):
         self.details_labels_frame.setObjectName(u"details_labels_frame")
         self.verticalLayout_5 = QVBoxLayout(self.details_labels_frame)
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
-        self.verticalLayout_5.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_5.setContentsMargins(0, 0, 5, 0)
         self.llabel = QLabel(self.details_labels_frame)
         self.llabel.setObjectName(u"llabel")
         self.llabel.setFont(font)
@@ -366,11 +365,11 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_5.addWidget(self.pdlabel)
 
-        self.rlabel = QLabel(self.details_labels_frame)
-        self.rlabel.setObjectName(u"rlabel")
-        self.rlabel.setFont(font)
+        self.alabel = QLabel(self.details_labels_frame)
+        self.alabel.setObjectName(u"alabel")
+        self.alabel.setFont(font)
 
-        self.verticalLayout_5.addWidget(self.rlabel)
+        self.verticalLayout_5.addWidget(self.alabel)
 
         self.vlabel = QLabel(self.details_labels_frame)
         self.vlabel.setObjectName(u"vlabel")
@@ -459,18 +458,18 @@ class Ui_MainWindow(object):
             "MainWindow", u"<html><head/><body><p><br/></p></body></html>", None))
         self.publish_date_label.setText(QCoreApplication.translate(
             "MainWindow", u"<html><head/><body><p><br/></p></body></html>", None))
-        self.rating_label.setText(QCoreApplication.translate(
+        self.author_label.setText(QCoreApplication.translate(
             "MainWindow", u"<html><head/><body><p><br/></p></body></html>", None))
         self.views_label.setText(QCoreApplication.translate(
             "MainWindow", u"<html><head/><body><p><br/></p></body></html>", None))
         self.llabel.setText(QCoreApplication.translate(
-            "MainWindow", u"<html><head/><body><p><span style=\" font-size:10pt; font-weight:700; color:#717171;\">Duraci\u00f3n</span></p></body></html>", None))
+            "MainWindow", u"<html><head/><body><p><span style=\" font-weight:700; color:#717171;\">Duraci\u00f3n:</span></p></body></html>", None))
         self.pdlabel.setText(QCoreApplication.translate(
-            "MainWindow", u"<html><head/><body><p><span style=\" font-size:10pt; font-weight:700; color:#717171;\">Fecha de Publicaci\u00f3n</span></p></body></html>", None))
-        self.rlabel.setText(QCoreApplication.translate(
-            "MainWindow", u"<html><head/><body><p><span style=\" font-size:10pt; font-weight:700; color:#717171;\">Valoraci\u00f3n</span></p></body></html>", None))
+            "MainWindow", u"<html><head/><body><p><span style=\" font-weight:700; color:#717171;\">Fecha de Publicaci\u00f3n:</span></p></body></html>", None))
+        self.alabel.setText(QCoreApplication.translate(
+            "MainWindow", u"<html><head/><body><p><span style=\" font-weight:696; color:#717171;\">Autor/a:</span></p></body></html>", None))
         self.vlabel.setText(QCoreApplication.translate(
-            "MainWindow", u"<html><head/><body><p><span style=\" font-size:10pt; font-weight:700; color:#717171;\">Visualizaciones</span></p></body></html>", None))
+            "MainWindow", u"<html><head/><body><p><span style=\" font-weight:700; color:#717171;\">Visualizaciones:</span></p></body></html>", None))
 # if QT_CONFIG(tooltip)
         self.add_to_queue_button.setToolTip(QCoreApplication.translate(
             "MainWindow", u"Agregar a la cola de descargas", None))

@@ -34,21 +34,24 @@ from PySide6.QtWidgets import (
 
 # Manager.
 class Manager(QMainWindow, Ui_Manager):
-    def __init__(self, u_list):
+    def __init__(self, v_list, a_list):
+        """[summary]
+        Args:
+            v_list ([list]): [List of video urls to be downloaded.]
+            a_list ([list]): [List of audio urls to be downloaded.]
+        """
         super(Manager, self).__init__()
 
         self.setupUi(self)
 
-        self.urls = u_list
+        self.v_list = v_list
+        self.a_list = a_list
 
         # Get user settings.
         self.get_settings()
 
-        # Fetch downloads. Creates a list (urls_list).
-        self.search_downloads()
-
         # If there are downloads in the list:
-        if len(self.urls_list) > 0:
+        if len(self.v_list) > 0 and len(self.a_list) > 0:
             self.show_downloads()
         # If there are no downloads in the list:
         else:
@@ -78,11 +81,6 @@ class Manager(QMainWindow, Ui_Manager):
             "preferred-video-format")]
         self.preferred_video_quality = self.resolutions[self.preferences.value(
             "preferred-video-quality")]
-
-    def search_downloads(self):
-        self.urls_list = []
-        if self.url is not "":
-            self.urls_list.append(self.url)
 
     def no_downloads(self):
         self.verticalLayout_3.takeAt(0)
@@ -121,7 +119,118 @@ class Manager(QMainWindow, Ui_Manager):
         self.manager_content_widget.setLayout(VBox)
 
     def show_downloads(self):
-        print(self.urls_list)
+        for i in enumerate(self.v_list):
+            self.create_download_frame()
+
+        for i in enumerate(self.a_list):
+            self.create_download_frame()
+
+    def create_download_frame(self):
+        #################### GUI DECLARATION ####################
+        self.download_frame = QFrame(self.manager_content_widget)
+        self.download_frame.setObjectName(u"download_frame")
+        self.verticalLayout_5 = QVBoxLayout(self.download_frame)
+        self.verticalLayout_5.setObjectName(u"verticalLayout_5")
+        self.head_frame = QFrame(self.download_frame)
+        self.head_frame.setObjectName(u"head_frame")
+        self.horizontalLayout_3 = QHBoxLayout(self.head_frame)
+        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
+        self.horizontalLayout_3.setContentsMargins(-1, 0, -1, 0)
+        self.file_title_label = QLabel(self.head_frame)
+        self.file_title_label.setObjectName(u"file_title_label")
+        font1 = QFont()
+        font1.setBold(True)
+        self.file_title_label.setFont(font1)
+        self.horizontalLayout_3.addWidget(self.file_title_label)
+        self.horizontal_spacer = QSpacerItem(
+            40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalLayout_3.addItem(self.horizontal_spacer)
+        self.file_type_label = QLabel(self.head_frame)
+        self.file_type_label.setObjectName(u"file_type_label")
+        font2 = QFont()
+        font2.setPointSize(10)
+        font2.setBold(False)
+        self.file_type_label.setFont(font2)
+        self.horizontalLayout_3.addWidget(self.file_type_label)
+        self.file_size_label = QLabel(self.head_frame)
+        self.file_size_label.setObjectName(u"file_size_label")
+        font3 = QFont()
+        font3.setPointSize(10)
+        self.file_size_label.setFont(font3)
+        self.horizontalLayout_3.addWidget(self.file_size_label)
+        self.verticalLayout_5.addWidget(self.head_frame)
+        self.line = QFrame(self.download_frame)
+        self.line.setObjectName(u"line")
+        self.line.setStyleSheet(u"background-color: darkgreen;\n"
+                                "margin-left: 15px;\n"
+                                "margin-right: 10px;")
+        self.line.setFrameShape(QFrame.HLine)
+        self.line.setFrameShadow(QFrame.Sunken)
+        self.verticalLayout_5.addWidget(self.line)
+        self.mid_frame = QFrame(self.download_frame)
+        self.mid_frame.setObjectName(u"mid_frame")
+        self.horizontalLayout_6 = QHBoxLayout(self.mid_frame)
+        self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
+        self.horizontalLayout_6.setContentsMargins(-1, -1, -1, 0)
+        self.download_type_image = QLabel(self.mid_frame)
+        self.download_type_image.setObjectName(u"download_type_image")
+        self.download_type_image.setMaximumSize(QSize(32, 32))
+        self.download_type_image.setScaledContents(True)
+        self.horizontalLayout_6.addWidget(self.download_type_image)
+        self.download_progress_bar = QProgressBar(self.mid_frame)
+        self.download_progress_bar.setObjectName(
+            u"download_progress_bar")
+        self.horizontalLayout_6.addWidget(self.download_progress_bar)
+        self.play_tool_button = QToolButton(self.mid_frame)
+        self.play_tool_button.setObjectName(u"play_tool_button")
+        icon = QIcon()
+        icon.addFile(u"../res/images/play.png",
+                     QSize(), QIcon.Normal, QIcon.Off)
+        self.play_tool_button.setIcon(icon)
+        self.play_tool_button.setIconSize(QSize(24, 24))
+        self.play_tool_button.setToolTip("Continuar la descarga")
+        self.horizontalLayout_6.addWidget(self.play_tool_button)
+        self.pause_tool_button = QToolButton(self.mid_frame)
+        self.pause_tool_button.setObjectName(u"pause_tool_button")
+        icon1 = QIcon()
+        icon1.addFile(u"../res/images/pause.png",
+                      QSize(), QIcon.Normal, QIcon.Off)
+        self.pause_tool_button.setIcon(icon1)
+        self.pause_tool_button.setIconSize(QSize(24, 24))
+        self.pause_tool_button.setToolTip("Pausar la descarga")
+        self.horizontalLayout_6.addWidget(self.pause_tool_button)
+        self.cancel_tool_button = QToolButton(self.mid_frame)
+        self.cancel_tool_button.setObjectName(u"cancel_tool_button")
+        icon2 = QIcon()
+        icon2.addFile(u"../res/images/cancel.png",
+                      QSize(), QIcon.Normal, QIcon.Off)
+        self.cancel_tool_button.setIcon(icon2)
+        self.cancel_tool_button.setIconSize(QSize(24, 24))
+        self.cancel_tool_button.setToolTip("Cancelar la descarga")
+        self.horizontalLayout_6.addWidget(self.cancel_tool_button)
+        self.verticalLayout_5.addWidget(self.mid_frame)
+        self.bottom_frame = QFrame(self.download_frame)
+        self.bottom_frame.setObjectName(u"bottom_frame")
+        self.horizontalLayout_9 = QHBoxLayout(self.bottom_frame)
+        self.horizontalLayout_9.setObjectName(u"horizontalLayout_9")
+        self.total_downloaded_label = QLabel(self.bottom_frame)
+        self.total_downloaded_label.setObjectName(
+            u"total_downloaded_label")
+        self.total_downloaded_label.setFont(font3)
+        self.horizontalLayout_9.addWidget(self.total_downloaded_label)
+        self.estimated_time_label = QLabel(self.bottom_frame)
+        self.estimated_time_label.setObjectName(
+            u"estimated_time_label")
+        self.estimated_time_label.setFont(font3)
+        self.estimated_time_label.setAlignment(
+            Qt.AlignRight | Qt.AlignTrailing | Qt.AlignVCenter)
+        self.horizontalLayout_9.addWidget(self.estimated_time_label)
+        self.verticalLayout_5.addWidget(self.bottom_frame)
+        self.verticalLayout_4.addWidget(self.download_frame)
+        self.verticalSpacer = QSpacerItem(
+            20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.verticalLayout_4.addItem(self.verticalSpacer)
+        #################### GUI DECLARATION ####################
 
     def resume_all(self):
         # You can only resume all downloads if there are any present.
@@ -137,7 +246,7 @@ class Manager(QMainWindow, Ui_Manager):
 
     def cancel_all(self):
         # You can only cancel all downloads if there are any present.
-        if len(self.urls_list) > 0:
+        if len(self.v_list) > 0 and len(self.a_list) > 0:
             answer = QMessageBox.question(self, "PyDownload | Cancelar descargas",
                                           "¿Está seguro de que desea cancelar todas las descargas?")
             if answer == QMessageBox.Yes:
