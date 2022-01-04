@@ -44,7 +44,7 @@ class Manager(QMainWindow, Ui_Manager):
         # Get user settings.
         self.get_settings()
 
-        # Fetch downloads. Creates a list (urls_list)
+        # Fetch downloads. Creates a list (urls_list).
         self.search_downloads()
 
         # If there are downloads in the list:

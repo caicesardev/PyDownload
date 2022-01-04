@@ -35,18 +35,31 @@ __version__ = "1.0.0"
 # Worker class to update details labels.
 class Worker(QObject):
     finished = Signal()
-    title_label = Signal()
-    lenght_label = Signal()
-    publish_date_label = Signal()
-    rating_label = Signal()
-    views_label = Signal()
+    title_label = Signal(str)
+    lenght_label = Signal(int)
+    publish_date_label = Signal(str)
+    rating_label = Signal(int)
+    views_label = Signal(int)
+
+    # Make self.yt send it's values via Signals.
+
+    def __init__(self, url):
+        super(Worker, self).__init__()
+        self.url = url
 
     def run(self):
-        self.title_label.emit()
-        self.lenght_label.emit()
-        self.publish_date_label.emit()
-        self.rating_label.emit()
-        self.views_label.emit()
+        self.yt = YouTube(self.url)
+        print("Updating title label...", self.yt.title)
+        self.title_label.emit(self.yt.title)
+        print("Updating lenght label...", self.yt.length)
+        self.lenght_label.emit(self.yt.length)
+        print("Updating publish date label...", self.yt.publish_date)
+        self.publish_date_label.emit(str(self.yt.publish_date))
+        print("Updatin rating label...", self.yt.rating)
+        self.rating_label.emit(self.yt.rating)
+        print("Updating views label...", self.yt.views)
+        self.views_label.emit(self.yt.views)
+        print("Finished all updates.")
         self.finished.emit()
 
 
@@ -154,10 +167,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     # Show details of the searched video.
     def show_details(self):
+        self.url = self.url_input.text()
         # Create a QThread object.
         self.thread = QThread()
         # Create a worker object.
-        self.worker = Worker()
+        self.worker = Worker(self.url)
         # Move worker to the thread.
         self.worker.moveToThread(self.thread)
         # Connect signals and slots
@@ -166,30 +180,43 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.worker.finished.connect(self.worker.deleteLater)
         self.thread.finished.connect(self.thread.deleteLater)
 
-        self.url = self.url_input.text()
         if self.url != "https://www.youtube.com/":
             try:
                 if self.url.startswith("watch?v=", 24, 32):
                     self.valid_url = True
-                    self.yt = YouTube(self.url)
 
                     self.worker.title_label.connect(
-                        lambda txt=self.yt.title: self.title_label.setText(str(txt)))
+                        self.update_title_label_event)
                     self.worker.lenght_label.connect(
-                        lambda txt=self.yt.length: self.lenght_label.setText(str(txt)))
+                        self.update_lenght_label_event)
                     self.worker.publish_date_label.connect(
-                        lambda txt=self.yt.publish_date: self.publish_date_label.setText(str(txt)))
+                        self.update_publish_date_label_event)
                     self.worker.rating_label.connect(
-                        lambda txt=self.yt.rating: self.rating_label.setText(str(txt)))
+                        self.update_rating_label_event)
                     self.worker.views_label.connect(
-                        lambda txt=self.yt.views: self.views_label.setText(str(txt)))
+                        self.update_views_label_event)
+
+                    # Start the thread.
+                    self.thread.start()
 
             except Exception as e:
                 self.valid_url = False
                 self.validation_error(e)
 
-        # Start the thread.
-        self.thread.start()
+    def update_title_label_event(self, txt):
+        self.title_label.setText(txt)
+
+    def update_lenght_label_event(self, txt):
+        self.lenght_label.setText(str(txt))
+
+    def update_publish_date_label_event(self, txt):
+        self.publish_date_label.setText(txt)
+
+    def update_rating_label_event(self, txt):
+        self.rating_label.setText(str(txt))
+
+    def update_views_label_event(self, txt):
+        self.views_label.setText(str(txt))
 
     # To add video to queue.
     def add_video_to_queue(self):
@@ -214,7 +241,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                     "No ha introducido ningún enlace válido. Por favor inténtelo de nuevo.")
 
     # Error when validating.
-    @staticmethod
+    @ staticmethod
     def validation_error(e):
         """[summary]
 
