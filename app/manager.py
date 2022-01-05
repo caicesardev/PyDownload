@@ -43,66 +43,44 @@ class Worker(QObject):
     total_downloaded_label = Signal(str)
     estimated_time_label = Signal(str)
 
-    def __init__(self, v_urls, a_urls):
+    def __init__(self, url):
         super(Worker, self).__init__()
 
         self.get_required_settings()
-        self.v_urls = v_urls
-        self.a_urls = a_urls
+
+        self.url = url
 
     def run(self):
-        for v_url in self.v_urls:
-            self.yt = YouTube(v_url)
 
-            # Try to filter, if there is no match get the highest resolution.
-            try:
-                print("Getting stream")
-                print(self.preferred_video_format)
-                print(self.preferred_video_quality)
-                self.stream = self.yt.streams.filter(
-                    file_extension=f"{self.preferred_video_format}",
-                    resolution=f"{self.preferred_video_quality}",
-                    progressive=True,
-                ).first()
-                print("Got stream")
+        self.yt = YouTube(self.url)
 
-                self.file_title_label.emit(str(self.yt.title))
-                self.file_type_label.emit(str(self.preferred_video_format))
-                self.download_type_image.emit(
-                    QPixmap(u"../res/images/youtube.png"))
-                self.download_progress_bar.emit(0)
-                self.file_size_label.emit(str(self.stream.filesize // 120))
-                self.total_downloaded_label.emit("25MB/413MB")
-                self.estimated_time_label.emit("Tiempo estimado: 10 Minutos")
-
-            except Exception:
-                print("Getting highest resolution stream")
-                self.stream = self.yt.streams.get_highest_resolution()
-
-                print("Updating file title label")
-                self.file_title_label.emit(str(self.yt.title))
-                print("Updating file type label")
-                self.file_type_label.emit(str(self.preferred_video_format))
-                print("Updating download type image")
-                self.download_type_image.emit(
-                    str(u"../res/images/youtube.png"))
-                print("Updating progress bar")
-                self.download_progress_bar.emit(50)
-                print("Updating file size label")
-                self.file_size_label.emit(str(self.stream.filesize // 120))
-                print("Updating total downloaded label")
-                self.total_downloaded_label.emit("25MB/413MB")
-                print("Updating estimated time label")
-                self.estimated_time_label.emit("Tiempo estimado: 10 Minutos")
-
-        for a_url in self.a_urls:
-            self.ya = YouTube(a_url)
-
-            print(a_url)
-
-        self.finished.emit()
-
-        # FIX BUG: THREAD GETS DESTROYED WHILE RUNNING WHEN ADDING MORE THAN ONE STREAM.
+        # Try to filter, if there is no match get the highest resolution.
+        try:
+            self.stream = self.yt.streams.filter(
+                file_extension=self.preferred_video_format,
+                resolution=self.preferred_video_quality,
+                progressive=True,
+            ).first()
+            self.file_title_label.emit(str(self.yt.title))
+            self.file_type_label.emit(str(self.preferred_video_format))
+            self.download_type_image.emit(
+                QPixmap(u"../res/images/youtube.png"))
+            self.download_progress_bar.emit(0)
+            self.file_size_label.emit(str(self.stream.filesize // 120))
+            self.total_downloaded_label.emit("25MB/413MB")
+            self.estimated_time_label.emit("Tiempo estimado: 10 Minutos")
+            self.finished.emit()
+        except Exception:
+            self.stream = self.yt.streams.get_highest_resolution()
+            self.file_title_label.emit(str(self.yt.title))
+            self.file_type_label.emit(str(self.preferred_video_format))
+            self.download_type_image.emit(
+                str(u"../res/images/youtube.png"))
+            self.download_progress_bar.emit(50)
+            self.file_size_label.emit(str(self.stream.filesize // 120))
+            self.total_downloaded_label.emit("25MB/413MB")
+            self.estimated_time_label.emit("Tiempo estimado: 10 Minutos")
+            self.finished.emit()
 
     def get_required_settings(self):
         self.preferences = QSettings("PyDownload", "Preferences")
@@ -208,13 +186,14 @@ class Manager(QMainWindow, Ui_Manager):
         self.manager_content_widget.setLayout(VBox)
 
     def show_downloads(self):
-        for i in enumerate(self.v_list):
-            self.create_download_frame()
+        for v_url in self.v_list:
+            self.create_download_frame(v_url)
 
-        for i in enumerate(self.a_list):
-            self.create_download_frame()
+        for a_url in self.a_list:
+            self.create_download_frame(a_url)
 
-    def create_download_frame(self):
+    def create_download_frame(self, url):
+        print("Working with url:", url)
         # region
         #################### GUI DECLARATION ####################
         self.download_frame = QFrame(self.manager_content_widget)
@@ -323,36 +302,57 @@ class Manager(QMainWindow, Ui_Manager):
         #################### GUI DECLARATION ####################
         # endregion
 
+        # MIGHT NEED TO ADD THREADPOOL
+
         # Create a QThread object.
+        print("Create a QThread object.")
         self.thread = QThread()
         # Create a worker object.
-        self.worker = Worker(self.v_list, self.a_list)
+        print("Create a worker object.")
+        self.worker = Worker(url)
         # Move worker to the thread.
+        print("Move worker to the thread.")
         self.worker.moveToThread(self.thread)
-        # Connect signals and slots
+        # Connect signals and slots.
+        print("Connect signals and slots.")
         self.thread.started.connect(self.worker.run)
         self.worker.finished.connect(self.thread.quit)
         self.worker.finished.connect(self.worker.deleteLater)
         self.thread.finished.connect(self.thread.deleteLater)
 
+        # File Title Label.
         self.worker.file_title_label.connect(
             self.update_file_title_label_event)
+
+        # File Type Label.
         self.worker.file_type_label.connect(
             self.update_file_type_label_event)
+
+        # Download Type Image.
         self.worker.download_type_image.connect(
             self.update_download_type_image_event)
+
+        # Download Progress Bar.
         self.worker.download_progress_bar.connect(
             self.update_download_progress_bar_event)
+
+        # File Size Label.
         self.worker.file_size_label.connect(
             self.update_file_size_label_event)
+
+        # Total Downloaded Label.
         self.worker.total_downloaded_label.connect(
             self.update_total_downloaded_label_event)
+
+        # Estimated Time Label.
         self.worker.estimated_time_label.connect(
             self.update_estimated_time_label_event)
 
         # Start the thread.
+        print("Start the thread.")
         self.thread.start()
 
+    # >- EVENTS -<
     def update_file_title_label_event(self, txt):
         self.file_title_label.setText(txt)
 
@@ -373,6 +373,7 @@ class Manager(QMainWindow, Ui_Manager):
 
     def update_estimated_time_label_event(self, txt):
         self.estimated_time_label.setText(str(txt))
+    # >- EVENTS -<
 
     def resume_all(self):
         # You can only resume all downloads if there are any present.
