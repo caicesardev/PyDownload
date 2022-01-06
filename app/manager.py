@@ -7,17 +7,12 @@ import time
 from PySide6.QtGui import QPixmap, QFont, QIcon
 from PySide6.QtCore import (
     Qt,
-    QObject,
     QSettings,
-    QLibraryInfo,
     QRect,
     QSize,
-    QLocale,
-    QTranslator,
     QThread,
     Signal)
 from PySide6.QtWidgets import (
-    QApplication,
     QLabel,
     QMainWindow,
     QMessageBox,
@@ -33,7 +28,7 @@ from PySide6.QtWidgets import (
 
 
 # Worker class.
-class Worker(QObject):
+class ThreadClass(QThread):
     finished = Signal()
     file_title_label = Signal(str)
     file_type_label = Signal(str)
@@ -43,12 +38,14 @@ class Worker(QObject):
     total_downloaded_label = Signal(str)
     estimated_time_label = Signal(str)
 
-    def __init__(self, url):
-        super(Worker, self).__init__()
+    def __init__(self, url, index):
+        super(ThreadClass, self).__init__()
+
+        self.is_running = True
+        self.url = url
+        self.index = index
 
         self.get_required_settings()
-
-        self.url = url
 
     def run(self):
 
@@ -69,7 +66,6 @@ class Worker(QObject):
             self.file_size_label.emit(str(self.stream.filesize // 120))
             self.total_downloaded_label.emit("25MB/413MB")
             self.estimated_time_label.emit("Tiempo estimado: 10 Minutos")
-            self.finished.emit()
         except Exception:
             self.stream = self.yt.streams.get_highest_resolution()
             self.file_title_label.emit(str(self.yt.title))
@@ -80,7 +76,11 @@ class Worker(QObject):
             self.file_size_label.emit(str(self.stream.filesize // 120))
             self.total_downloaded_label.emit("25MB/413MB")
             self.estimated_time_label.emit("Tiempo estimado: 10 Minutos")
-            self.finished.emit()
+
+    def stop(self):
+        self.is_running = False
+        print(f"Stopping thread number: {self.index}")
+        self.terminate()
 
     def get_required_settings(self):
         self.preferences = QSettings("PyDownload", "Preferences")
@@ -113,6 +113,8 @@ class Manager(QMainWindow, Ui_Manager):
 
         self.v_list = v_list
         self.a_list = a_list
+
+        self.thread = {}
 
         # Get user settings.
         self.get_settings()
@@ -186,14 +188,17 @@ class Manager(QMainWindow, Ui_Manager):
         self.manager_content_widget.setLayout(VBox)
 
     def show_downloads(self):
+        i = 0
         for v_url in self.v_list:
-            self.create_download_frame(v_url)
+            i += 1
+            self.create_download_frame(v_url, i)
 
         for a_url in self.a_list:
-            self.create_download_frame(a_url)
+            i += 1
+            self.create_download_frame(a_url, i)
 
-    def create_download_frame(self, url):
-        print("Working with url:", url)
+    def create_download_frame(self, url, i):
+        print(f"Working with download number {i} url: {url}")
         # region
         #################### GUI DECLARATION ####################
         self.download_frame = QFrame(self.manager_content_widget)
@@ -302,55 +307,44 @@ class Manager(QMainWindow, Ui_Manager):
         #################### GUI DECLARATION ####################
         # endregion
 
-        # MIGHT NEED TO ADD THREADPOOL
-
         # Create a QThread object.
         print("Create a QThread object.")
-        self.thread = QThread()
-        # Create a worker object.
-        print("Create a worker object.")
-        self.worker = Worker(url)
-        # Move worker to the thread.
-        print("Move worker to the thread.")
-        self.worker.moveToThread(self.thread)
-        # Connect signals and slots.
-        print("Connect signals and slots.")
-        self.thread.started.connect(self.worker.run)
-        self.worker.finished.connect(self.thread.quit)
-        self.worker.finished.connect(self.worker.deleteLater)
-        self.thread.finished.connect(self.thread.deleteLater)
+        self.thread[i] = ThreadClass(url, i)
+        # Start the thread.
+        print("Starting the thread.")
+        self.thread[i].start()
 
         # File Title Label.
-        self.worker.file_title_label.connect(
+        self.thread[i].file_title_label.connect(
             self.update_file_title_label_event)
 
         # File Type Label.
-        self.worker.file_type_label.connect(
+        self.thread[i].file_type_label.connect(
             self.update_file_type_label_event)
 
         # Download Type Image.
-        self.worker.download_type_image.connect(
+        self.thread[i].download_type_image.connect(
             self.update_download_type_image_event)
 
         # Download Progress Bar.
-        self.worker.download_progress_bar.connect(
+        self.thread[i].download_progress_bar.connect(
             self.update_download_progress_bar_event)
 
         # File Size Label.
-        self.worker.file_size_label.connect(
+        self.thread[i].file_size_label.connect(
             self.update_file_size_label_event)
 
         # Total Downloaded Label.
-        self.worker.total_downloaded_label.connect(
+        self.thread[i].total_downloaded_label.connect(
             self.update_total_downloaded_label_event)
 
         # Estimated Time Label.
-        self.worker.estimated_time_label.connect(
+        self.thread[i].estimated_time_label.connect(
             self.update_estimated_time_label_event)
 
-        # Start the thread.
-        print("Start the thread.")
-        self.thread.start()
+        self.play_tool_button.clicked.connect(self.thread[i].run)
+        self.pause_tool_button.clicked.connect(self.thread[i].stop)
+        self.cancel_tool_button.clicked.connect(self.thread[i].terminate)
 
     # >- EVENTS -<
     def update_file_title_label_event(self, txt):
