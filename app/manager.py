@@ -66,6 +66,13 @@ class ThreadClass(QThread):
             self.file_size_label.emit(str(self.stream.filesize // 120))
             self.total_downloaded_label.emit("25MB/413MB")
             self.estimated_time_label.emit("Tiempo estimado: 10 Minutos")
+
+            while self.is_running:
+                print("Running")
+                time.sleep(3)
+                if not self.is_running:
+                    print("Stopped")
+
         except Exception:
             self.stream = self.yt.streams.get_highest_resolution()
             self.file_title_label.emit(str(self.yt.title))
@@ -78,9 +85,13 @@ class ThreadClass(QThread):
             self.estimated_time_label.emit("Tiempo estimado: 10 Minutos")
 
     def stop(self):
-        self.is_running = False
         print(f"Stopping thread number: {self.index}")
-        self.terminate()
+        self.is_running = False
+
+    def resume(self):
+        print(f"Resuming thread number: {self.index}")
+        self.is_running = True
+        self.start()
 
     def get_required_settings(self):
         self.preferences = QSettings("PyDownload", "Preferences")
@@ -128,9 +139,9 @@ class Manager(QMainWindow, Ui_Manager):
 
         # GUI Buttons.
         self.accept_button.clicked.connect(self.close)
-        self.resume_all_button.clicked.connect(self.resume_all)
-        self.stop_all_button.clicked.connect(self.stop_all)
-        self.cancel_all_button.clicked.connect(self.cancel_all)
+        self.resume_all_button.clicked.connect(self.resume_all_threads)
+        self.stop_all_button.clicked.connect(self.stop_all_threads)
+        self.cancel_all_button.clicked.connect(self.cancel_all_threads)
 
     def get_settings(self):
         # Get registry values.
@@ -202,16 +213,16 @@ class Manager(QMainWindow, Ui_Manager):
         # region
         #################### GUI DECLARATION ####################
         self.download_frame = QFrame(self.manager_content_widget)
-        self.download_frame.setObjectName(u"download_frame")
+        self.download_frame.setObjectName(f"download_frame{i}")
         self.verticalLayout_5 = QVBoxLayout(self.download_frame)
-        self.verticalLayout_5.setObjectName(u"verticalLayout_5")
+        self.verticalLayout_5.setObjectName(f"verticalLayout_5{i}")
         self.head_frame = QFrame(self.download_frame)
-        self.head_frame.setObjectName(u"head_frame")
+        self.head_frame.setObjectName(f"head_frame{i}")
         self.horizontalLayout_3 = QHBoxLayout(self.head_frame)
-        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
+        self.horizontalLayout_3.setObjectName(f"horizontalLayout_3{i}")
         self.horizontalLayout_3.setContentsMargins(-1, 0, -1, 0)
         self.file_title_label = QLabel(self.head_frame)
-        self.file_title_label.setObjectName(u"file_title_label")
+        self.file_title_label.setObjectName(f"file_title_label{i}")
         font1 = QFont()
         font1.setBold(True)
         self.file_title_label.setFont(font1)
@@ -220,21 +231,21 @@ class Manager(QMainWindow, Ui_Manager):
             40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
         self.horizontalLayout_3.addItem(self.horizontal_spacer)
         self.file_type_label = QLabel(self.head_frame)
-        self.file_type_label.setObjectName(u"file_type_label")
+        self.file_type_label.setObjectName(f"file_type_label{i}")
         font2 = QFont()
         font2.setPointSize(10)
         font2.setBold(False)
         self.file_type_label.setFont(font2)
         self.horizontalLayout_3.addWidget(self.file_type_label)
         self.file_size_label = QLabel(self.head_frame)
-        self.file_size_label.setObjectName(u"file_size_label")
+        self.file_size_label.setObjectName(f"file_size_label{i}")
         font3 = QFont()
         font3.setPointSize(10)
         self.file_size_label.setFont(font3)
         self.horizontalLayout_3.addWidget(self.file_size_label)
         self.verticalLayout_5.addWidget(self.head_frame)
         self.line = QFrame(self.download_frame)
-        self.line.setObjectName(u"line")
+        self.line.setObjectName(f"line{i}")
         self.line.setStyleSheet(u"background-color: darkgreen;\n"
                                 "margin-left: 15px;\n"
                                 "margin-right: 10px;")
@@ -242,18 +253,18 @@ class Manager(QMainWindow, Ui_Manager):
         self.line.setFrameShadow(QFrame.Sunken)
         self.verticalLayout_5.addWidget(self.line)
         self.mid_frame = QFrame(self.download_frame)
-        self.mid_frame.setObjectName(u"mid_frame")
+        self.mid_frame.setObjectName(f"mid_frame{i}")
         self.horizontalLayout_6 = QHBoxLayout(self.mid_frame)
-        self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
+        self.horizontalLayout_6.setObjectName(f"horizontalLayout_6{i}")
         self.horizontalLayout_6.setContentsMargins(-1, -1, -1, 0)
         self.download_type_image = QLabel(self.mid_frame)
-        self.download_type_image.setObjectName(u"download_type_image")
+        self.download_type_image.setObjectName(f"download_type_image{i}")
         self.download_type_image.setMaximumSize(QSize(32, 32))
         self.download_type_image.setScaledContents(True)
         self.horizontalLayout_6.addWidget(self.download_type_image)
         self.download_progress_bar = QProgressBar(self.mid_frame)
         self.download_progress_bar.setObjectName(
-            u"download_progress_bar")
+            f"download_progress_bar{i}")
         self.horizontalLayout_6.addWidget(self.download_progress_bar)
         self.play_tool_button = QToolButton(self.mid_frame)
         self.play_tool_button.setObjectName(u"play_tool_button")
@@ -284,17 +295,17 @@ class Manager(QMainWindow, Ui_Manager):
         self.horizontalLayout_6.addWidget(self.cancel_tool_button)
         self.verticalLayout_5.addWidget(self.mid_frame)
         self.bottom_frame = QFrame(self.download_frame)
-        self.bottom_frame.setObjectName(u"bottom_frame")
+        self.bottom_frame.setObjectName(f"bottom_frame{i}")
         self.horizontalLayout_9 = QHBoxLayout(self.bottom_frame)
-        self.horizontalLayout_9.setObjectName(u"horizontalLayout_9")
+        self.horizontalLayout_9.setObjectName(f"horizontalLayout_9{i}")
         self.total_downloaded_label = QLabel(self.bottom_frame)
         self.total_downloaded_label.setObjectName(
-            u"total_downloaded_label")
+            f"total_downloaded_label{i}")
         self.total_downloaded_label.setFont(font3)
         self.horizontalLayout_9.addWidget(self.total_downloaded_label)
         self.estimated_time_label = QLabel(self.bottom_frame)
         self.estimated_time_label.setObjectName(
-            u"estimated_time_label")
+            f"estimated_time_label{i}")
         self.estimated_time_label.setFont(font3)
         self.estimated_time_label.setAlignment(
             Qt.AlignRight | Qt.AlignTrailing | Qt.AlignVCenter)
@@ -342,11 +353,12 @@ class Manager(QMainWindow, Ui_Manager):
         self.thread[i].estimated_time_label.connect(
             self.update_estimated_time_label_event)
 
-        self.play_tool_button.clicked.connect(self.thread[i].run)
-        self.pause_tool_button.clicked.connect(self.thread[i].stop)
-        self.cancel_tool_button.clicked.connect(self.thread[i].terminate)
+        self.play_tool_button.clicked.connect(lambda: self.run_thread(i))
+        self.pause_tool_button.clicked.connect(lambda: self.stop_thread(i))
+        self.cancel_tool_button.clicked.connect(lambda: self.cancel_thread(i))
 
     # >- EVENTS -<
+    # region
     def update_file_title_label_event(self, txt):
         self.file_title_label.setText(txt)
 
@@ -367,26 +379,49 @@ class Manager(QMainWindow, Ui_Manager):
 
     def update_estimated_time_label_event(self, txt):
         self.estimated_time_label.setText(str(txt))
+    # endregion
     # >- EVENTS -<
 
-    def resume_all(self):
+    def run_thread(self, n):
+        self.pause_tool_button.setEnabled(True)
+        self.thread[n].resume()
+
+    def stop_thread(self, n):
+        self.pause_tool_button.setEnabled(False)
+        self.thread[n].stop()
+
+    def cancel_thread(self, n):
+        self.thread[n].terminate()
+        frame = self.findChild(QFrame, f"download_frame{n}")
+        frame.setParent(None)
+        print(f"Cancelled thread number: {n}")
+
+    def resume_all_threads(self):
         # You can only resume all downloads if there are any present.
-        print("Cancelando todas las descargas...")
+        print("Resumiendo todas las descargas...")
         # for i in self.worker:
         #     worker[i].run()
 
-    def stop_all(self):
+    def stop_all_threads(self):
         # You can only stop all downloads if there are any present.
         print("Pausando todas las descargas...")
         # for i in self.worker:
         #     worker[i].stop()
 
-    def cancel_all(self):
-        # You can only cancel all downloads if there are any present.
-        if len(self.v_list) > 0 and len(self.a_list) > 0:
+    def cancel_all_threads(self):
+        if len(self.v_list) > 0 or len(self.a_list) > 0:
+            # You can only cancel all downloads if there are any present.
             answer = QMessageBox.question(self, "PyDownload | Cancelar descargas",
                                           "¿Está seguro de que desea cancelar todas las descargas?")
             if answer == QMessageBox.Yes:
                 print("Cancelando todas las descargas...")
-                # for i in self.worker:
-                #     worker[i].deleteLater()
+                for i in range(len(self.thread)):
+                    print(f"Cancelando descarga número: {i}")
+                    self.thread[i].terminate()
+                    frame = self.findChild(QFrame, f"download_frame{i}")
+                    frame.setParent(None)
+        else:
+            QMessageBox.information(
+                self,
+                "PyDownload | No hay descargas",
+                "No ha añadido ninguna descarga a la cola.")

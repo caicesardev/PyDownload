@@ -128,6 +128,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self._manager_subwindow is None:
             self._manager_subwindow = Manager(
                 self.list_of_video_urls, self.list_of_audio_urls)
+            self.list_of_video_urls.clear()
+            self.list_of_audio_urls.clear()
         self._manager_subwindow.show()
         self._manager_subwindow.activateWindow()
 
