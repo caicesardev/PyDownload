@@ -88,7 +88,7 @@
           <item>
            <widget class="QPushButton" name="download_manager_button">
             <property name="toolTip">
-             <string>Descargas en curso</string>
+             <string>Descargas en curso (Ctrl+D)</string>
             </property>
             <property name="styleSheet">
              <string notr="true">QPushButton{
@@ -126,7 +126,7 @@ QPushButton:pressed{
           <item>
            <widget class="QPushButton" name="download_history_button">
             <property name="toolTip">
-             <string>Historial de descargas</string>
+             <string>Historial de descargas (Ctrl+H )</string>
             </property>
             <property name="styleSheet">
              <string notr="true">QPushButton{
@@ -164,7 +164,7 @@ QPushButton:pressed{
           <item>
            <widget class="QPushButton" name="settings_button">
             <property name="toolTip">
-             <string>Configuración</string>
+             <string>Configuración (Ctrl+S)</string>
             </property>
             <property name="styleSheet">
              <string notr="true">QPushButton{
@@ -202,7 +202,7 @@ QPushButton:pressed{
           <item>
            <widget class="QPushButton" name="about_button">
             <property name="toolTip">
-             <string>Acerca de la app</string>
+             <string>Acerca de la app (Ctrl+A)</string>
             </property>
             <property name="styleSheet">
              <string notr="true">QPushButton{
@@ -422,9 +422,6 @@ margin-right: 10px;</string>
                 <font>
                  <pointsize>10</pointsize>
                 </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">color: darkgreen;</string>
                </property>
               </widget>
              </item>

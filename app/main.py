@@ -3,9 +3,9 @@ import os
 import subprocess
 import datetime
 
-from pytube import YouTube
-
 from gui.ui_MainWindow import Ui_MainWindow
+
+from pytube import YouTube
 
 from manager import Manager
 from history import History
@@ -13,7 +13,7 @@ from settings import Settings
 from about import About
 
 from PySide6 import QtWebEngineWidgets
-from PySide6.QtGui import QIcon
+from PySide6.QtGui import QIcon, QShortcut, QKeySequence
 from PySide6.QtCore import (
     QLibraryInfo,
     QLocale,
@@ -32,6 +32,13 @@ from PySide6.QtWidgets import (
 
 __version__ = "1.0.0"
 
+
+########################################
+########################################
+# This file inits the MainWindow UI and
+# handles events.
+########################################
+########################################
 
 # Worker class to update details labels.
 class Worker(QObject):
@@ -66,6 +73,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # Get user settings.
         self.get_settings()
+
+        # Shortcuts.
+        self.quit_sc = QShortcut(QKeySequence('Ctrl+W'), self)
+        self.quit_sc.activated.connect(self.on_exit)
+
+        self.dwnld_mgr_sc = QShortcut(QKeySequence('Ctrl+D'), self)
+        self.dwnld_mgr_sc.activated.connect(
+            self.on_download_manager_button_clicked)
+
+        self.dwnld_hr_sc = QShortcut(QKeySequence('Ctrl+H'), self)
+        self.dwnld_hr_sc.activated.connect(
+            self.on_download_history_button_clicked)
+
+        self.settings_sc = QShortcut(QKeySequence('Ctrl+S'), self)
+        self.settings_sc.activated.connect(self.on_settings_button_clicked)
+
+        self.abt_sc = QShortcut(QKeySequence('Ctrl+A'), self)
+        self.abt_sc.activated.connect(self.on_about_button_clicked)
 
         # Create a QVBoxLayout.
         self.vbox = QVBoxLayout()
@@ -110,6 +135,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self._settings_subwindow = None
         self._about_subwindow = None
 
+        self.manager = Manager()
+
         self.list_of_video_urls = []
         self.list_of_audio_urls = []
 
@@ -126,8 +153,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def on_download_manager_button_clicked(self):
         if self._manager_subwindow is None:
-            self._manager_subwindow = Manager(
-                self.list_of_video_urls, self.list_of_audio_urls)
+            self._manager_subwindow = Manager()
             self.list_of_video_urls.clear()
             self.list_of_audio_urls.clear()
         self._manager_subwindow.show()
@@ -200,28 +226,29 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.valid_url = False
                 self.validation_error(e)
 
-    def update_title_label_event(self, txt):
-        self.title_label.setText(txt)
-
-    def update_lenght_label_event(self, txt):
-        self.lenght_label.setText(txt)
-
-    def update_publish_date_label_event(self, txt):
-        self.publish_date_label.setText(txt)
-
-    def update_author_label_event(self, txt):
-        self.author_label.setText(txt)
-
-    def update_views_label_event(self, txt):
-        self.views_label.setText(txt)
-
     # To add video to queue.
     def add_video_to_queue(self):
         if self.valid_url:
+            self.url = self.url_input.text()
+            self.yt = YouTube(self.url)
+
             # If it's not already in the list append it.
             if self.url not in self.list_of_video_urls:
                 self.list_of_video_urls.append(self.url)
                 print(f"List of videos: {self.list_of_video_urls}")
+
+                if self._manager_subwindow is None:
+                    self._manager_subwindow = Manager(
+                        self.yt.title,
+                        "Video",
+                        "300 MB",
+                        "../res/images/youtube.png",
+                        "250MB",
+                        "5m").add_frame()
+                    self._manager_subwindow = Manager()
+                self._manager_subwindow.show()
+                self._manager_subwindow.activateWindow()
+
         else:
             QMessageBox.information(self, "PyDownload | Advertencia",
                                     "No ha introucido ningún enlace válido. Inténtelo de nuevo.")
@@ -253,6 +280,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             "La URL no se puede descargar o no está disponible.")
         msg.setDetailedText(f"Error: {str(e)}")
         msg.exec()
+
+    def update_title_label_event(self, txt):
+        self.title_label.setText(txt)
+
+    def update_lenght_label_event(self, txt):
+        self.lenght_label.setText(txt)
+
+    def update_publish_date_label_event(self, txt):
+        self.publish_date_label.setText(txt)
+
+    def update_author_label_event(self, txt):
+        self.author_label.setText(txt)
+
+    def update_views_label_event(self, txt):
+        self.views_label.setText(txt)
 
     # To change the status bar text with dynamic information.
     def change_status(self, text, color):

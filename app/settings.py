@@ -4,14 +4,28 @@ import getpass
 from gui.ui_Settings import Ui_Settings
 
 from PySide6.QtCore import QLibraryInfo, QLocale, QTranslator, QSettings
+from PySide6.QtGui import QShortcut, QKeySequence
 from PySide6.QtWidgets import QMainWindow, QApplication, QFileDialog
 
 
+########################################
+########################################
+# This file inits the Settings UI and
+# processes user settings and preferences
+########################################
+########################################
+
+
+# Settings
 class Settings(QMainWindow, Ui_Settings):
     def __init__(self):
         super(Settings, self).__init__()
 
         self.setupUi(self)
+
+        # Shortcuts.
+        self.quit_sc = QShortcut(QKeySequence('Ctrl+W'), self)
+        self.quit_sc.activated.connect(self.close)
 
         # Get the configuration values.
         self.get_configuration()

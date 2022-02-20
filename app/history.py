@@ -2,16 +2,28 @@ import sys
 
 from gui.ui_History import Ui_History
 
-from PySide6.QtGui import QPixmap
+from PySide6.QtGui import QPixmap, QShortcut, QKeySequence
 from PySide6.QtCore import Qt, QLibraryInfo, QLocale, QTranslator
 from PySide6.QtWidgets import QMainWindow, QApplication, QVBoxLayout, QLabel, QMessageBox
 
 
+##########################################
+##########################################
+# This file inits the Download History UI.
+##########################################
+##########################################
+
+
+# History
 class History(QMainWindow, Ui_History):
     def __init__(self):
         super(History, self).__init__()
 
         self.setupUi(self)
+
+        # Shortcuts.
+        self.quit_sc = QShortcut(QKeySequence('Ctrl+W'), self)
+        self.quit_sc.activated.connect(self.close)
 
         self.search_downloads()
 

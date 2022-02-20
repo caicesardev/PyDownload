@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-# Form generated from reading UI file 'MainWindowpguOgS.ui'
+# Form generated from reading UI file 'MainWindowzoQqIS.ui'
 ##
 # Created by: Qt User Interface Compiler version 6.2.1
 ##
@@ -280,7 +280,6 @@ class Ui_MainWindow(object):
         font2 = QFont()
         font2.setPointSize(10)
         self.url_input.setFont(font2)
-        self.url_input.setStyleSheet(u"color: darkgreen;")
 
         self.horizontalLayout_3.addWidget(self.url_input)
 
@@ -415,23 +414,23 @@ class Ui_MainWindow(object):
             "MainWindow", u"PyDownload", None))
         self.logo.setText("")
 # if QT_CONFIG(tooltip)
-        self.download_manager_button.setToolTip(
-            QCoreApplication.translate("MainWindow", u"Descargas en curso", None))
+        self.download_manager_button.setToolTip(QCoreApplication.translate(
+            "MainWindow", u"Descargas en curso (Ctrl+D)", None))
 #endif // QT_CONFIG(tooltip)
         self.download_manager_button.setText("")
 # if QT_CONFIG(tooltip)
         self.download_history_button.setToolTip(QCoreApplication.translate(
-            "MainWindow", u"Historial de descargas", None))
+            "MainWindow", u"Historial de descargas (Ctrl+H )", None))
 #endif // QT_CONFIG(tooltip)
         self.download_history_button.setText("")
 # if QT_CONFIG(tooltip)
         self.settings_button.setToolTip(QCoreApplication.translate(
-            "MainWindow", u"Configuraci\u00f3n", None))
+            "MainWindow", u"Configuraci\u00f3n (Ctrl+S)", None))
 #endif // QT_CONFIG(tooltip)
         self.settings_button.setText("")
 # if QT_CONFIG(tooltip)
         self.about_button.setToolTip(QCoreApplication.translate(
-            "MainWindow", u"Acerca de la app", None))
+            "MainWindow", u"Acerca de la app (Ctrl+A)", None))
 #endif // QT_CONFIG(tooltip)
         self.about_button.setText("")
         self.welcome_label.setText(QCoreApplication.translate(

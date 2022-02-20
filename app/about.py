@@ -3,9 +3,17 @@ import sys
 from gui.ui_About import Ui_About
 
 from PySide6.QtCore import QLibraryInfo, QLocale, QTranslator
+from PySide6.QtGui import QShortcut, QKeySequence
 from PySide6.QtWidgets import QMainWindow, QApplication
 
+########################################
+########################################
+# This file inits About UI.
+########################################
+########################################
 
+
+# About
 class About(QMainWindow, Ui_About):
     def __init__(self):
         super(About, self).__init__()
@@ -13,6 +21,10 @@ class About(QMainWindow, Ui_About):
         self.setupUi(self)
 
         self.accept_push_button.clicked.connect(self.close)
+
+        # Shortcuts.
+        self.quit_sc = QShortcut(QKeySequence('Ctrl+W'), self)
+        self.quit_sc.activated.connect(self.close)
 
         # self.about_qt_button.clicked.connect(QApplication.aboutQt)
 
