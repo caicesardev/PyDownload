@@ -22,7 +22,10 @@ from PySide6.QtCore import (
     QTranslator,
     QUrl,
     QSettings,
-    Signal)
+    Signal,
+    QSettings,
+    QSize,
+    QPoint)
 from PySide6.QtWidgets import (
     QApplication,
     QMainWindow,
@@ -73,6 +76,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # Get user settings.
         self.get_settings()
+        # Set user settings (window size and pos)
+        self.set_settings()
 
         # Shortcuts.
         self.quit_sc = QShortcut(QKeySequence('Ctrl+W'), self)
@@ -150,6 +155,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.downloads = QSettings("PyDownload", "Downloads")
         self.preferences = QSettings("PyDownload", "Preferences")
         self.languages = QSettings("PyDownload", "Languages")
+        self.w_attrib = QSettings("PyDownload", "WindowAttributes")
+
+    def set_settings(self):
+        # Initial window size/pos last saved. Use default values for first time.
+        self.resize(self.w_attrib.value("size", QSize(270, 225)))
+        self.move(self.w_attrib.value("pos", QPoint(50, 50)))
 
     def on_download_manager_button_clicked(self):
         if self._manager_subwindow is None:
@@ -304,6 +315,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.status_label.setText(text)
             self.status_label.setStyleSheet(
                 "QLabel{ color: %s; }" % color)
+
+    # Remember window postion and size on exit.
+    def closeEvent(self, event) -> None:
+        self.w_attrib.setValue("size", self.size())
+        self.w_attrib.setValue("pos", self.pos())
 
 
 def main():
