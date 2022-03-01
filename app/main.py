@@ -255,8 +255,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         "300 MB",
                         "../res/images/youtube.png",
                         "250MB",
-                        "5m").add_frame()
+                        "5m")
                     self._manager_subwindow = Manager()
+
                 self._manager_subwindow.show()
                 self._manager_subwindow.activateWindow()
 
