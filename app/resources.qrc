@@ -1,0 +1,19 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="/icons">
+        <file alias="about.png">../res/images/about.png</file>
+        <file alias="app.png">../res/images/download.png</file>
+        <file alias="audio.png">../res/images/volumen.png</file>
+        <file alias="cancel.png">../res/images/cancel.png</file>
+        <file alias="downloads.png">../res/images/manager.png</file>
+        <file alias="empty-downloads.png">../res/images/listening.png</file>
+        <file alias="empty-history.png">../res/images/location_search.png</file>
+        <file alias="history.png">../res/images/history.png</file>
+        <file alias="home.png">../res/images/home.png</file>
+        <file alias="pause.png">../res/images/pause.png</file>
+        <file alias="play.png">../res/images/play.png</file>
+        <file alias="settings.png">../res/images/setting.png</file>
+        <file alias="video.png">../res/images/reproductor-de-video.png</file>
+        <file alias="youtube.png">../res/images/youtube.png</file>
+    </qresource>
+</RCC>
