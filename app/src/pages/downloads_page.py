@@ -3,7 +3,6 @@ from PySide6.QtGui import QPixmap
 from PySide6.QtWidgets import (
     QHBoxLayout,
     QMessageBox,
-    QPushButton,
     QScrollArea,
     QStackedWidget,
     QVBoxLayout,
@@ -15,8 +14,10 @@ from src.services.download_queue import DownloadQueue
 from src.services.thumbnail_loader import ThumbnailLoader
 from src.settings.preferences import Preferences
 from src.utils.file_browser import open_directory, reveal_in_file_manager
+from src.widgets.buttons import icon_button
 from src.widgets.download_item import DownloadAction, DownloadItem
 from src.widgets.empty_state import EmptyState
+from src.widgets.icons import themed_icon
 from src.widgets.labels import muted_label, page_title
 
 
@@ -38,7 +39,7 @@ class DownloadsPage(QWidget):
         self._summary = muted_label(parent=self)
         self._stack = QStackedWidget(self)
         self._empty_state = EmptyState(
-            ":/icons/empty-downloads.png",
+            "inbox",
             "No hay descargas en la cola",
             "Abre un vídeo en el navegador, elige el formato en el panel lateral y pulsa «Añadir a la cola».",
             self,
@@ -57,13 +58,13 @@ class DownloadsPage(QWidget):
         self._refresh_summary()
 
     def _build_header(self) -> QHBoxLayout:
-        pause_all = QPushButton("Pausar todo", self)
+        pause_all = icon_button(themed_icon("pause"), "Pausar todo", self)
         pause_all.clicked.connect(self._queue.pause_all)
-        resume_all = QPushButton("Reanudar todo", self)
+        resume_all = icon_button(themed_icon("play"), "Reanudar todo", self)
         resume_all.clicked.connect(self._queue.resume_all)
-        clear_finished = QPushButton("Limpiar finalizadas", self)
+        clear_finished = icon_button(themed_icon("list-x"), "Limpiar finalizadas", self)
         clear_finished.clicked.connect(self._queue.clear_finished)
-        open_folder = QPushButton("Abrir carpeta de descargas", self)
+        open_folder = icon_button(themed_icon("folder-open"), "Abrir carpeta de descargas", self)
         open_folder.clicked.connect(self._open_download_directory)
 
         header = QHBoxLayout()

@@ -6,7 +6,6 @@ from PySide6.QtWidgets import (
     QHBoxLayout,
     QHeaderView,
     QMessageBox,
-    QPushButton,
     QStackedWidget,
     QTableWidget,
     QTableWidgetItem,
@@ -17,8 +16,11 @@ from PySide6.QtWidgets import (
 from src.models.history_entry import HistoryEntry
 from src.services.history_store import HistoryStore
 from src.utils.file_browser import open_file, reveal_in_file_manager
+from src.widgets.buttons import icon_button
 from src.widgets.empty_state import EmptyState
+from src.widgets.icons import themed_icon
 from src.widgets.labels import page_title
+from src.widgets.theme import DANGER
 
 COLUMNS = ("Título", "Formato", "Fecha")
 DATE_FORMAT = "%d/%m/%Y %H:%M"
@@ -33,7 +35,7 @@ class HistoryPage(QWidget):
         self._table = self._build_table()
         self._stack = QStackedWidget(self)
         self._stack.addWidget(EmptyState(
-            ":/icons/empty-history.png",
+            "history",
             "El historial está vacío",
             "Las descargas completadas aparecerán aquí para que puedas abrirlas cuando quieras.",
             self,
@@ -60,13 +62,13 @@ class HistoryPage(QWidget):
         self._update_buttons()
 
     def _build_header(self) -> QHBoxLayout:
-        self._open_file_button = QPushButton("Abrir archivo", self)
+        self._open_file_button = icon_button(themed_icon("external-link"), "Abrir archivo", self)
         self._open_file_button.clicked.connect(self._open_selected_file)
-        self._reveal_button = QPushButton("Mostrar en la carpeta", self)
+        self._reveal_button = icon_button(themed_icon("folder-open"), "Mostrar en la carpeta", self)
         self._reveal_button.clicked.connect(self._reveal_selected_file)
-        self._remove_button = QPushButton("Quitar del historial", self)
+        self._remove_button = icon_button(themed_icon("x"), "Quitar del historial", self)
         self._remove_button.clicked.connect(self._remove_selected_entry)
-        self._clear_button = QPushButton("Limpiar historial", self)
+        self._clear_button = icon_button(themed_icon("trash-2", DANGER), "Limpiar historial", self)
         self._clear_button.setProperty("variant", "danger")
         self._clear_button.clicked.connect(self._confirm_clear)
 

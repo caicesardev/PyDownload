@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.0.1] - 2026-10-31
+
+### Changed
+- Unified icon set based on [Lucide](https://lucide.dev) (ISC license): sidebar, toolbar, format panel, download actions, page buttons, empty states and a new app logo. Old mixed PNG icons removed.
+- Context menus, tooltips and spin boxes follow the light theme regardless of the Windows color mode.
+- The browser context menu is translated to Spanish and no longer offers "Save page", "View page source", "Inspect", open in new window/tab or download actions.
+
+### Fixed
+- Empty-state descriptions were not centered.
+- Spin box arrows in *Ajustes* were broken.
+- Context menus were unreadable (dark text on dark background) when Windows uses dark mode.
+
 ## [2.0.0] - 2026-10-31
 
 Complete rewrite. The previous version was never functional: downloads were simulated and several modules crashed on start.

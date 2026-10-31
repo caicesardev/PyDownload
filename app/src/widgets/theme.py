@@ -1,3 +1,4 @@
+from PySide6.QtCore import Qt
 from PySide6.QtGui import QColor, QPalette
 from PySide6.QtWidgets import QApplication, QStyleFactory, QWidget
 
@@ -7,10 +8,12 @@ SURFACE_HOVER = "#EEF6F1"
 BORDER = "#E1E4E8"
 TEXT = "#1F2328"
 MUTED_TEXT = "#6B7280"
+DISABLED_TEXT = "#9CA3AF"
 ACCENT = "#1E7F4F"
 ACCENT_HOVER = "#17663F"
 ACCENT_SOFT = "#DCEFE4"
 DANGER = "#B42318"
+ON_ACCENT = "#FFFFFF"
 WARNING = "#B54708"
 
 APP_STYLESHEET = f"""
@@ -84,7 +87,7 @@ QPushButton:hover {{
     background: {SURFACE_HOVER};
 }}
 QPushButton:disabled {{
-    color: #9CA3AF;
+    color: {DISABLED_TEXT};
     background: #F3F4F6;
 }}
 QPushButton[variant="primary"] {{
@@ -140,6 +143,78 @@ QComboBox::drop-down {{
     border: none;
     width: 24px;
 }}
+QComboBox::down-arrow {{
+    image: url(:/icons/chevron-down-muted.svg);
+    width: 14px;
+    height: 14px;
+}}
+QSpinBox {{
+    padding-right: 26px;
+}}
+QSpinBox::up-button, QSpinBox::down-button {{
+    subcontrol-origin: border;
+    width: 24px;
+    border-left: 1px solid {BORDER};
+    background: {SURFACE};
+}}
+QSpinBox::up-button {{
+    subcontrol-position: top right;
+    border-top-right-radius: 6px;
+}}
+QSpinBox::down-button {{
+    subcontrol-position: bottom right;
+    border-bottom-right-radius: 6px;
+    border-top: 1px solid {BORDER};
+}}
+QSpinBox::up-button:hover, QSpinBox::down-button:hover {{
+    background: {SURFACE_HOVER};
+}}
+QSpinBox::up-arrow {{
+    image: url(:/icons/chevron-up-muted.svg);
+    width: 12px;
+    height: 12px;
+}}
+QSpinBox::down-arrow {{
+    image: url(:/icons/chevron-down-muted.svg);
+    width: 12px;
+    height: 12px;
+}}
+QMenu {{
+    background: {SURFACE};
+    border: 1px solid {BORDER};
+    border-radius: 8px;
+    padding: 6px;
+}}
+QMenu::item {{
+    color: {TEXT};
+    padding: 6px 28px 6px 12px;
+    border-radius: 4px;
+}}
+QMenu::item:selected {{
+    background: {ACCENT_SOFT};
+    color: {TEXT};
+}}
+QMenu::item:disabled {{
+    color: {DISABLED_TEXT};
+}}
+QMenu::icon {{
+    padding-left: 8px;
+}}
+QMenu::separator {{
+    height: 1px;
+    background: {BORDER};
+    margin: 4px 6px;
+}}
+QToolTip {{
+    background: {TEXT};
+    color: white;
+    border: none;
+    padding: 4px 8px;
+}}
+QLabel#EmptyStateIcon {{
+    background: {ACCENT_SOFT};
+    border-radius: 44px;
+}}
 QLineEdit#AddressBar {{
     border-radius: 16px;
     padding: 6px 14px;
@@ -189,6 +264,7 @@ QSplitter::handle {{
 
 
 def apply_theme(app: QApplication) -> None:
+    app.styleHints().setColorScheme(Qt.ColorScheme.Light)
     app.setStyle(QStyleFactory.create("Fusion"))
     palette = app.palette()
     palette.setColor(QPalette.ColorRole.Link, QColor(ACCENT))

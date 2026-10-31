@@ -1,5 +1,5 @@
 from PySide6.QtCore import Qt, Signal
-from PySide6.QtGui import QIcon, QPixmap
+from PySide6.QtGui import QPixmap
 from PySide6.QtWidgets import (
     QButtonGroup,
     QComboBox,
@@ -22,14 +22,15 @@ from src.models.download_request import (
 from src.models.media_format import AudioFormat, VideoFormat
 from src.models.video_metadata import VideoMetadata
 from src.settings.preferences import Preferences
+from src.widgets.buttons import icon_button
 from src.widgets.empty_state import EmptyState
+from src.widgets.icons import themed_icon
 from src.widgets.labels import muted_label, section_title, show_scaled_pixmap, thumbnail_label
-from src.widgets.theme import set_style_property
+from src.widgets.theme import ACCENT, MUTED_TEXT, ON_ACCENT, set_style_property
 
 PANEL_WIDTH = 360
 THUMBNAIL_WIDTH = 320
 THUMBNAIL_HEIGHT = 180
-IDLE_ILLUSTRATION_WIDTH = 96
 
 
 class VideoPanel(QFrame):
@@ -45,11 +46,10 @@ class VideoPanel(QFrame):
 
         self._stack = QStackedWidget(self)
         self._idle_page = EmptyState(
-            ":/icons/youtube.png",
+            "monitor-play",
             "Ningún vídeo seleccionado",
             "Abre un vídeo de YouTube en el navegador y aquí verás sus formatos de vídeo y audio disponibles.",
             self,
-            illustration_width=IDLE_ILLUSTRATION_WIDTH,
         )
         self._stack.addWidget(self._idle_page)
         self._stack.addWidget(self._build_content_page())
@@ -112,8 +112,8 @@ class VideoPanel(QFrame):
         self._title.setWordWrap(True)
         self._details = muted_label(parent=self._content_page)
 
-        self._video_button = self._segment_button("Vídeo", ":/icons/video.png")
-        self._audio_button = self._segment_button("Audio", ":/icons/audio.png")
+        self._video_button = self._segment_button("Vídeo", "video")
+        self._audio_button = self._segment_button("Audio", "music")
         self._kind_group = QButtonGroup(self)
         self._kind_group.addButton(self._video_button)
         self._kind_group.addButton(self._audio_button)
@@ -129,9 +129,8 @@ class VideoPanel(QFrame):
         self._output_combo.currentIndexChanged.connect(self._on_output_changed)
         self._hint = muted_label(parent=self._content_page)
 
-        self._add_button = QPushButton("Añadir a la cola", self._content_page)
+        self._add_button = icon_button(themed_icon("list-plus", ON_ACCENT), "Añadir a la cola", self._content_page)
         self._add_button.setProperty("variant", "primary")
-        self._add_button.setIcon(QIcon(":/icons/downloads.png"))
         self._add_button.setCursor(Qt.CursorShape.PointingHandCursor)
         self._add_button.clicked.connect(self._emit_download_request)
 
@@ -159,8 +158,8 @@ class VideoPanel(QFrame):
         layout.addWidget(self._add_button)
         return self._content_page
 
-    def _segment_button(self, text: str, icon: str) -> QPushButton:
-        button = QPushButton(QIcon(icon), text, self)
+    def _segment_button(self, text: str, icon_name: str) -> QPushButton:
+        button = icon_button(themed_icon(icon_name, MUTED_TEXT, checked_color=ACCENT), text, self)
         button.setCheckable(True)
         button.setProperty("segment", "true")
         button.setCursor(Qt.CursorShape.PointingHandCursor)

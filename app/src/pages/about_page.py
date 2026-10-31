@@ -1,8 +1,8 @@
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QPixmap
 from PySide6.QtWidgets import QApplication, QFrame, QLabel, QPushButton, QVBoxLayout, QWidget
 
 from constants import APP_NAME, REPOSITORY_URL, VERSION
+from src.widgets.icons import LOGO, svg_pixmap
 from src.widgets.labels import muted_label, page_title
 
 LOGO_SIZE = 96
@@ -19,9 +19,7 @@ class AboutPage(QWidget):
         card.setMaximumWidth(CARD_MAX_WIDTH)
 
         logo = QLabel(card)
-        logo.setPixmap(QPixmap(":/icons/app.png").scaled(
-            LOGO_SIZE, LOGO_SIZE, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation,
-        ))
+        logo.setPixmap(svg_pixmap(LOGO, LOGO_SIZE, color=None, device_pixel_ratio=self.devicePixelRatioF()))
         title = page_title(APP_NAME, card)
         version = muted_label(f"Versión {VERSION}", card)
         description = muted_label(

@@ -1,19 +1,32 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
     <qresource prefix="/icons">
-        <file alias="about.png">../res/images/about.png</file>
-        <file alias="app.png">../res/images/download.png</file>
-        <file alias="audio.png">../res/images/volumen.png</file>
-        <file alias="cancel.png">../res/images/cancel.png</file>
-        <file alias="downloads.png">../res/images/manager.png</file>
-        <file alias="empty-downloads.png">../res/images/listening.png</file>
-        <file alias="empty-history.png">../res/images/location_search.png</file>
-        <file alias="history.png">../res/images/history.png</file>
-        <file alias="home.png">../res/images/home.png</file>
-        <file alias="pause.png">../res/images/pause.png</file>
-        <file alias="play.png">../res/images/play.png</file>
-        <file alias="settings.png">../res/images/setting.png</file>
-        <file alias="video.png">../res/images/reproductor-de-video.png</file>
-        <file alias="youtube.png">../res/images/youtube.png</file>
+        <file alias="arrow-left.svg">../res/icons/lucide/arrow-left.svg</file>
+        <file alias="arrow-right.svg">../res/icons/lucide/arrow-right.svg</file>
+        <file alias="chevron-down.svg">../res/icons/lucide/chevron-down.svg</file>
+        <file alias="chevron-up.svg">../res/icons/lucide/chevron-up.svg</file>
+        <file alias="download.svg">../res/icons/lucide/download.svg</file>
+        <file alias="external-link.svg">../res/icons/lucide/external-link.svg</file>
+        <file alias="folder-open.svg">../res/icons/lucide/folder-open.svg</file>
+        <file alias="globe.svg">../res/icons/lucide/globe.svg</file>
+        <file alias="history.svg">../res/icons/lucide/history.svg</file>
+        <file alias="house.svg">../res/icons/lucide/house.svg</file>
+        <file alias="inbox.svg">../res/icons/lucide/inbox.svg</file>
+        <file alias="info.svg">../res/icons/lucide/info.svg</file>
+        <file alias="list-plus.svg">../res/icons/lucide/list-plus.svg</file>
+        <file alias="list-x.svg">../res/icons/lucide/list-x.svg</file>
+        <file alias="monitor-play.svg">../res/icons/lucide/monitor-play.svg</file>
+        <file alias="music.svg">../res/icons/lucide/music.svg</file>
+        <file alias="pause.svg">../res/icons/lucide/pause.svg</file>
+        <file alias="play.svg">../res/icons/lucide/play.svg</file>
+        <file alias="rotate-ccw.svg">../res/icons/lucide/rotate-ccw.svg</file>
+        <file alias="rotate-cw.svg">../res/icons/lucide/rotate-cw.svg</file>
+        <file alias="settings.svg">../res/icons/lucide/settings.svg</file>
+        <file alias="trash-2.svg">../res/icons/lucide/trash-2.svg</file>
+        <file alias="video.svg">../res/icons/lucide/video.svg</file>
+        <file alias="x.svg">../res/icons/lucide/x.svg</file>
+        <file alias="chevron-down-muted.svg">../res/icons/app/chevron-down-muted.svg</file>
+        <file alias="chevron-up-muted.svg">../res/icons/app/chevron-up-muted.svg</file>
+        <file alias="logo.svg">../res/icons/app/logo.svg</file>
     </qresource>
 </RCC>

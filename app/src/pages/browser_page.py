@@ -4,13 +4,11 @@ from urllib.parse import urlsplit
 from PySide6.QtCore import QSize, Qt, QTimer, QUrl, Signal
 from PySide6.QtGui import QDesktopServices, QIcon, QKeySequence, QPixmap, QShortcut
 from PySide6.QtWebEngineCore import QWebEngineFullScreenRequest, QWebEnginePage, QWebEngineProfile
-from PySide6.QtWebEngineWidgets import QWebEngineView
 from PySide6.QtWidgets import (
     QFrame,
     QHBoxLayout,
     QLineEdit,
     QMessageBox,
-    QStyle,
     QToolButton,
     QVBoxLayout,
     QWidget,
@@ -18,11 +16,13 @@ from PySide6.QtWidgets import (
 
 from constants import YOUTUBE_HOME_URL
 from src.browser.secure_page import SecurePage
+from src.browser.secure_view import SecureWebView
 from src.models.video_metadata import VideoMetadata
 from src.services.metadata_service import MetadataService
 from src.services.thumbnail_loader import ThumbnailLoader
 from src.services.youtube_url import extract_video_id, search_url, thumbnail_url
 from src.settings.preferences import Preferences
+from src.widgets.icons import themed_icon
 from src.widgets.video_panel import VideoPanel
 
 VIDEO_DETECTION_DELAY_MILLISECONDS = 400
@@ -48,7 +48,7 @@ class BrowserPage(QWidget):
         self._thumbnail_loader = thumbnail_loader
         self._detected_video_id: str | None = None
 
-        self._view = QWebEngineView(self)
+        self._view = SecureWebView(self)
         self._page = SecurePage(profile, self._view)
         self._view.setPage(self._page)
         self._panel = VideoPanel(preferences, self)
@@ -73,10 +73,10 @@ class BrowserPage(QWidget):
     def _build_toolbar(self) -> QFrame:
         toolbar = QFrame(self)
         toolbar.setObjectName("Toolbar")
-        self._back_button = self._navigation_button(self._standard_icon(QStyle.StandardPixmap.SP_ArrowBack), "Atrás", self._view.back)
-        self._forward_button = self._navigation_button(self._standard_icon(QStyle.StandardPixmap.SP_ArrowForward), "Adelante", self._view.forward)
-        reload_button = self._navigation_button(self._standard_icon(QStyle.StandardPixmap.SP_BrowserReload), "Recargar", self._view.reload)
-        home_button = self._navigation_button(QIcon(":/icons/home.png"), "Inicio de YouTube", self.go_home)
+        self._back_button = self._navigation_button(themed_icon("arrow-left"), "Atrás", self._view.back)
+        self._forward_button = self._navigation_button(themed_icon("arrow-right"), "Adelante", self._view.forward)
+        reload_button = self._navigation_button(themed_icon("rotate-cw"), "Recargar", self._view.reload)
+        home_button = self._navigation_button(themed_icon("house"), "Inicio de YouTube", self.go_home)
 
         self._address_bar = QLineEdit(toolbar)
         self._address_bar.setObjectName("AddressBar")
@@ -91,9 +91,6 @@ class BrowserPage(QWidget):
             layout.addWidget(button)
         layout.addWidget(self._address_bar, stretch=1)
         return toolbar
-
-    def _standard_icon(self, pixmap: QStyle.StandardPixmap) -> QIcon:
-        return self.style().standardIcon(pixmap)
 
     def _navigation_button(self, icon: QIcon, tooltip: str, action: Callable[[], None]) -> QToolButton:
         button = QToolButton(self)
