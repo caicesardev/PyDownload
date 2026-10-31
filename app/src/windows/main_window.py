@@ -2,7 +2,7 @@ import shutil
 from datetime import datetime
 from typing import Any
 
-from PySide6.QtGui import QCloseEvent, QIcon
+from PySide6.QtGui import QCloseEvent
 from PySide6.QtWidgets import QHBoxLayout, QMainWindow, QMessageBox, QStackedWidget, QWidget
 
 from constants import APP_NAME, VERSION
@@ -24,6 +24,7 @@ from src.services.thumbnail_loader import ThumbnailLoader
 from src.services.ydl_options import base_options
 from src.settings.app_paths import history_file, partial_downloads_directory
 from src.settings.preferences import Preferences
+from src.widgets.icons import app_icon
 from src.widgets.sidebar import Sidebar, SidebarEntry
 from src.workers.download_worker import DownloadWorker
 
@@ -31,11 +32,11 @@ STATUS_MESSAGE_MILLISECONDS = 5000
 DEFAULT_WINDOW_SIZE = (1360, 860)
 BROWSER_PAGE, DOWNLOADS_PAGE, HISTORY_PAGE, SETTINGS_PAGE, ABOUT_PAGE = range(5)
 SIDEBAR_ENTRIES = [
-    SidebarEntry("Navegador", ":/icons/youtube.png"),
-    SidebarEntry("Descargas", ":/icons/downloads.png"),
-    SidebarEntry("Historial", ":/icons/history.png"),
-    SidebarEntry("Ajustes", ":/icons/settings.png"),
-    SidebarEntry("Acerca de", ":/icons/about.png"),
+    SidebarEntry("Navegador", "globe"),
+    SidebarEntry("Descargas", "download"),
+    SidebarEntry("Historial", "history"),
+    SidebarEntry("Ajustes", "settings"),
+    SidebarEntry("Acerca de", "info"),
 ]
 
 
@@ -43,7 +44,7 @@ class MainWindow(QMainWindow):
     def __init__(self, profile: SecureProfile) -> None:
         super().__init__()
         self.setWindowTitle(f"{APP_NAME} {VERSION}")
-        self.setWindowIcon(QIcon(":/icons/app.png"))
+        self.setWindowIcon(app_icon())
         self._preferences = Preferences()
         self._profile = profile
         self._was_maximized_before_full_screen = False

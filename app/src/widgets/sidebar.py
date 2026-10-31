@@ -1,12 +1,14 @@
 from dataclasses import dataclass
 
 from PySide6.QtCore import QSize, Qt, Signal
-from PySide6.QtGui import QIcon, QPixmap
 from PySide6.QtWidgets import QButtonGroup, QFrame, QLabel, QSizePolicy, QToolButton, QVBoxLayout, QWidget
 
+from src.widgets.icons import LOGO, svg_pixmap, themed_icon
+from src.widgets.theme import ACCENT, MUTED_TEXT
+
 SIDEBAR_WIDTH = 104
-ICON_SIZE = QSize(30, 30)
-LOGO_SIZE = 44
+ICON_SIZE = QSize(24, 24)
+LOGO_SIZE = 40
 
 
 @dataclass(frozen=True)
@@ -50,16 +52,14 @@ class Sidebar(QFrame):
 
     def _create_logo(self) -> QLabel:
         logo = QLabel(self)
-        logo.setPixmap(QPixmap(":/icons/app.png").scaled(
-            LOGO_SIZE, LOGO_SIZE, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation,
-        ))
+        logo.setPixmap(svg_pixmap(LOGO, LOGO_SIZE, color=None, device_pixel_ratio=self.devicePixelRatioF()))
         return logo
 
     def _create_button(self, entry: SidebarEntry) -> QToolButton:
         button = QToolButton(self)
         button.setObjectName("SidebarButton")
         button.setText(entry.label)
-        button.setIcon(QIcon(entry.icon))
+        button.setIcon(themed_icon(entry.icon, MUTED_TEXT, checked_color=ACCENT))
         button.setIconSize(ICON_SIZE)
         button.setCheckable(True)
         button.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextUnderIcon)

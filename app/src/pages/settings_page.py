@@ -16,8 +16,10 @@ from PySide6.QtWidgets import (
 
 from src.services.ffmpeg_locator import locate_ffmpeg
 from src.settings.preferences import MAX_CONCURRENT_DOWNLOADS_LIMIT, Preferences
+from src.widgets.buttons import icon_button
 from src.widgets.labels import muted_label, page_title, section_title
-from src.widgets.theme import set_style_property
+from src.widgets.icons import themed_icon
+from src.widgets.theme import DANGER, set_style_property
 
 MAX_RATE_LIMIT_KIB = 1_000_000
 NUMBER_INPUT_WIDTH = 160
@@ -71,9 +73,9 @@ class SettingsPage(QWidget):
     def _build_downloads_card(self) -> QFrame:
         card = QFrame(self)
         card.setObjectName("Card")
-        browse_directory = QPushButton("Examinar…", card)
+        browse_directory = icon_button(themed_icon("folder-open"), "Examinar…", card)
         browse_directory.clicked.connect(self._choose_directory)
-        browse_ffmpeg = QPushButton("Examinar…", card)
+        browse_ffmpeg = icon_button(themed_icon("folder-open"), "Examinar…", card)
         browse_ffmpeg.clicked.connect(self._choose_ffmpeg)
 
         form = QFormLayout()
@@ -95,7 +97,7 @@ class SettingsPage(QWidget):
     def _build_browser_card(self) -> QFrame:
         card = QFrame(self)
         card.setObjectName("Card")
-        clear_button = QPushButton("Borrar cookies y caché", card)
+        clear_button = icon_button(themed_icon("trash-2", DANGER), "Borrar cookies y caché", card)
         clear_button.setProperty("variant", "danger")
         clear_button.clicked.connect(self._confirm_clear_browsing_data)
 

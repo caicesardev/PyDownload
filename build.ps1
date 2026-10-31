@@ -42,6 +42,7 @@ Remove-UnusedQtFiles (Join-Path $bundleDirectory "_internal\PySide6")
 $denoExecutable = python -c "import deno; print(deno.find_deno_bin())"
 Copy-Item $denoExecutable $bundleDirectory
 Copy-Item (Join-Path $projectRoot "LICENSE") $bundleDirectory
+Copy-Item (Join-Path $projectRoot "res\icons\lucide\LICENSE") (Join-Path $bundleDirectory "LICENSE-lucide.txt")
 
 Compress-Archive -Path $bundleDirectory -DestinationPath $archivePath -Force
 Write-Host "Build ready: $archivePath"

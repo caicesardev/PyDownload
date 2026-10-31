@@ -8,7 +8,6 @@ from PySide6.QtWidgets import (
     QLabel,
     QProgressBar,
     QSizePolicy,
-    QStyle,
     QToolButton,
     QVBoxLayout,
     QWidget,
@@ -16,11 +15,12 @@ from PySide6.QtWidgets import (
 
 from src.models.download_job import DownloadJob, DownloadState
 from src.widgets.labels import muted_label, show_scaled_pixmap, thumbnail_label
-from src.widgets.theme import set_style_property
+from src.widgets.icons import themed_icon
+from src.widgets.theme import DANGER, set_style_property
 
 THUMBNAIL_WIDTH = 128
 THUMBNAIL_HEIGHT = 72
-ACTION_ICON_SIZE = QSize(20, 20)
+ACTION_ICON_SIZE = QSize(18, 18)
 PROGRESS_RESOLUTION = 1000
 STATE_TONES = {
     DownloadState.COMPLETED: "success",
@@ -57,12 +57,12 @@ class DownloadItem(QFrame):
         self._status = muted_label(parent=self)
 
         self._buttons = {
-            DownloadAction.PAUSE: self._action_button(QIcon(":/icons/pause.png"), "Pausar"),
-            DownloadAction.RESUME: self._action_button(QIcon(":/icons/play.png"), "Reanudar"),
-            DownloadAction.RETRY: self._action_button(self._standard_icon(QStyle.StandardPixmap.SP_BrowserReload), "Reintentar"),
-            DownloadAction.CANCEL: self._action_button(QIcon(":/icons/cancel.png"), "Cancelar y borrar archivos parciales"),
-            DownloadAction.OPEN_FOLDER: self._action_button(self._standard_icon(QStyle.StandardPixmap.SP_DirOpenIcon), "Mostrar en la carpeta"),
-            DownloadAction.REMOVE: self._action_button(self._standard_icon(QStyle.StandardPixmap.SP_DialogDiscardButton), "Quitar de la lista"),
+            DownloadAction.PAUSE: self._action_button(themed_icon("pause"), "Pausar"),
+            DownloadAction.RESUME: self._action_button(themed_icon("play"), "Reanudar"),
+            DownloadAction.RETRY: self._action_button(themed_icon("rotate-ccw"), "Reintentar"),
+            DownloadAction.CANCEL: self._action_button(themed_icon("x", DANGER), "Cancelar y borrar archivos parciales"),
+            DownloadAction.OPEN_FOLDER: self._action_button(themed_icon("folder-open"), "Mostrar en la carpeta"),
+            DownloadAction.REMOVE: self._action_button(themed_icon("trash-2"), "Quitar de la lista"),
         }
         for action, button in self._buttons.items():
             button.clicked.connect(lambda _checked=False, chosen=action: self.action_requested.emit(self._job_id, chosen))
@@ -123,6 +123,3 @@ class DownloadItem(QFrame):
         button.setToolTip(tooltip)
         button.setCursor(Qt.CursorShape.PointingHandCursor)
         return button
-
-    def _standard_icon(self, pixmap: QStyle.StandardPixmap) -> QIcon:
-        return self.style().standardIcon(pixmap)

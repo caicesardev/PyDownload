@@ -13,6 +13,7 @@ Educational, non-profit project released under the MIT license.
 - **The UI never blocks**: metadata extraction and downloads run on background threads; progress updates are throttled.
 - **History** of completed downloads with "open file" and "show in folder".
 - FFmpeg is bundled through `imageio-ffmpeg`; a custom FFmpeg can be set in *Ajustes*.
+- Consistent [Lucide](https://lucide.dev) icon set and a light theme that ignores the Windows dark mode.
 
 ## Browser security
 
@@ -62,7 +63,7 @@ The script produces `dist/PyDownload/PyDownload.exe` (with Qt WebEngine, FFmpeg 
 
 ## Regenerating resources
 
-After changing the icons listed in `app/resources.qrc`:
+Icons are [Lucide](https://lucide.dev) SVGs (ISC license, see `res/icons/lucide/LICENSE`), recolored at runtime. After adding an icon to `res/icons` and listing it in `app/resources.qrc`:
 
 ```bash
 cd app
