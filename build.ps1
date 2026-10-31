@@ -33,6 +33,9 @@ python -m PyInstaller `
     --workpath $buildDirectory `
     --specpath $buildDirectory `
     (Join-Path $appDirectory "main.py")
+if ($LASTEXITCODE -ne 0) {
+    throw "PyInstaller failed with exit code $LASTEXITCODE"
+}
 
 Remove-UnusedQtFiles (Join-Path $bundleDirectory "_internal\PySide6")
 
